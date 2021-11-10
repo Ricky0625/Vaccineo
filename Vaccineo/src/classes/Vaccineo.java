@@ -1,4 +1,4 @@
-package vaccineo;
+package classes;
 
 public class Vaccineo {
 
