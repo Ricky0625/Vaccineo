@@ -23,9 +23,12 @@
 hs_err_pid*
 /Vaccineo/nbproject/private/
 /Vaccineo/build/
-/Vaccineo/manifest.mf/
+/Vaccineo/nbbuild/
 /Vaccineo/dist/
-Vaccineo/nbproject/build-impl.xml
-Vaccineo/nbproject/project.xml
-Vaccineo/nbproject/project.properties
-Vaccineo/nbproject/genfiles.properties
+/Vaccineo/nbdist/
+nbactions.xml
+nb-configuration.xml
+/Vaccineo/nbproject/build-impl.xml
+/Vaccineo/nbproject/project.xml
+/Vaccineo/nbproject/project.properties
+/Vaccineo/nbproject/genfiles.properties
