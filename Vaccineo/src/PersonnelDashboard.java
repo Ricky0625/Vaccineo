@@ -66,7 +66,6 @@ public class PersonnelDashboard extends javax.swing.JFrame {
         dashboard_panel7 = new RoundedPanel(10, secColor);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setAlwaysOnTop(true);
 
         formBackground.setBackground(new java.awt.Color(237, 246, 249));
         formBackground.setMaximumSize(new java.awt.Dimension(1440, 800));
