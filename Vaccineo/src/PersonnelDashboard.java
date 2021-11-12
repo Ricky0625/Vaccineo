@@ -1,3 +1,16 @@
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.LayoutManager;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
+import javax.imageio.ImageIO;
+import javax.swing.JPanel;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,9 +24,8 @@
  */
 public class PersonnelDashboard extends javax.swing.JFrame {
 
-    /**
-     * Creates new form PersonnelDashboard
-     */
+    Color panelColor = new Color(127,192,185);
+
     public PersonnelDashboard() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
@@ -37,21 +49,33 @@ public class PersonnelDashboard extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        dashboard_panel1 = new RoundedPanel(10, panelColor);
+        dashboard_panel2 = new RoundedPanel(10, panelColor);
+        dashboard_panel3 = new RoundedPanel(10, panelColor);
+        dashboard_panel4 = new RoundedPanel(10, panelColor);
+        dashboard_panel5 = new RoundedPanel(10, panelColor);
+        dashboard_panel6 = new RoundedPanel(10, panelColor);
+        dashboard_panel7 = new RoundedPanel(10, panelColor);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
+        setPreferredSize(new java.awt.Dimension(1440, 800));
 
         formBackground.setBackground(new java.awt.Color(237, 246, 249));
+        formBackground.setMaximumSize(new java.awt.Dimension(1440, 800));
+        formBackground.setPreferredSize(new java.awt.Dimension(1440, 800));
 
         jPanel1.setBackground(new java.awt.Color(0, 109, 119));
+        jPanel1.setPreferredSize(new java.awt.Dimension(300, 800));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/vaccineo-logo-big.png"))); // NOI18N
         jLabel1.setMaximumSize(new java.awt.Dimension(154, 41));
         jLabel1.setMinimumSize(new java.awt.Dimension(154, 41));
 
         jPanel2.setBackground(new java.awt.Color(131, 197, 190));
+        jPanel2.setPreferredSize(new java.awt.Dimension(300, 65));
 
-        jLabel3.setFont(new java.awt.Font("Nunito", 1, 24)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Nunito", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Dashboard");
 
@@ -60,29 +84,29 @@ public class PersonnelDashboard extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(75, 75, 75)
+                .addGap(104, 104, 104)
                 .addComponent(jLabel3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
+                .addGap(22, 22, 22)
                 .addComponent(jLabel3)
-                .addGap(37, 37, 37))
+                .addGap(22, 22, 22))
         );
 
-        jLabel2.setFont(new java.awt.Font("Nunito", 1, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Nunito", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("People");
 
-        jLabel4.setFont(new java.awt.Font("Nunito", 1, 24)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Nunito", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Centre");
 
         jPanel3.setBackground(new java.awt.Color(131, 197, 190));
 
-        jLabel5.setFont(new java.awt.Font("Nunito", 1, 24)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Nunito", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Logout");
 
@@ -91,16 +115,16 @@ public class PersonnelDashboard extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(94, 94, 94)
+                .addGap(114, 114, 114)
                 .addComponent(jLabel5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
                 .addComponent(jLabel5)
-                .addGap(24, 24, 24))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -108,31 +132,129 @@ public class PersonnelDashboard extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(74, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(73, 73, 73))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(84, 84, 84)
+                .addGap(106, 106, 106)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jLabel2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(52, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addGap(53, 53, 53)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
+                .addGap(55, 55, 55)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addGap(22, 22, 22)
                 .addComponent(jLabel2)
-                .addGap(50, 50, 50)
+                .addGap(44, 44, 44)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 317, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 380, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        dashboard_panel1.setBackground(new java.awt.Color(237, 246, 249));
+        dashboard_panel1.setPreferredSize(new java.awt.Dimension(250, 150));
+
+        javax.swing.GroupLayout dashboard_panel1Layout = new javax.swing.GroupLayout(dashboard_panel1);
+        dashboard_panel1.setLayout(dashboard_panel1Layout);
+        dashboard_panel1Layout.setHorizontalGroup(
+            dashboard_panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 250, Short.MAX_VALUE)
+        );
+        dashboard_panel1Layout.setVerticalGroup(
+            dashboard_panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
+        );
+
+        dashboard_panel2.setBackground(new java.awt.Color(237, 246, 249));
+        dashboard_panel2.setPreferredSize(new java.awt.Dimension(250, 150));
+
+        javax.swing.GroupLayout dashboard_panel2Layout = new javax.swing.GroupLayout(dashboard_panel2);
+        dashboard_panel2.setLayout(dashboard_panel2Layout);
+        dashboard_panel2Layout.setHorizontalGroup(
+            dashboard_panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 250, Short.MAX_VALUE)
+        );
+        dashboard_panel2Layout.setVerticalGroup(
+            dashboard_panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
+        );
+
+        dashboard_panel3.setBackground(new java.awt.Color(237, 246, 249));
+        dashboard_panel3.setPreferredSize(new java.awt.Dimension(250, 150));
+
+        javax.swing.GroupLayout dashboard_panel3Layout = new javax.swing.GroupLayout(dashboard_panel3);
+        dashboard_panel3.setLayout(dashboard_panel3Layout);
+        dashboard_panel3Layout.setHorizontalGroup(
+            dashboard_panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 250, Short.MAX_VALUE)
+        );
+        dashboard_panel3Layout.setVerticalGroup(
+            dashboard_panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
+        );
+
+        dashboard_panel4.setBackground(new java.awt.Color(237, 246, 249));
+        dashboard_panel4.setPreferredSize(new java.awt.Dimension(250, 150));
+
+        javax.swing.GroupLayout dashboard_panel4Layout = new javax.swing.GroupLayout(dashboard_panel4);
+        dashboard_panel4.setLayout(dashboard_panel4Layout);
+        dashboard_panel4Layout.setHorizontalGroup(
+            dashboard_panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 250, Short.MAX_VALUE)
+        );
+        dashboard_panel4Layout.setVerticalGroup(
+            dashboard_panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
+        );
+
+        dashboard_panel5.setBackground(new java.awt.Color(237, 246, 249));
+        dashboard_panel5.setPreferredSize(new java.awt.Dimension(250, 150));
+
+        javax.swing.GroupLayout dashboard_panel5Layout = new javax.swing.GroupLayout(dashboard_panel5);
+        dashboard_panel5.setLayout(dashboard_panel5Layout);
+        dashboard_panel5Layout.setHorizontalGroup(
+            dashboard_panel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        dashboard_panel5Layout.setVerticalGroup(
+            dashboard_panel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
+        );
+
+        dashboard_panel6.setBackground(new java.awt.Color(237, 246, 249));
+        dashboard_panel6.setPreferredSize(new java.awt.Dimension(250, 150));
+
+        javax.swing.GroupLayout dashboard_panel6Layout = new javax.swing.GroupLayout(dashboard_panel6);
+        dashboard_panel6.setLayout(dashboard_panel6Layout);
+        dashboard_panel6Layout.setHorizontalGroup(
+            dashboard_panel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        dashboard_panel6Layout.setVerticalGroup(
+            dashboard_panel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
+        );
+
+        dashboard_panel7.setBackground(new java.awt.Color(237, 246, 249));
+        dashboard_panel7.setPreferredSize(new java.awt.Dimension(250, 150));
+
+        javax.swing.GroupLayout dashboard_panel7Layout = new javax.swing.GroupLayout(dashboard_panel7);
+        dashboard_panel7.setLayout(dashboard_panel7Layout);
+        dashboard_panel7Layout.setHorizontalGroup(
+            dashboard_panel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        dashboard_panel7Layout.setVerticalGroup(
+            dashboard_panel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout formBackgroundLayout = new javax.swing.GroupLayout(formBackground);
@@ -141,18 +263,44 @@ public class PersonnelDashboard extends javax.swing.JFrame {
             formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(formBackgroundLayout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1194, Short.MAX_VALUE))
+                .addGap(86, 86, 86)
+                .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(dashboard_panel6, javax.swing.GroupLayout.DEFAULT_SIZE, 1060, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, formBackgroundLayout.createSequentialGroup()
+                        .addComponent(dashboard_panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(dashboard_panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(dashboard_panel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(dashboard_panel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dashboard_panel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1060, Short.MAX_VALUE)
+                    .addComponent(dashboard_panel7, javax.swing.GroupLayout.DEFAULT_SIZE, 1060, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         formBackgroundLayout.setVerticalGroup(
             formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(formBackgroundLayout.createSequentialGroup()
+                .addGap(75, 75, 75)
+                .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(dashboard_panel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dashboard_panel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dashboard_panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dashboard_panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
+                .addComponent(dashboard_panel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(dashboard_panel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(dashboard_panel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(formBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(formBackground, javax.swing.GroupLayout.DEFAULT_SIZE, 1456, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,7 +336,6 @@ public class PersonnelDashboard extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(PersonnelDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -198,6 +345,13 @@ public class PersonnelDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel dashboard_panel1;
+    private javax.swing.JPanel dashboard_panel2;
+    private javax.swing.JPanel dashboard_panel3;
+    private javax.swing.JPanel dashboard_panel4;
+    private javax.swing.JPanel dashboard_panel5;
+    private javax.swing.JPanel dashboard_panel6;
+    private javax.swing.JPanel dashboard_panel7;
     private javax.swing.JPanel formBackground;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -208,4 +362,49 @@ public class PersonnelDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
+
+class RoundedPanel extends JPanel
+    {
+        private Color backgroundColor;
+        private int cornerRadius = 15;
+        public RoundedPanel(LayoutManager layout, int radius) {
+            super(layout);
+            cornerRadius = radius;
+        }
+        public RoundedPanel(LayoutManager layout, int radius, Color bgColor) {
+            super(layout);
+            cornerRadius = radius;
+            backgroundColor = bgColor;
+        }
+        public RoundedPanel(int radius) {
+            super();
+            cornerRadius = radius;
+            
+        }
+        public RoundedPanel(int radius, Color bgColor) {
+            super();
+            cornerRadius = radius;
+            backgroundColor = bgColor;
+        }
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            Dimension arcs = new Dimension(cornerRadius, cornerRadius);
+            int width = getWidth();
+            int height = getHeight();
+            Graphics2D graphics = (Graphics2D) g;
+            graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            //Draws the rounded panel with borders.
+            if (backgroundColor != null) {
+                graphics.setColor(backgroundColor);
+            } else {
+                graphics.setColor(getBackground());
+            }
+            graphics.fillRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height); //paint background
+            graphics.setColor(getForeground());
+//            graphics.drawRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height); //paint border
+//             
+        }
+    }
+
 }
