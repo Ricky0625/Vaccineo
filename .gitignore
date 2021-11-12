@@ -21,14 +21,4 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-/Vaccineo/nbproject/private/
-/Vaccineo/build/
-/Vaccineo/nbbuild/
-/Vaccineo/dist/
-/Vaccineo/nbdist/
-nbactions.xml
-nb-configuration.xml
-/Vaccineo/nbproject/build-impl.xml
-/Vaccineo/nbproject/project.xml
-/Vaccineo/nbproject/project.properties
-/Vaccineo/nbproject/genfiles.properties
+
