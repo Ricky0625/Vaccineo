@@ -55,7 +55,6 @@ public class DeclarationForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Declaration Form");
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         basepanel.setBackground(new java.awt.Color(237, 246, 249));
         basepanel.setMinimumSize(new java.awt.Dimension(1440, 800));
@@ -150,7 +149,16 @@ public class DeclarationForm extends javax.swing.JFrame {
 
         basepanel.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, -1, -1));
 
-        getContentPane().add(basepanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 800));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(basepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(basepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
