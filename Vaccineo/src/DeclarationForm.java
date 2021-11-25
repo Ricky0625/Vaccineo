@@ -32,6 +32,23 @@ public class DeclarationForm extends javax.swing.JFrame {
     public DeclarationForm() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
+        String symptoms1 = "<html><ul>" +
+                "<li>Fever / Demam</li>" +
+                "<li>Chills / Kesejukan</li>" +
+                "<li>Shivering (rigor) / Mengigil</li>" +
+                "<li>Body ache / Sakit badan</li>" +
+                "<li>Headache / Sakit kepala</li>" +
+                "<li>Sore throat / Sakit tekak</li>" +
+                "</ul></html>";
+        jLabel4.setText(symptoms1);
+        String symptoms2 = "<html><ul>" +
+                "<li>Nausea or vomiting / Loya atau muntah</li>" +
+                "<li>Diarhea / Cirit birit</li>" +
+                "<li>Fatigue / Keletihan</li>" +
+                "<li>Runny nose or nasal congestion /<br> Selesema atau hidung sumbat</li>" +
+                "</ul></html>";
+        jLabel5.setText(symptoms2);
+
     }
 
     /**
@@ -43,59 +60,67 @@ public class DeclarationForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        basepanel = new javax.swing.JPanel();
-        navpanel = new javax.swing.JPanel();
-        logolabel = new javax.swing.JLabel();
-        ppllabel = new javax.swing.JLabel();
-        logoutlabel = new javax.swing.JLabel();
+        basepanel1 = new javax.swing.JPanel();
+        navpanel4 = new javax.swing.JPanel();
+        logolabel4 = new javax.swing.JLabel();
+        ppllabel4 = new javax.swing.JLabel();
+        logoutlabel4 = new javax.swing.JLabel();
         logopanel = new RoundedPanel(20, priColor);
         backbutton = new javax.swing.JButton();
         jPanel2 = new RoundedPanel(20, empColor);
         jLabel1 = new javax.swing.JLabel();
+        jPanel3 = new RoundedPanel(20, whiteColor);
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Declaration Form");
+        setMinimumSize(new java.awt.Dimension(1440, 800));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        basepanel.setBackground(new java.awt.Color(237, 246, 249));
-        basepanel.setMinimumSize(new java.awt.Dimension(1440, 800));
-        basepanel.setPreferredSize(new java.awt.Dimension(1440, 800));
-        basepanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        basepanel1.setBackground(new java.awt.Color(237, 246, 249));
+        basepanel1.setPreferredSize(new java.awt.Dimension(1440, 800));
+        basepanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        navpanel.setBackground(new java.awt.Color(0, 109, 119));
+        navpanel4.setBackground(new java.awt.Color(0, 109, 119));
 
-        logolabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/vaccineo-logo-big.png"))); // NOI18N
+        logolabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/vaccineo-logo-big.png"))); // NOI18N
 
-        ppllabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/profile-nav.png"))); // NOI18N
+        ppllabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/profile-nav.png"))); // NOI18N
 
-        logoutlabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout-nav.png"))); // NOI18N
+        logoutlabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout-nav.png"))); // NOI18N
 
-        javax.swing.GroupLayout navpanelLayout = new javax.swing.GroupLayout(navpanel);
-        navpanel.setLayout(navpanelLayout);
-        navpanelLayout.setHorizontalGroup(
-            navpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(navpanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout navpanel4Layout = new javax.swing.GroupLayout(navpanel4);
+        navpanel4.setLayout(navpanel4Layout);
+        navpanel4Layout.setHorizontalGroup(
+            navpanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(navpanel4Layout.createSequentialGroup()
                 .addGap(84, 84, 84)
-                .addComponent(logolabel)
+                .addComponent(logolabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 982, Short.MAX_VALUE)
-                .addComponent(ppllabel)
+                .addComponent(ppllabel4)
                 .addGap(34, 34, 34)
-                .addComponent(logoutlabel)
+                .addComponent(logoutlabel4)
                 .addGap(117, 117, 117))
         );
-        navpanelLayout.setVerticalGroup(
-            navpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, navpanelLayout.createSequentialGroup()
+        navpanel4Layout.setVerticalGroup(
+            navpanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, navpanel4Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(logolabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(navpanelLayout.createSequentialGroup()
+                .addComponent(logolabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(navpanel4Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(navpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ppllabel)
-                    .addComponent(logoutlabel))
+                .addGroup(navpanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ppllabel4)
+                    .addComponent(logoutlabel4))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
-        basepanel.add(navpanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1440, 86));
+        basepanel1.add(navpanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1440, 86));
 
         logopanel.setBackground(new java.awt.Color(237, 246, 249));
         logopanel.setPreferredSize(new java.awt.Dimension(228, 86));
@@ -111,7 +136,7 @@ public class DeclarationForm extends javax.swing.JFrame {
             .addGap(0, 86, Short.MAX_VALUE)
         );
 
-        basepanel.add(logopanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
+        basepanel1.add(logopanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
 
         backbutton.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         backbutton.setForeground(new java.awt.Color(0, 109, 119));
@@ -121,8 +146,9 @@ public class DeclarationForm extends javax.swing.JFrame {
         backbutton.setContentAreaFilled(false);
         backbutton.setIconTextGap(15);
         backbutton.setMargin(new java.awt.Insets(2, 0, 2, 0));
-        basepanel.add(backbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, -1, -1));
+        basepanel1.add(backbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, -1, -1));
 
+        jPanel2.setBackground(new java.awt.Color(237, 246, 249));
         jPanel2.setPreferredSize(new java.awt.Dimension(1240, 95));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
@@ -147,18 +173,77 @@ public class DeclarationForm extends javax.swing.JFrame {
                 .addGap(25, 25, 25))
         );
 
-        basepanel.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, -1, -1));
+        basepanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(basepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        jPanel3.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel3.setPreferredSize(new java.awt.Dimension(1240, 390));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 109, 119));
+        jLabel2.setText("Are you exhibiting 2 or more symptoms as listed below? / Adakah anda mengalami 2 atau lebih");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 109, 119));
+        jLabel3.setText("gejala berikut?");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 109, 119));
+        jLabel4.setText("symptoms");
+        jLabel4.setToolTipText("");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 109, 119));
+        jLabel5.setText("symptoms");
+        jLabel5.setToolTipText("");
+
+        jRadioButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jRadioButton1.setForeground(new java.awt.Color(0, 109, 119));
+        jRadioButton1.setText("No / Tidak");
+
+        jRadioButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jRadioButton2.setForeground(new java.awt.Color(0, 109, 119));
+        jRadioButton2.setText("Yes / Ya");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(94, 94, 94)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(59, 59, 59)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jRadioButton2)
+                    .addComponent(jRadioButton1)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2))
+                .addContainerGap(166, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(basepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
+                .addComponent(jRadioButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jRadioButton2)
+                .addGap(38, 38, 38))
         );
+
+        basepanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 360, -1, -1));
+
+        getContentPane().add(basepanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -200,14 +285,21 @@ public class DeclarationForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backbutton;
-    private javax.swing.JPanel basepanel;
+    private javax.swing.JPanel basepanel1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel logolabel;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JLabel logolabel4;
     private javax.swing.JPanel logopanel;
-    private javax.swing.JLabel logoutlabel;
-    private javax.swing.JPanel navpanel;
-    private javax.swing.JLabel ppllabel;
+    private javax.swing.JLabel logoutlabel4;
+    private javax.swing.JPanel navpanel4;
+    private javax.swing.JLabel ppllabel4;
     // End of variables declaration//GEN-END:variables
 
     class RoundedPanel extends JPanel
