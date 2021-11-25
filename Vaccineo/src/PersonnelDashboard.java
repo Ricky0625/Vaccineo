@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.RenderingHints;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
@@ -19,7 +20,8 @@ public class PersonnelDashboard extends javax.swing.JFrame {
 
     public PersonnelDashboard() {
         initComponents();
-        setExtendedState(MAXIMIZED_BOTH);
+        personnelName.setText("Ricky");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
     }
 
     /**
@@ -81,7 +83,7 @@ public class PersonnelDashboard extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         regForVacLabel = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        personnelName = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         dashboard_panel5 = new RoundedPanel(10, secColor);
         jLabel22 = new javax.swing.JLabel();
@@ -90,7 +92,6 @@ public class PersonnelDashboard extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1440, 800));
-        setPreferredSize(new java.awt.Dimension(1440, 800));
 
         formBackground.setBackground(new java.awt.Color(237, 246, 249));
         formBackground.setMaximumSize(new java.awt.Dimension(1440, 800));
@@ -107,7 +108,7 @@ public class PersonnelDashboard extends javax.swing.JFrame {
         dbPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         dbPanel.setPreferredSize(new java.awt.Dimension(300, 65));
 
-        jLabel3.setFont(new java.awt.Font("Ubuntu Medium", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Dashboard");
 
@@ -137,7 +138,7 @@ public class PersonnelDashboard extends javax.swing.JFrame {
         logoutPanel.setBackground(new java.awt.Color(131, 197, 190));
         logoutPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jLabel5.setFont(new java.awt.Font("Ubuntu Medium", 0, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Logout");
 
@@ -165,6 +166,7 @@ public class PersonnelDashboard extends javax.swing.JFrame {
         );
 
         ppPanel.setBackground(new java.awt.Color(0, 109, 119));
+        ppPanel.setToolTipText("People");
         ppPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ppPanel.setPreferredSize(new java.awt.Dimension(300, 65));
         ppPanel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -176,7 +178,7 @@ public class PersonnelDashboard extends javax.swing.JFrame {
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Ubuntu Medium", 0, 18)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("People");
 
@@ -204,6 +206,7 @@ public class PersonnelDashboard extends javax.swing.JFrame {
         );
 
         cnPanel.setBackground(new java.awt.Color(0, 109, 119));
+        cnPanel.setToolTipText("Centre");
         cnPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cnPanel.setPreferredSize(new java.awt.Dimension(300, 65));
         cnPanel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -215,7 +218,7 @@ public class PersonnelDashboard extends javax.swing.JFrame {
             }
         });
 
-        jLabel12.setFont(new java.awt.Font("Ubuntu Medium", 0, 18)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Centre");
 
@@ -301,7 +304,7 @@ public class PersonnelDashboard extends javax.swing.JFrame {
                 .addGap(9, 9, 9))
         );
 
-        jLabel28.setFont(new java.awt.Font("Ubuntu Medium", 0, 18)); // NOI18N
+        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(237, 246, 249));
         jLabel28.setText("Register new user");
 
@@ -314,7 +317,7 @@ public class PersonnelDashboard extends javax.swing.JFrame {
                 .addComponent(regIcon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(jLabel28)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
         regPanelLayout.setVerticalGroup(
             regPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,7 +358,7 @@ public class PersonnelDashboard extends javax.swing.JFrame {
                 .addGap(9, 9, 9))
         );
 
-        jLabel29.setFont(new java.awt.Font("Ubuntu Medium", 0, 18)); // NOI18N
+        jLabel29.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel29.setForeground(new java.awt.Color(237, 246, 249));
         jLabel29.setText("Search user");
 
@@ -413,7 +416,7 @@ public class PersonnelDashboard extends javax.swing.JFrame {
                 .addGap(12, 12, 12))
         );
 
-        jLabel30.setFont(new java.awt.Font("Ubuntu Medium", 0, 18)); // NOI18N
+        jLabel30.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(237, 246, 249));
         jLabel30.setText("Check appointment");
 
@@ -471,7 +474,7 @@ public class PersonnelDashboard extends javax.swing.JFrame {
                 .addGap(10, 10, 10))
         );
 
-        jLabel31.setFont(new java.awt.Font("Ubuntu Medium", 0, 18)); // NOI18N
+        jLabel31.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(237, 246, 249));
         jLabel31.setText("Add new appointment");
 
@@ -529,7 +532,7 @@ public class PersonnelDashboard extends javax.swing.JFrame {
                 .addGap(9, 9, 9))
         );
 
-        jLabel32.setFont(new java.awt.Font("Ubuntu Medium", 0, 18)); // NOI18N
+        jLabel32.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel32.setForeground(new java.awt.Color(237, 246, 249));
         jLabel32.setText("Add vaccine supply");
 
@@ -587,7 +590,7 @@ public class PersonnelDashboard extends javax.swing.JFrame {
                 .addGap(9, 9, 9))
         );
 
-        jLabel33.setFont(new java.awt.Font("Ubuntu Medium", 0, 18)); // NOI18N
+        jLabel33.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel33.setForeground(new java.awt.Color(237, 246, 249));
         jLabel33.setText("Check vaccine supply");
 
@@ -633,9 +636,8 @@ public class PersonnelDashboard extends javax.swing.JFrame {
                         .addComponent(regPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(5, 5, 5)
                         .addComponent(avPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(useful_shortcut_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(aaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(caPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(aaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(caPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
         useful_shortcut_panelLayout.setVerticalGroup(
@@ -666,11 +668,11 @@ public class PersonnelDashboard extends javax.swing.JFrame {
         dashboard_panel2.setBackground(new java.awt.Color(237, 246, 249));
         dashboard_panel2.setPreferredSize(new java.awt.Dimension(230, 150));
 
-        jLabel15.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(0, 109, 119));
         jLabel15.setText("Completed 1st Dose");
 
-        compFirstLabel.setFont(new java.awt.Font("Ubuntu", 1, 64)); // NOI18N
+        compFirstLabel.setFont(new java.awt.Font("Tahoma", 1, 64)); // NOI18N
         compFirstLabel.setForeground(new java.awt.Color(237, 246, 249));
         compFirstLabel.setText("100");
 
@@ -679,16 +681,16 @@ public class PersonnelDashboard extends javax.swing.JFrame {
         dashboard_panel2Layout.setHorizontalGroup(
             dashboard_panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dashboard_panel2Layout.createSequentialGroup()
-                .addContainerGap(44, Short.MAX_VALUE)
+                .addContainerGap(46, Short.MAX_VALUE)
                 .addGroup(dashboard_panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(compFirstLabel)
                     .addComponent(jLabel15))
-                .addGap(51, 51, 51))
+                .addGap(45, 45, 45))
         );
         dashboard_panel2Layout.setVerticalGroup(
             dashboard_panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dashboard_panel2Layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
+                .addContainerGap(18, Short.MAX_VALUE)
                 .addComponent(compFirstLabel)
                 .addGap(14, 14, 14)
                 .addComponent(jLabel15)
@@ -698,11 +700,11 @@ public class PersonnelDashboard extends javax.swing.JFrame {
         dashboard_panel3.setBackground(new java.awt.Color(237, 246, 249));
         dashboard_panel3.setPreferredSize(new java.awt.Dimension(230, 150));
 
-        jLabel16.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(0, 109, 119));
         jLabel16.setText("Completed 2nd Dose");
 
-        compSecLabel.setFont(new java.awt.Font("Ubuntu", 1, 64)); // NOI18N
+        compSecLabel.setFont(new java.awt.Font("Tahoma", 1, 64)); // NOI18N
         compSecLabel.setForeground(new java.awt.Color(237, 246, 249));
         compSecLabel.setText("100");
 
@@ -711,16 +713,16 @@ public class PersonnelDashboard extends javax.swing.JFrame {
         dashboard_panel3Layout.setHorizontalGroup(
             dashboard_panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dashboard_panel3Layout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
+                .addContainerGap(44, Short.MAX_VALUE)
                 .addGroup(dashboard_panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(compSecLabel)
                     .addComponent(jLabel16))
-                .addGap(51, 51, 51))
+                .addGap(42, 42, 42))
         );
         dashboard_panel3Layout.setVerticalGroup(
             dashboard_panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dashboard_panel3Layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
+                .addContainerGap(18, Short.MAX_VALUE)
                 .addComponent(compSecLabel)
                 .addGap(14, 14, 14)
                 .addComponent(jLabel16)
@@ -730,11 +732,11 @@ public class PersonnelDashboard extends javax.swing.JFrame {
         dashboard_panel4.setBackground(new java.awt.Color(237, 246, 249));
         dashboard_panel4.setPreferredSize(new java.awt.Dimension(230, 150));
 
-        jLabel17.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(0, 109, 119));
         jLabel17.setText("Registered For Vaccination");
 
-        regForVacLabel.setFont(new java.awt.Font("Ubuntu", 1, 64)); // NOI18N
+        regForVacLabel.setFont(new java.awt.Font("Tahoma", 1, 64)); // NOI18N
         regForVacLabel.setForeground(new java.awt.Color(237, 246, 249));
         regForVacLabel.setText("100");
 
@@ -747,38 +749,38 @@ public class PersonnelDashboard extends javax.swing.JFrame {
                 .addGroup(dashboard_panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(regForVacLabel)
                     .addComponent(jLabel17))
-                .addGap(25, 25, 25))
+                .addGap(22, 22, 22))
         );
         dashboard_panel4Layout.setVerticalGroup(
             dashboard_panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dashboard_panel4Layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
+                .addContainerGap(18, Short.MAX_VALUE)
                 .addComponent(regForVacLabel)
                 .addGap(14, 14, 14)
                 .addComponent(jLabel17)
                 .addGap(23, 23, 23))
         );
 
-        jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 109, 119));
         jLabel4.setText("Welcome, ");
 
-        jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(226, 149, 120));
-        jLabel7.setText("Josh");
+        personnelName.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        personnelName.setForeground(new java.awt.Color(226, 149, 120));
+        personnelName.setText("Josh");
 
-        jLabel8.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 109, 119));
         jLabel8.setText("Useful Shortcuts");
 
         dashboard_panel5.setBackground(new java.awt.Color(237, 246, 249));
         dashboard_panel5.setPreferredSize(new java.awt.Dimension(230, 150));
 
-        jLabel22.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(0, 109, 119));
         jLabel22.setText("Total Appointment");
 
-        totalAppLabel.setFont(new java.awt.Font("Ubuntu", 1, 64)); // NOI18N
+        totalAppLabel.setFont(new java.awt.Font("Tahoma", 1, 64)); // NOI18N
         totalAppLabel.setForeground(new java.awt.Color(237, 246, 249));
         totalAppLabel.setText("100");
 
@@ -787,7 +789,7 @@ public class PersonnelDashboard extends javax.swing.JFrame {
         dashboard_panel5Layout.setHorizontalGroup(
             dashboard_panel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dashboard_panel5Layout.createSequentialGroup()
-                .addContainerGap(52, Short.MAX_VALUE)
+                .addContainerGap(49, Short.MAX_VALUE)
                 .addGroup(dashboard_panel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(totalAppLabel)
                     .addComponent(jLabel22))
@@ -796,7 +798,7 @@ public class PersonnelDashboard extends javax.swing.JFrame {
         dashboard_panel5Layout.setVerticalGroup(
             dashboard_panel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dashboard_panel5Layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
+                .addContainerGap(18, Short.MAX_VALUE)
                 .addComponent(totalAppLabel)
                 .addGap(14, 14, 14)
                 .addComponent(jLabel22)
@@ -811,7 +813,7 @@ public class PersonnelDashboard extends javax.swing.JFrame {
             formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(formBackgroundLayout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(107, 107, 107)
+                .addGap(92, 92, 92)
                 .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(formBackgroundLayout.createSequentialGroup()
                         .addGap(2, 2, 2)
@@ -825,13 +827,13 @@ public class PersonnelDashboard extends javax.swing.JFrame {
                     .addGroup(formBackgroundLayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(0, 0, 0)
-                        .addComponent(jLabel7))
+                        .addComponent(personnelName))
                     .addComponent(jLabel8)
                     .addGroup(formBackgroundLayout.createSequentialGroup()
                         .addComponent(useful_shortcut_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         formBackgroundLayout.setVerticalGroup(
             formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -842,7 +844,7 @@ public class PersonnelDashboard extends javax.swing.JFrame {
                         .addGap(114, 114, 114)
                         .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel7))
+                            .addComponent(personnelName))
                         .addGap(16, 16, 16)
                         .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(dashboard_panel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -983,11 +985,11 @@ public class PersonnelDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel logoutPanel;
+    private javax.swing.JLabel personnelName;
     private javax.swing.JPanel ppPanel;
     private javax.swing.JLabel regForVacLabel;
     private javax.swing.JPanel regIcon;

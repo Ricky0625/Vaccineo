@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.RenderingHints;
+import java.awt.Toolkit;
 import javax.swing.JPanel;
 
 /*
@@ -25,7 +26,7 @@ public class PersonnelCentre extends javax.swing.JFrame {
     
     public PersonnelCentre() {
         initComponents();
-        setExtendedState(MAXIMIZED_BOTH);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
     }
 
     /**
@@ -104,7 +105,7 @@ public class PersonnelCentre extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Ubuntu Medium", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Dashboard");
 
@@ -134,7 +135,7 @@ public class PersonnelCentre extends javax.swing.JFrame {
         logoutPanel.setBackground(new java.awt.Color(131, 197, 190));
         logoutPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jLabel5.setFont(new java.awt.Font("Ubuntu Medium", 0, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Logout");
 
@@ -173,7 +174,7 @@ public class PersonnelCentre extends javax.swing.JFrame {
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Ubuntu Medium", 0, 18)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("People");
 
@@ -204,7 +205,7 @@ public class PersonnelCentre extends javax.swing.JFrame {
         cnPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cnPanel.setPreferredSize(new java.awt.Dimension(300, 65));
 
-        jLabel12.setFont(new java.awt.Font("Ubuntu Medium", 0, 18)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Centre");
 
@@ -266,17 +267,18 @@ public class PersonnelCentre extends javax.swing.JFrame {
         jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel2.setPreferredSize(new java.awt.Dimension(980, 180));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Bukit Jalil");
 
         jPanel5.setBackground(new java.awt.Color(127, 192, 185));
         jPanel5.setPreferredSize(new java.awt.Dimension(220, 140));
 
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("150");
 
+        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("Total Appointment");
 
@@ -289,7 +291,7 @@ public class PersonnelCentre extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel16)
                     .addComponent(jLabel14))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -298,16 +300,17 @@ public class PersonnelCentre extends javax.swing.JFrame {
                 .addComponent(jLabel14)
                 .addGap(12, 12, 12)
                 .addComponent(jLabel16)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         jPanel6.setBackground(new java.awt.Color(127, 192, 185));
         jPanel6.setPreferredSize(new java.awt.Dimension(220, 140));
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("600");
 
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setText("Remaining Vaccines");
 
@@ -329,7 +332,7 @@ public class PersonnelCentre extends javax.swing.JFrame {
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel17)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -339,7 +342,7 @@ public class PersonnelCentre extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 292, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 276, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -362,17 +365,18 @@ public class PersonnelCentre extends javax.swing.JFrame {
         jPanel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel3.setPreferredSize(new java.awt.Dimension(980, 180));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("UM");
 
         jPanel7.setBackground(new java.awt.Color(127, 192, 185));
         jPanel7.setPreferredSize(new java.awt.Dimension(220, 140));
 
-        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setText("150");
 
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setText("Total Appointment");
 
@@ -385,7 +389,7 @@ public class PersonnelCentre extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel19)
                     .addComponent(jLabel18))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -394,16 +398,17 @@ public class PersonnelCentre extends javax.swing.JFrame {
                 .addComponent(jLabel18)
                 .addGap(12, 12, 12)
                 .addComponent(jLabel19)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         jPanel8.setBackground(new java.awt.Color(127, 192, 185));
         jPanel8.setPreferredSize(new java.awt.Dimension(220, 140));
 
-        jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setText("600");
 
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
         jLabel21.setText("Remaining Vaccines");
 
@@ -425,7 +430,7 @@ public class PersonnelCentre extends javax.swing.JFrame {
                 .addComponent(jLabel20)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel21)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -435,7 +440,7 @@ public class PersonnelCentre extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 396, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 397, Short.MAX_VALUE)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -444,7 +449,7 @@ public class PersonnelCentre extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(66, Short.MAX_VALUE)
+                .addContainerGap(70, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addGap(66, 66, 66))
             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -458,17 +463,18 @@ public class PersonnelCentre extends javax.swing.JFrame {
         jPanel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel4.setPreferredSize(new java.awt.Dimension(980, 180));
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("KLCC");
 
         jPanel9.setBackground(new java.awt.Color(127, 192, 185));
         jPanel9.setPreferredSize(new java.awt.Dimension(220, 140));
 
-        jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(255, 255, 255));
         jLabel22.setText("150");
 
+        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(255, 255, 255));
         jLabel23.setText("Total Appointment");
 
@@ -481,7 +487,7 @@ public class PersonnelCentre extends javax.swing.JFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel23)
                     .addComponent(jLabel22))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -490,16 +496,17 @@ public class PersonnelCentre extends javax.swing.JFrame {
                 .addComponent(jLabel22)
                 .addGap(12, 12, 12)
                 .addComponent(jLabel23)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         jPanel10.setBackground(new java.awt.Color(127, 192, 185));
         jPanel10.setPreferredSize(new java.awt.Dimension(220, 140));
 
-        jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
         jLabel24.setText("600");
 
+        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(255, 255, 255));
         jLabel25.setText("Remaining Vaccines");
 
@@ -521,7 +528,7 @@ public class PersonnelCentre extends javax.swing.JFrame {
                 .addComponent(jLabel24)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel25)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -531,7 +538,7 @@ public class PersonnelCentre extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 371, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 362, Short.MAX_VALUE)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -540,7 +547,7 @@ public class PersonnelCentre extends javax.swing.JFrame {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(66, Short.MAX_VALUE)
+                .addContainerGap(70, Short.MAX_VALUE)
                 .addComponent(jLabel8)
                 .addGap(66, 66, 66))
             .addGroup(jPanel4Layout.createSequentialGroup()

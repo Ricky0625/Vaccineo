@@ -79,12 +79,10 @@ public class Profile extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Profile");
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         basepanel.setBackground(new java.awt.Color(237, 246, 249));
         basepanel.setMinimumSize(new java.awt.Dimension(1440, 800));
         basepanel.setPreferredSize(new java.awt.Dimension(1440, 800));
-        basepanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         navpanel.setBackground(new java.awt.Color(0, 109, 119));
 
@@ -120,8 +118,6 @@ public class Profile extends javax.swing.JFrame {
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
-        basepanel.add(navpanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1440, 86));
-
         logopanel.setBackground(new java.awt.Color(237, 246, 249));
         logopanel.setPreferredSize(new java.awt.Dimension(228, 86));
 
@@ -136,8 +132,6 @@ public class Profile extends javax.swing.JFrame {
             .addGap(0, 86, Short.MAX_VALUE)
         );
 
-        basepanel.add(logopanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
-
         backbutton.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         backbutton.setForeground(new java.awt.Color(0, 109, 119));
         backbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/back-button.png"))); // NOI18N
@@ -146,7 +140,6 @@ public class Profile extends javax.swing.JFrame {
         backbutton.setContentAreaFilled(false);
         backbutton.setIconTextGap(15);
         backbutton.setMargin(new java.awt.Insets(2, 0, 2, 0));
-        basepanel.add(backbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, -1, -1));
 
         formpanel.setBackground(new java.awt.Color(237, 246, 249));
         formpanel.setPreferredSize(new java.awt.Dimension(1055, 495));
@@ -319,7 +312,7 @@ public class Profile extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel11))
                     .addComponent(basiclabel))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
             .addGroup(formpanelLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(formlabel)
@@ -377,10 +370,47 @@ public class Profile extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        basepanel.add(formpanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 215, 1030, -1));
+        javax.swing.GroupLayout basepanelLayout = new javax.swing.GroupLayout(basepanel);
+        basepanel.setLayout(basepanelLayout);
+        basepanelLayout.setHorizontalGroup(
+            basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(navpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(basepanelLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(logopanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(basepanelLayout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addComponent(backbutton))
+            .addGroup(basepanelLayout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addComponent(formpanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1030, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        basepanelLayout.setVerticalGroup(
+            basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(basepanelLayout.createSequentialGroup()
+                .addGroup(basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(navpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(basepanelLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(logopanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(34, 34, 34)
+                .addComponent(backbutton)
+                .addGap(39, 39, 39)
+                .addComponent(formpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
         formpanel.getAccessibleContext().setAccessibleName("");
 
-        getContentPane().add(basepanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 800));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(basepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(basepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
