@@ -9,7 +9,9 @@ import java.awt.LayoutManager;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.font.TextAttribute;
+import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Map;
 import javax.swing.JPanel;
 
@@ -127,7 +129,7 @@ public class Login extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel8.setText("IC/Passport Number");
+        jLabel8.setText("Username");
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 109, 119)));
@@ -140,6 +142,9 @@ public class Login extends javax.swing.JFrame {
         regAccountLbl.setText("Register Here.");
         regAccountLbl.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         regAccountLbl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                regAccountLblMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 regAccountLblMouseEntered(evt);
             }
@@ -313,8 +318,7 @@ public class Login extends javax.swing.JFrame {
             Desktop desktop = java.awt.Desktop.getDesktop();
             URI oURL = new URI("https://www.vaksincovid.gov.my/");
             desktop.browse(oURL);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException | URISyntaxException e) {
         }
     }//GEN-LAST:event_learnMoreLblMouseClicked
 
@@ -323,10 +327,14 @@ public class Login extends javax.swing.JFrame {
             Desktop desktop = java.awt.Desktop.getDesktop();
             URI oURL = new URI("https://www.vaksincovid.gov.my/");
             desktop.browse(oURL);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException | URISyntaxException e) {
         }
     }//GEN-LAST:event_learnMoreBtnMouseClicked
+
+    private void regAccountLblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regAccountLblMouseClicked
+        Register register = new Register();
+        register.setVisible(true);
+    }//GEN-LAST:event_regAccountLblMouseClicked
 
     /**
      * @param args the command line arguments

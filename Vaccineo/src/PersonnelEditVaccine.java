@@ -5,6 +5,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.RenderingHints;
+import java.awt.Toolkit;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /*
@@ -12,20 +15,20 @@ import javax.swing.JPanel;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Asus
  */
 public class PersonnelEditVaccine extends javax.swing.JFrame {
 
-    Color priColor = new Color(0,109,119);
+    Color priColor = new Color(0, 109, 119);
     Color secColor = new Color(131, 197, 190);
-    Color bgColor = new Color(237,246,249);
-    Color errColor = new Color(238,118,116);
-    
+    Color bgColor = new Color(237, 246, 249);
+    Color errColor = new Color(238, 118, 116);
+
     public PersonnelEditVaccine() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
     }
 
     /**
@@ -62,16 +65,10 @@ public class PersonnelEditVaccine extends javax.swing.JFrame {
         jLabel27 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
-        jLabel34 = new javax.swing.JLabel();
-        jLabel35 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel37 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
-        jLabel38 = new javax.swing.JLabel();
         jPanel8 = new RoundedPanel(10, priColor);
         jLabel36 = new javax.swing.JLabel();
         jLabel41 = new javax.swing.JLabel();
@@ -94,6 +91,9 @@ public class PersonnelEditVaccine extends javax.swing.JFrame {
         dbPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         dbPanel.setPreferredSize(new java.awt.Dimension(300, 65));
         dbPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                dbPanelMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 dbPanelMouseEntered(evt);
             }
@@ -131,6 +131,11 @@ public class PersonnelEditVaccine extends javax.swing.JFrame {
 
         logoutPanel1.setBackground(new java.awt.Color(131, 197, 190));
         logoutPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        logoutPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logoutPanel1MouseClicked(evt);
+            }
+        });
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
@@ -163,6 +168,9 @@ public class PersonnelEditVaccine extends javax.swing.JFrame {
         ppPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ppPanel.setPreferredSize(new java.awt.Dimension(300, 65));
         ppPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ppPanelMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 ppPanelMouseEntered(evt);
             }
@@ -202,6 +210,9 @@ public class PersonnelEditVaccine extends javax.swing.JFrame {
         cnPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cnPanel.setPreferredSize(new java.awt.Dimension(300, 65));
         cnPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cnPanelMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 cnPanelMouseEntered(evt);
             }
@@ -345,22 +356,6 @@ public class PersonnelEditVaccine extends javax.swing.JFrame {
         jLabel31.setForeground(new java.awt.Color(0, 109, 119));
         jLabel31.setText("Quantity(per Box):");
 
-        jLabel34.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel34.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel34.setText("Suitable Age:");
-
-        jLabel35.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel35.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel35.setText("Minimum");
-
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
-        jLabel37.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel37.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel37.setText("Max");
-
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
         jTextField3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jTextField4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -368,10 +363,6 @@ public class PersonnelEditVaccine extends javax.swing.JFrame {
         jTextField5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jTextField6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
-        jLabel38.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel38.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel38.setText("(Optional)");
 
         jPanel8.setBackground(new java.awt.Color(237, 246, 249));
         jPanel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -418,22 +409,9 @@ public class PersonnelEditVaccine extends javax.swing.JFrame {
                             .addComponent(jLabel31)
                             .addComponent(jLabel29)
                             .addComponent(jLabel27)
-                            .addComponent(jLabel21)
-                            .addComponent(jLabel34))
+                            .addComponent(jLabel21))
                         .addGap(40, 40, 40)
                         .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(formBackground1Layout.createSequentialGroup()
-                                .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(formBackground1Layout.createSequentialGroup()
-                                        .addComponent(jLabel37)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(formBackground1Layout.createSequentialGroup()
-                                        .addComponent(jLabel35)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel38))
                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -442,7 +420,7 @@ public class PersonnelEditVaccine extends javax.swing.JFrame {
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(64, 64, 64)
                         .addComponent(jLabel41)))
-                .addGap(80, 508, Short.MAX_VALUE))
+                .addGap(104, 532, Short.MAX_VALUE))
         );
         formBackground1Layout.setVerticalGroup(
             formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -468,17 +446,7 @@ public class PersonnelEditVaccine extends javax.swing.JFrame {
                 .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel31)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel34)
-                    .addComponent(jLabel35)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel37)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel38))
-                .addGap(74, 74, 74)
+                .addGap(50, 50, 50)
                 .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(formBackground1Layout.createSequentialGroup()
@@ -523,6 +491,36 @@ public class PersonnelEditVaccine extends javax.swing.JFrame {
     private void cnPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cnPanelMouseExited
         cnPanel.setBackground(priColor);
     }//GEN-LAST:event_cnPanelMouseExited
+
+    private void dbPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dbPanelMouseClicked
+        PersonnelDashboard pd = new PersonnelDashboard();
+        this.setVisible(false);
+        pd.setVisible(true);
+    }//GEN-LAST:event_dbPanelMouseClicked
+
+    private void ppPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ppPanelMouseClicked
+        PersonnelPeople pp = new PersonnelPeople();
+        this.setVisible(false);
+        pp.setVisible(true);
+    }//GEN-LAST:event_ppPanelMouseClicked
+
+    private void cnPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cnPanelMouseClicked
+        PersonnelCentre pc = new PersonnelCentre();
+        this.setVisible(false);
+        pc.setVisible(true);
+    }//GEN-LAST:event_cnPanelMouseClicked
+
+    private void logoutPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutPanel1MouseClicked
+        int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Exit program", JOptionPane.ERROR_MESSAGE);
+        if (result == JOptionPane.YES_OPTION) {
+            Login log = new Login();
+
+            setVisible(false);
+            log.setVisible(true);
+        } else {
+            setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        }
+    }//GEN-LAST:event_logoutPanel1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -576,11 +574,7 @@ public class PersonnelEditVaccine extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
@@ -589,8 +583,6 @@ public class PersonnelEditVaccine extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
@@ -600,35 +592,39 @@ public class PersonnelEditVaccine extends javax.swing.JFrame {
     private javax.swing.JPanel vaPanel;
     // End of variables declaration//GEN-END:variables
 
-     class RoundedPanel extends JPanel
-    {
+    class RoundedPanel extends JPanel {
+
         private Color backgroundColor;
         private int cornerRadius = 15;
+
         public RoundedPanel(LayoutManager layout, int radius) {
             super(layout);
             cornerRadius = radius;
         }
+
         public RoundedPanel(LayoutManager layout, int radius, Color bgColor) {
             super(layout);
             cornerRadius = radius;
             backgroundColor = bgColor;
         }
+
         public RoundedPanel(int radius) {
             super();
             cornerRadius = radius;
-            
+
         }
+
         public RoundedPanel(int radius, Color bgColor) {
             super();
             cornerRadius = radius;
             backgroundColor = bgColor;
         }
-        
+
         public RoundedPanel(Color bgColor) {
             super();
             backgroundColor = bgColor;
         }
-        
+
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -643,11 +639,11 @@ public class PersonnelEditVaccine extends javax.swing.JFrame {
             } else {
                 graphics.setColor(getBackground());
             }
-            graphics.fillRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height); //paint background
+            graphics.fillRoundRect(0, 0, width - 1, height - 1, arcs.width, arcs.height); //paint background
             graphics.setColor(getForeground());
 //            graphics.drawRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height); //paint border
 //             
         }
     }
-    
+
 }

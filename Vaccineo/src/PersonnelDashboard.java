@@ -10,18 +10,22 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import classes.GeneralFunction;
 
 public class PersonnelDashboard extends javax.swing.JFrame {
 
-    Color priColor = new Color(0,109,119);
+    Color priColor = new Color(0, 109, 119);
     Color secColor = new Color(131, 197, 190);
-    Color bgColor = new Color(237,246,249);
+    Color bgColor = new Color(237, 246, 249);
 
     public PersonnelDashboard() {
         initComponents();
         personnelName.setText("Ricky");
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
+
     }
 
     /**
@@ -139,6 +143,11 @@ public class PersonnelDashboard extends javax.swing.JFrame {
 
         logoutPanel.setBackground(new java.awt.Color(131, 197, 190));
         logoutPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        logoutPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logoutPanelMouseClicked(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -172,6 +181,9 @@ public class PersonnelDashboard extends javax.swing.JFrame {
         ppPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ppPanel.setPreferredSize(new java.awt.Dimension(300, 65));
         ppPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ppPanelMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 ppPanelMouseEntered(evt);
             }
@@ -212,6 +224,9 @@ public class PersonnelDashboard extends javax.swing.JFrame {
         cnPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cnPanel.setPreferredSize(new java.awt.Dimension(300, 65));
         cnPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cnPanelMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 cnPanelMouseEntered(evt);
             }
@@ -251,6 +266,9 @@ public class PersonnelDashboard extends javax.swing.JFrame {
         vaPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         vaPanel.setPreferredSize(new java.awt.Dimension(300, 65));
         vaPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                vaPanelMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 vaPanelMouseEntered(evt);
             }
@@ -298,10 +316,7 @@ public class PersonnelDashboard extends javax.swing.JFrame {
                 .addGap(73, 73, 73))
             .addComponent(ppPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(cnPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(vaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+            .addComponent(vaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -705,6 +720,8 @@ public class PersonnelDashboard extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
+        String path = "/classes/GeneralFunction.java";
+
         panelHover(regPanel,regIcon);
         panelHover(seaPanel,seaIcon);
         panelHover(caPanel,caIcon);
@@ -922,7 +939,7 @@ public class PersonnelDashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ppPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ppPanelMouseEntered
-       ppPanel.setBackground(secColor);
+        ppPanel.setBackground(secColor);
     }//GEN-LAST:event_ppPanelMouseEntered
 
     private void ppPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ppPanelMouseExited
@@ -945,23 +962,53 @@ public class PersonnelDashboard extends javax.swing.JFrame {
         vaPanel.setBackground(priColor);
     }//GEN-LAST:event_vaPanelMouseExited
 
-        private void panelHover(JPanel panel, JPanel icon) {
+    private void ppPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ppPanelMouseClicked
+        PersonnelPeople pp = new PersonnelPeople();
+        this.setVisible(false);
+        pp.setVisible(true);
+    }//GEN-LAST:event_ppPanelMouseClicked
+
+    private void cnPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cnPanelMouseClicked
+        PersonnelCentre pc = new PersonnelCentre();
+        this.setVisible(false);
+        pc.setVisible(true);
+    }//GEN-LAST:event_cnPanelMouseClicked
+
+    private void vaPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vaPanelMouseClicked
+        PersonnelVaccine pv = new PersonnelVaccine();
+        this.setVisible(false);
+        pv.setVisible(true);
+    }//GEN-LAST:event_vaPanelMouseClicked
+
+    private void logoutPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutPanelMouseClicked
+        int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Exit program", JOptionPane.ERROR_MESSAGE);
+        if (result == JOptionPane.YES_OPTION) {
+            Login log = new Login();
+
+            setVisible(false);
+            log.setVisible(true);
+        } else {
+            setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        }
+    }//GEN-LAST:event_logoutPanelMouseClicked
+
+    private void panelHover(JPanel panel, JPanel icon) {
         panel.addMouseListener(new java.awt.event.MouseAdapter() {
-            
+
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 panel.setBackground(priColor);
                 icon.setBackground(priColor);
-                
+
             }
-            
+
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 panel.setBackground(secColor);
                 icon.setBackground(secColor);
             }
-        
+
         });
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -1058,35 +1105,39 @@ public class PersonnelDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel vaPanel;
     // End of variables declaration//GEN-END:variables
 
-    class RoundedPanel extends JPanel
-    {
+    class RoundedPanel extends JPanel {
+
         private Color backgroundColor;
         private int cornerRadius = 15;
+
         public RoundedPanel(LayoutManager layout, int radius) {
             super(layout);
             cornerRadius = radius;
         }
+
         public RoundedPanel(LayoutManager layout, int radius, Color bgColor) {
             super(layout);
             cornerRadius = radius;
             backgroundColor = bgColor;
         }
+
         public RoundedPanel(int radius) {
             super();
             cornerRadius = radius;
-            
+
         }
+
         public RoundedPanel(int radius, Color bgColor) {
             super();
             cornerRadius = radius;
             backgroundColor = bgColor;
         }
-        
+
         public RoundedPanel(Color bgColor) {
             super();
             backgroundColor = bgColor;
         }
-        
+
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -1101,13 +1152,11 @@ public class PersonnelDashboard extends javax.swing.JFrame {
             } else {
                 graphics.setColor(getBackground());
             }
-            graphics.fillRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height); //paint background
+            graphics.fillRoundRect(0, 0, width - 1, height - 1, arcs.width, arcs.height); //paint background
             graphics.setColor(getForeground());
 //            graphics.drawRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height); //paint border
 //             
         }
     }
-    
 
-    
 }

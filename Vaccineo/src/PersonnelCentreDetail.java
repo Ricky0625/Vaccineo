@@ -5,6 +5,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.RenderingHints;
+import java.awt.Toolkit;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /*
@@ -24,6 +27,7 @@ public class PersonnelCentreDetail extends javax.swing.JFrame {
 
     public PersonnelCentreDetail() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
     }
 
     /**
@@ -94,7 +98,6 @@ public class PersonnelCentreDetail extends javax.swing.JFrame {
         jLabel30 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1400, 800));
         setMinimumSize(new java.awt.Dimension(1400, 800));
 
         formBackground.setBackground(new java.awt.Color(237, 246, 249));
@@ -112,6 +115,9 @@ public class PersonnelCentreDetail extends javax.swing.JFrame {
         dbPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         dbPanel.setPreferredSize(new java.awt.Dimension(300, 65));
         dbPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                dbPanelMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 dbPanelMouseEntered(evt);
             }
@@ -149,6 +155,11 @@ public class PersonnelCentreDetail extends javax.swing.JFrame {
 
         logoutPanel.setBackground(new java.awt.Color(131, 197, 190));
         logoutPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        logoutPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logoutPanelMouseClicked(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -181,6 +192,9 @@ public class PersonnelCentreDetail extends javax.swing.JFrame {
         ppPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ppPanel.setPreferredSize(new java.awt.Dimension(300, 65));
         ppPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ppPanelMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 ppPanelMouseEntered(evt);
             }
@@ -251,6 +265,9 @@ public class PersonnelCentreDetail extends javax.swing.JFrame {
         vaPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         vaPanel.setPreferredSize(new java.awt.Dimension(300, 65));
         vaPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                vaPanelMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 vaPanelMouseEntered(evt);
             }
@@ -877,7 +894,7 @@ public class PersonnelCentreDetail extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(formBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(formBackground, javax.swing.GroupLayout.DEFAULT_SIZE, 806, Short.MAX_VALUE)
         );
 
         pack();
@@ -906,6 +923,36 @@ public class PersonnelCentreDetail extends javax.swing.JFrame {
     private void vaPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vaPanelMouseExited
         vaPanel.setBackground(priColor);
     }//GEN-LAST:event_vaPanelMouseExited
+
+    private void dbPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dbPanelMouseClicked
+        PersonnelDashboard pd = new PersonnelDashboard();
+        this.setVisible(false);
+        pd.setVisible(true);
+    }//GEN-LAST:event_dbPanelMouseClicked
+
+    private void ppPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ppPanelMouseClicked
+        PersonnelPeople pp = new PersonnelPeople();
+        this.setVisible(false);
+        pp.setVisible(true);
+    }//GEN-LAST:event_ppPanelMouseClicked
+
+    private void vaPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vaPanelMouseClicked
+        PersonnelVaccine pv = new PersonnelVaccine();
+        this.setVisible(false);
+        pv.setVisible(true);
+    }//GEN-LAST:event_vaPanelMouseClicked
+
+    private void logoutPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutPanelMouseClicked
+        int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Exit program", JOptionPane.ERROR_MESSAGE);
+        if (result == JOptionPane.YES_OPTION) {
+            Login log = new Login();
+
+            setVisible(false);
+            log.setVisible(true);
+        } else {
+            setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        }
+    }//GEN-LAST:event_logoutPanelMouseClicked
     private void panelHover(JPanel panel, JPanel icon) {
         panel.addMouseListener(new java.awt.event.MouseAdapter() {
 
@@ -921,9 +968,7 @@ public class PersonnelCentreDetail extends javax.swing.JFrame {
             }
 
         });
-    }    
-     
-    
+    }
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -979,10 +1024,7 @@ public class PersonnelCentreDetail extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
@@ -1013,12 +1055,6 @@ public class PersonnelCentreDetail extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel logoutPanel;
     private javax.swing.JPanel ppPanel;
-    private javax.swing.JPanel regIcon;
-    private javax.swing.JPanel regIcon1;
-    private javax.swing.JPanel regIcon2;
-    private javax.swing.JPanel regPanel;
-    private javax.swing.JPanel regPanel1;
-    private javax.swing.JPanel regPanel2;
     private javax.swing.JPanel vaPanel;
     private javax.swing.JPanel vapIcon;
     private javax.swing.JPanel vapPanel;
