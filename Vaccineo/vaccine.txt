@@ -1,0 +1,1 @@
+vaccine_name,manufacturer,batch_quantity,size,dose,recommended_age,expiry_duration
