@@ -1,1 +1,1 @@
-vaccine_name,manufacturer,batch_quantity,size,dose,recommended_age,expiry_duration
+Vaccine Name;Manufacturer;Batch Quantity;Size;Dose;Recommended Age;Expiry Duration
