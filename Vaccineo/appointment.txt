@@ -1,0 +1,4 @@
+ic/passport;date;time;centre;status;vaccine;dose;complete;serial_number
+1234556;12/23;0900;Bukit Jalil;pending;-;1;yes;-
+456;12/23;1000;UPM;-;-;-;-;-
+1234;12/25;0900;UPM;pending;-;1;-;-
