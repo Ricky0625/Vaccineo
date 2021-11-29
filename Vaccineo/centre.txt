@@ -1,1 +1,2 @@
-centre_name,address,country,postcode,state
+centre_name,address,state,postcode,country
+Bukit Jalil Stadium;Jalan Barat, Bukit Jalil;Kuala Lumpur;57000;Malaysia;

@@ -1,4 +1,7 @@
 
+import classes.Appointment;
+import classes.GeneralFunction;
+import classes.People;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -6,6 +9,12 @@ import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
+import java.io.FileNotFoundException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -25,9 +34,22 @@ public class PersonnelPeople extends javax.swing.JFrame {
     Color secColor = new Color(131, 197, 190);
     Color bgColor = new Color(237, 246, 249);
 
+    GeneralFunction gf = new GeneralFunction();
+    Appointment ap = new Appointment();
+    People ppl = new People();
+    ArrayList<ArrayList<String>> peopleList;
+    ArrayList<ArrayList<String>> appointmentList;
+
     public PersonnelPeople() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
+    }
+
+    public PersonnelPeople(String id) {
+        initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
+        pplId.setText(id);
+        ppl.setId(id);
     }
 
     /**
@@ -57,22 +79,21 @@ public class PersonnelPeople extends javax.swing.JFrame {
         vaPanel = new javax.swing.JPanel();
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        pplName = new javax.swing.JLabel();
         jPanel2 = new RoundedPanel(60, secColor);
-        jLabel2 = new javax.swing.JLabel();
+        pplCategory = new javax.swing.JLabel();
         jPanel4 = new RoundedPanel(60, secColor);
-        jLabel14 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        vacStatus = new javax.swing.JLabel();
+        idLabel = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
+        pplAddress = new javax.swing.JLabel();
+        pplAge = new javax.swing.JLabel();
+        pplGender = new javax.swing.JLabel();
+        pplDOB = new javax.swing.JLabel();
+        pplId = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jPanel3 = new RoundedPanel(10, secColor);
         jLabel25 = new javax.swing.JLabel();
@@ -85,17 +106,18 @@ public class PersonnelPeople extends javax.swing.JFrame {
         jLabel31 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel32 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
+        backBtn = new RoundedPanel(10, priColor);
         jLabel33 = new javax.swing.JLabel();
-        searchUser = new javax.swing.JTextField();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel34 = new javax.swing.JLabel();
-        jLabel35 = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
+        jPanel13 = new javax.swing.JPanel();
         jLabel36 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1400, 800));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         formBackground.setBackground(new java.awt.Color(237, 246, 249));
         formBackground.setMaximumSize(new java.awt.Dimension(1440, 800));
@@ -333,19 +355,15 @@ public class PersonnelPeople extends javax.swing.JFrame {
                 .addComponent(logoutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel4.setText("People");
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(226, 149, 120));
-        jLabel7.setText("Josh Evan");
+        pplName.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        pplName.setForeground(new java.awt.Color(226, 149, 120));
+        pplName.setText("Josh Evan");
 
         jPanel2.setBackground(new java.awt.Color(237, 246, 249));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Non-Citizen");
+        pplCategory.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplCategory.setForeground(new java.awt.Color(255, 255, 255));
+        pplCategory.setText("Non-Citizen");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -353,22 +371,22 @@ public class PersonnelPeople extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(17, Short.MAX_VALUE)
-                .addComponent(jLabel2)
+                .addComponent(pplCategory)
                 .addGap(16, 16, 16))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(17, Short.MAX_VALUE)
-                .addComponent(jLabel2)
+                .addComponent(pplCategory)
                 .addGap(16, 16, 16))
         );
 
         jPanel4.setBackground(new java.awt.Color(237, 246, 249));
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("Registerd for Vaccination");
+        vacStatus.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        vacStatus.setForeground(new java.awt.Color(255, 255, 255));
+        vacStatus.setText("Registerd for Vaccination");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -376,20 +394,20 @@ public class PersonnelPeople extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(20, Short.MAX_VALUE)
-                .addComponent(jLabel14)
+                .addComponent(vacStatus)
                 .addGap(20, 20, 20))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(jLabel14)
+                .addComponent(vacStatus)
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel8.setText("IC:");
+        idLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        idLabel.setForeground(new java.awt.Color(0, 109, 119));
+        idLabel.setText("IC:");
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(0, 109, 119));
@@ -407,25 +425,25 @@ public class PersonnelPeople extends javax.swing.JFrame {
         jLabel18.setForeground(new java.awt.Color(0, 109, 119));
         jLabel18.setText("Address:");
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel19.setText("456A, Jalan Asia Pacific, Johor, Malaysia, 456000");
+        pplAddress.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplAddress.setForeground(new java.awt.Color(0, 109, 119));
+        pplAddress.setText("456A, Jalan Asia Pacific, Johor, Malaysia, 456000");
 
-        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel20.setText("31");
+        pplAge.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplAge.setForeground(new java.awt.Color(0, 109, 119));
+        pplAge.setText("31");
 
-        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel21.setText("Male");
+        pplGender.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplGender.setForeground(new java.awt.Color(0, 109, 119));
+        pplGender.setText("Male");
 
-        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel22.setText("19/11/1990");
+        pplDOB.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplDOB.setForeground(new java.awt.Color(0, 109, 119));
+        pplDOB.setText("19/11/1990");
 
-        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel23.setText("901119-13-9731");
+        pplId.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplId.setForeground(new java.awt.Color(0, 109, 119));
+        pplId.setText("901119-13-9731");
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(0, 109, 119));
@@ -546,79 +564,56 @@ public class PersonnelPeople extends javax.swing.JFrame {
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
-        jPanel7.setBackground(new java.awt.Color(0, 109, 119));
-        jPanel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel7.setPreferredSize(new java.awt.Dimension(58, 22));
+        backBtn.setBackground(new java.awt.Color(237, 246, 249));
+        backBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        backBtn.setPreferredSize(new java.awt.Dimension(58, 22));
+        backBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backBtnMouseClicked(evt);
+            }
+        });
 
-        jLabel33.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel33.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel33.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel33.setText("Register New User");
+        jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/back-btn.png"))); // NOI18N
+        jLabel33.setText("Back");
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
+        javax.swing.GroupLayout backBtnLayout = new javax.swing.GroupLayout(backBtn);
+        backBtn.setLayout(backBtnLayout);
+        backBtnLayout.setHorizontalGroup(
+            backBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(backBtnLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addComponent(jLabel33)
-                .addGap(26, 26, 26))
+                .addGap(20, 20, 20))
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        backBtnLayout.setVerticalGroup(
+            backBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(backBtnLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jLabel33)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addGap(12, 12, 12))
         );
 
-        searchUser.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        searchUser.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 109, 119)));
-
-        jPanel8.setBackground(new java.awt.Color(0, 109, 119));
-        jPanel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        jLabel34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search_white.png"))); // NOI18N
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel34)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addComponent(jLabel34)
-                .addContainerGap(9, Short.MAX_VALUE))
-        );
-
-        jLabel35.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel35.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel35.setText("IC/Passport No.");
-
-        jPanel9.setBackground(new java.awt.Color(0, 109, 119));
-        jPanel9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel13.setBackground(new java.awt.Color(0, 109, 119));
+        jPanel13.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel36.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel36.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel36.setText("Edit Profile");
+        jLabel36.setText("Edit Info");
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jLabel36)
                 .addContainerGap(26, Short.MAX_VALUE))
         );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jLabel36)
                 .addContainerGap(12, Short.MAX_VALUE))
@@ -640,40 +635,27 @@ public class PersonnelPeople extends javax.swing.JFrame {
                                     .addComponent(jLabel17)
                                     .addComponent(jLabel16)
                                     .addComponent(jLabel15)
-                                    .addComponent(jLabel8))
+                                    .addComponent(idLabel))
                                 .addGap(40, 40, 40)
                                 .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel23)
-                                    .addComponent(jLabel21)
-                                    .addComponent(jLabel20)
-                                    .addComponent(jLabel19)
-                                    .addComponent(jLabel22)))
+                                    .addComponent(pplId)
+                                    .addComponent(pplGender)
+                                    .addComponent(pplAge)
+                                    .addComponent(pplAddress)
+                                    .addComponent(pplDOB)))
                             .addComponent(jLabel24)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formBackgroundLayout.createSequentialGroup()
-                        .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(formBackgroundLayout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 418, Short.MAX_VALUE)
-                                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel35)
-                                    .addGroup(formBackgroundLayout.createSequentialGroup()
-                                        .addComponent(searchUser, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, 0)
-                                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, formBackgroundLayout.createSequentialGroup()
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(formBackgroundLayout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(93, 93, 93))))
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(425, Short.MAX_VALUE))
+                    .addGroup(formBackgroundLayout.createSequentialGroup()
+                        .addComponent(pplName)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(116, 116, 116))))
         );
         formBackgroundLayout.setVerticalGroup(
             formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -681,42 +663,36 @@ public class PersonnelPeople extends javax.swing.JFrame {
                 .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(formBackgroundLayout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(jLabel35)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                            .addComponent(searchUser, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(20, 20, 20)
+                        .addGap(54, 54, 54)
+                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel7)
-                            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(pplName)
+                            .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20)
                         .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(14, 14, 14)
                         .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel23))
+                            .addComponent(idLabel)
+                            .addComponent(pplId))
                         .addGap(14, 14, 14)
                         .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel15)
-                            .addComponent(jLabel21))
+                            .addComponent(pplGender))
                         .addGap(14, 14, 14)
                         .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel16)
-                            .addComponent(jLabel22))
+                            .addComponent(pplDOB))
                         .addGap(14, 14, 14)
                         .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel17)
-                            .addComponent(jLabel20))
+                            .addComponent(pplAge))
                         .addGap(14, 14, 14)
                         .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel18)
-                            .addComponent(jLabel19))
+                            .addComponent(pplAddress))
                         .addGap(35, 35, 35)
                         .addComponent(jLabel24)
                         .addGap(10, 10, 10)
@@ -791,6 +767,41 @@ public class PersonnelPeople extends javax.swing.JFrame {
         pc.setVisible(true);
     }//GEN-LAST:event_cnPanelMouseClicked
 
+    private void backBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseClicked
+        PersonnelPeopleList ppl = new PersonnelPeopleList();
+        ppl.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_backBtnMouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        String id = pplId.getText();
+        try {
+            // Generate the peopleList when the form opened
+            ppl.generatePeopleList();
+            // Set the generated peopleList to the variable
+            peopleList = ppl.getPeopleList();
+            // Set the value or the labels (people detail)
+            ppl.searchUser(peopleList, id);
+            pplName.setText(ppl.getName());
+            pplCategory.setText(ppl.getCategory());
+            pplGender.setText(ppl.getGender());
+            pplDOB.setText(ppl.getDOB());
+            pplAge.setText(Integer.toString(ppl.getAge()));
+            pplAddress.setText(ppl.getAddress());
+            vacStatus.setText(ppl.getVaccinationStatus());
+            
+            // Generate the appointmentList when the form opened
+            ap.generateAppointmentList();
+            // Set the generated peopleList to the variable
+            appointmentList = ap.getAppointmentList();
+            // System.out.println(appointmentList);
+            // search user from the appointment list
+            ap.searchAppointment(appointmentList, 0, id);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(PersonnelPeople.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowOpened
+
     /**
      * @param args the command line arguments
      */
@@ -827,25 +838,20 @@ public class PersonnelPeople extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel backBtn;
     private javax.swing.JPanel cnPanel;
     private javax.swing.JPanel dbPanel;
     private javax.swing.JPanel formBackground;
+    private javax.swing.JLabel idLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
@@ -857,30 +863,30 @@ public class PersonnelPeople extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JPanel logoutPanel;
     private javax.swing.JPanel ppPanel;
-    private javax.swing.JTextField searchUser;
+    private javax.swing.JLabel pplAddress;
+    private javax.swing.JLabel pplAge;
+    private javax.swing.JLabel pplCategory;
+    private javax.swing.JLabel pplDOB;
+    private javax.swing.JLabel pplGender;
+    private javax.swing.JLabel pplId;
+    private javax.swing.JLabel pplName;
     private javax.swing.JPanel vaPanel;
+    private javax.swing.JLabel vacStatus;
     // End of variables declaration//GEN-END:variables
 
     class RoundedPanel extends JPanel {

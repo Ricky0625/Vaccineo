@@ -1,41 +1,39 @@
 
-import classes.Appointment;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import classes.GeneralFunction;
 import classes.People;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.RowFilter;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableRowSorter;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-public class PersonnelViewAppointment extends javax.swing.JFrame {
+/**
+ *
+ * @author Asus
+ */
+public class PersonnelPeopleList extends javax.swing.JFrame {
 
     GeneralFunction gf = new GeneralFunction();
-    Appointment ap = new Appointment();
     People ppl = new People();
-    ArrayList<ArrayList<String>> appointmentList;
-
-    public PersonnelViewAppointment() {
+    ArrayList<ArrayList<String>> peopleList;
+    JFrame PersonnelPeopleList = this;
+    
+    public PersonnelPeopleList() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
         
-        appointmentTable.addMouseListener(new MouseAdapter() {
+        peopleTable.addMouseListener(new MouseAdapter() {
             String value;
             @Override
             public void mouseClicked(MouseEvent me) {
@@ -44,13 +42,14 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
                     JTable target = (JTable) me.getSource();
                     int row = target.getSelectedRow(); // select a row
                     // int column = target.getSelectedColumn(); // select a column                
-                    value = (String) appointmentTable.getValueAt(row, 0);
-                    ppl.setId(value);
+                    value = (String) peopleTable.getValueAt(row, 0);
                     // System.out.println(ppl.getId());
+                    PersonnelPeople pp = new PersonnelPeople(value);
+                    pp.setVisible(true);
+                    PersonnelPeopleList.setVisible(false);
                 }
             }
         });
-
     }
 
     /**
@@ -81,18 +80,23 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel34 = new javax.swing.JLabel();
         searchUser = new javax.swing.JTextField();
         jLabel35 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        appointmentTable = new javax.swing.JTable();
+        peopleTable = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        selectAppointmentView = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel14 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jLabel15 = new javax.swing.JLabel();
+        jComboBox3 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1440, 800));
@@ -113,9 +117,20 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
         jLabel1.setMaximumSize(new java.awt.Dimension(154, 41));
         jLabel1.setMinimumSize(new java.awt.Dimension(154, 41));
 
-        dbPanel.setBackground(new java.awt.Color(131, 197, 190));
+        dbPanel.setBackground(new java.awt.Color(0, 109, 119));
         dbPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         dbPanel.setPreferredSize(new java.awt.Dimension(300, 65));
+        dbPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                dbPanelMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                dbPanelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                dbPanelMouseExited(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -179,19 +194,13 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        ppPanel.setBackground(new java.awt.Color(0, 109, 119));
+        ppPanel.setBackground(new java.awt.Color(131, 197, 190));
         ppPanel.setToolTipText("People");
         ppPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ppPanel.setPreferredSize(new java.awt.Dimension(300, 65));
         ppPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ppPanelMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ppPanelMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                ppPanelMouseExited(evt);
             }
         });
 
@@ -340,11 +349,7 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel4.setText("Appointment");
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(226, 149, 120));
-        jLabel2.setText("Bukit Jalil");
+        jLabel4.setText("People");
 
         jPanel8.setBackground(new java.awt.Color(0, 109, 119));
         jPanel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -380,8 +385,8 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
         jLabel35.setForeground(new java.awt.Color(0, 109, 119));
         jLabel35.setText("IC/Passport No.");
 
-        appointmentTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        appointmentTable.setModel(new javax.swing.table.DefaultTableModel(
+        peopleTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        peopleTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -391,12 +396,12 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
         )
         {public boolean isCellEditable(int row, int column){return false;}}
     );
-    appointmentTable.setGridColor(new java.awt.Color(0, 109, 119));
-    appointmentTable.setRowHeight(25);
-    appointmentTable.setSelectionBackground(new java.awt.Color(131, 197, 190));
-    appointmentTable.setSelectionForeground(new java.awt.Color(255, 255, 255));
-    appointmentTable.getTableHeader().setReorderingAllowed(false);
-    jScrollPane1.setViewportView(appointmentTable);
+    peopleTable.setGridColor(new java.awt.Color(0, 109, 119));
+    peopleTable.setRowHeight(25);
+    peopleTable.setSelectionBackground(new java.awt.Color(131, 197, 190));
+    peopleTable.setSelectionForeground(new java.awt.Color(255, 255, 255));
+    peopleTable.getTableHeader().setReorderingAllowed(false);
+    jScrollPane1.setViewportView(peopleTable);
 
     jPanel4.setBackground(new java.awt.Color(0, 109, 119));
 
@@ -437,14 +442,27 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
         .addGap(0, 0, Short.MAX_VALUE)
     );
 
-    selectAppointmentView.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-    selectAppointmentView.setForeground(new java.awt.Color(0, 109, 119));
-    selectAppointmentView.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Waiting for 1st Dose", "Waiting for 2nd Dose" }));
-    selectAppointmentView.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            selectAppointmentViewActionPerformed(evt);
-        }
-    });
+    jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+    jLabel2.setForeground(new java.awt.Color(0, 109, 119));
+    jLabel2.setText("Double click on a row to view the details.");
+
+    jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+    jLabel8.setForeground(new java.awt.Color(0, 109, 119));
+    jLabel8.setText("Gender:");
+
+    jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Male", "Female" }));
+
+    jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+    jLabel14.setForeground(new java.awt.Color(0, 109, 119));
+    jLabel14.setText("Category:");
+
+    jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Citizen", "Non-citizen" }));
+
+    jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+    jLabel15.setForeground(new java.awt.Color(0, 109, 119));
+    jLabel15.setText("Vaccination Status:");
+
+    jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Not registered", "Pending 1st Dose", "Done 1st Dose", "Pending 2nd Dose", "Done 2nd Dose" }));
 
     javax.swing.GroupLayout formBackgroundLayout = new javax.swing.GroupLayout(formBackground);
     formBackground.setLayout(formBackgroundLayout);
@@ -452,26 +470,39 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
         formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(formBackgroundLayout.createSequentialGroup()
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(80, 80, 80)
+            .addGap(40, 40, 40)
             .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                 .addComponent(jScrollPane1)
                 .addGroup(formBackgroundLayout.createSequentialGroup()
                     .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(selectAppointmentView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(formBackgroundLayout.createSequentialGroup()
-                            .addComponent(jLabel4)
-                            .addGap(58, 58, 58)
+                            .addGap(180, 180, 180)
                             .addComponent(jLabel7))
-                        .addComponent(jLabel2))
+                        .addComponent(jLabel4)
+                        .addGroup(formBackgroundLayout.createSequentialGroup()
+                            .addComponent(jLabel8)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jLabel14)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGap(18, 18, 18)
+                    .addComponent(jLabel15)
                     .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(formBackgroundLayout.createSequentialGroup()
-                            .addGap(54, 54, 54)
+                            .addGap(96, 96, 96)
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 228, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formBackgroundLayout.createSequentialGroup()
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formBackgroundLayout.createSequentialGroup()
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -480,7 +511,7 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
                                     .addComponent(searchUser, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(0, 0, 0)
                                     .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-            .addGap(80, 80, 80))
+            .addGap(40, 40, 40))
     );
     formBackgroundLayout.setVerticalGroup(
         formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -489,26 +520,35 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(formBackgroundLayout.createSequentialGroup()
                     .addGap(48, 48, 48)
-                    .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(formBackgroundLayout.createSequentialGroup()
-                            .addComponent(jLabel4)
-                            .addGap(10, 10, 10)
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(selectAppointmentView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabel7)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formBackgroundLayout.createSequentialGroup()
                             .addComponent(jLabel35)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(searchUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(searchUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(formBackgroundLayout.createSequentialGroup()
+                            .addComponent(jLabel7)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4)
+                            .addGap(6, 6, 6)))
+                    .addGap(8, 8, 8)
+                    .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel8)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14)
+                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel15)
+                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGap(12, 12, 12)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addGap(0, 0, 0))
     );
 
@@ -516,7 +556,7 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addComponent(formBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addComponent(formBackground, javax.swing.GroupLayout.DEFAULT_SIZE, 1483, Short.MAX_VALUE)
     );
     layout.setVerticalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -543,14 +583,6 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
         this.setVisible(false);
         ppl.setVisible(true);
     }//GEN-LAST:event_ppPanelMouseClicked
-
-    private void ppPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ppPanelMouseEntered
-        ppPanel.setBackground(gf.secColor);
-    }//GEN-LAST:event_ppPanelMouseEntered
-
-    private void ppPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ppPanelMouseExited
-        ppPanel.setBackground(gf.priColor);
-    }//GEN-LAST:event_ppPanelMouseExited
 
     private void cnPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cnPanelMouseClicked
         PersonnelCentre pc = new PersonnelCentre();
@@ -580,61 +612,38 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
         vaPanel.setBackground(gf.priColor);
     }//GEN-LAST:event_vaPanelMouseExited
 
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        try {
-            ap.generateAppointmentList();
-            appointmentList = ap.getAppointmentList();
-            //System.out.println(appointmentList);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(PersonnelViewAppointment.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        gf.tableLoader(appointmentTable, appointmentList);
-        gf.tableRowClicked(appointmentTable);
-//        appointmentTable.addMouseListener(new MouseAdapter() {
-//            public void mouseClicked(MouseEvent me) {
-//                if (me.getClickCount() == 2) {     // to detect doble click events
-//                    JTable target = (JTable) me.getSource();
-//                    int row = target.getSelectedRow(); // select a row
-//                    //int column = target.getSelectedColumn(); // select a column
-//                    System.out.println(appointmentTable.getValueAt(row, 0));
-//                }
-//            }
-//
-//        });
-    }//GEN-LAST:event_formWindowOpened
-
     private void searchUserKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchUserKeyReleased
         String searchTerm = searchUser.getText();
-        selectAppointmentView.setSelectedIndex(0);
-        gf.refreshTable(appointmentTable);
-        gf.tableLoaderStartsWith(appointmentTable, appointmentList, searchTerm, 0);
-        
+        gf.refreshTable(peopleTable);
+        gf.tableLoaderStartsWithOmitted(peopleTable, peopleList, searchTerm,2,2);
     }//GEN-LAST:event_searchUserKeyReleased
 
-    private void selectAppointmentViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectAppointmentViewActionPerformed
-        JComboBox selectAppointmentView = (JComboBox) evt.getSource();
-
-        int index = selectAppointmentView.getSelectedIndex();
-
-        switch (index) {
-            case (0) -> {
-                gf.refreshTable(appointmentTable);
-                gf.tableLoader(appointmentTable, appointmentList);
-            }
-            case (1) -> {
-                gf.refreshTable(appointmentTable);
-                gf.tableLoaderEquals(appointmentTable, appointmentList, 6, "-");
-            }
-            case (2) -> {
-                gf.refreshTable(appointmentTable);
-                gf.tableLoaderEquals(appointmentTable, appointmentList, 6, "1");
-            }
-
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        try {
+            ppl.generatePeopleList();
+            peopleList = ppl.getPeopleList();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(PersonnelPeopleList.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        gf.tableLoaderOmittedColumn(peopleTable, peopleList,2);
+        gf.tableRowClicked(peopleTable);
+        // System.out.println(peopleList);
+    }//GEN-LAST:event_formWindowOpened
 
+    private void dbPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dbPanelMouseClicked
+        PersonnelDashboard pd = new PersonnelDashboard();
+        pd.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_dbPanelMouseClicked
 
-    }//GEN-LAST:event_selectAppointmentViewActionPerformed
+    private void dbPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dbPanelMouseEntered
+        dbPanel.setBackground(gf.secColor);
+    }//GEN-LAST:event_dbPanelMouseEntered
+
+    private void dbPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dbPanelMouseExited
+        dbPanel.setBackground(gf.priColor);
+    }//GEN-LAST:event_dbPanelMouseExited
 
     /**
      * @param args the command line arguments
@@ -653,34 +662,38 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PersonnelViewAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PersonnelPeopleList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PersonnelViewAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PersonnelPeopleList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PersonnelViewAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PersonnelPeopleList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PersonnelViewAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PersonnelPeopleList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PersonnelViewAppointment().setVisible(true);
+                new PersonnelPeopleList().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable appointmentTable;
     private javax.swing.JPanel cnPanel;
     private javax.swing.JPanel dbPanel;
     private javax.swing.JPanel formBackground;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel34;
@@ -691,6 +704,7 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
@@ -699,9 +713,9 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel logoutPanel;
+    private javax.swing.JTable peopleTable;
     private javax.swing.JPanel ppPanel;
     private javax.swing.JTextField searchUser;
-    private javax.swing.JComboBox<String> selectAppointmentView;
     private javax.swing.JPanel vaPanel;
     // End of variables declaration//GEN-END:variables
 }

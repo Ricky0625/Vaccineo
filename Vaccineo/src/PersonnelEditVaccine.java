@@ -499,9 +499,9 @@ public class PersonnelEditVaccine extends javax.swing.JFrame {
     }//GEN-LAST:event_dbPanelMouseClicked
 
     private void ppPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ppPanelMouseClicked
-        PersonnelPeople pp = new PersonnelPeople();
+        PersonnelPeopleList ppl = new PersonnelPeopleList();
         this.setVisible(false);
-        pp.setVisible(true);
+        ppl.setVisible(true);
     }//GEN-LAST:event_ppPanelMouseClicked
 
     private void cnPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cnPanelMouseClicked

@@ -24,6 +24,8 @@ public class GeneralFunction {
     public Color priColor = new Color(0, 109, 119);
     public Color secColor = new Color(131, 197, 190);
     public Color bgColor = new Color(237, 246, 249);
+    
+    private String value;
 
     private void panelHover(JPanel panel, JPanel icon) {
         panel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -54,7 +56,7 @@ public class GeneralFunction {
             // get the columns name to the jtable model
             // set columns name to the jtable model
             String firstLine = br.readLine().trim();
-            String[] columnsName = firstLine.split(",");
+            String[] columnsName = firstLine.split(";");
             DefaultTableModel model = (DefaultTableModel) table.getModel();
             model.setColumnIdentifiers(columnsName);
 
@@ -65,7 +67,7 @@ public class GeneralFunction {
             // set data to jtable model
             for (int i = 0; i < tableLines.length; i++) {
                 String line = tableLines[i].toString().trim();
-                String[] dataRow = line.split(",");
+                String[] dataRow = line.split(";");
                 model.addRow(dataRow);
             }
 
@@ -109,10 +111,59 @@ public class GeneralFunction {
             }
         }
          */
+        // System.out.println(appointmentList.get(0).get(0));
+    }
+    
+    public void tableLoaderOmittedColumn(JTable table, ArrayList<ArrayList<String>> list, int startFrom) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        // The total number of the column
+        int colNum = list.get(0).size();
+        // After ommit x number of column
+        int afterOmmited = colNum - startFrom;
+        // System.out.println(colNum);
+        // the object here need to have "afterOmmited" number of size
+        Object rowHeader[] = new Object[afterOmmited];
+        Object rowData[] = new Object[afterOmmited];
+        // System.out.println(rowHeader.length);
+        // System.out.println(rowData.length);
+
+        // get the first row of the text file
+        for (int i = 0; i == 0; i++) {
+            // start from which column
+            for (int j = startFrom; j < colNum; j++) {
+                // set rowHeader[0]
+                rowHeader[j - startFrom] = list.get(i).get(j);
+            }
+            // System.out.println(Arrays.toString(rowHeader));
+        }
+        // set the header of table
+        model.setColumnIdentifiers(rowHeader);
+        
+        // get the content of the text file except for header
+        for (int i = 1; i < list.size(); i++) {
+            // start from which column
+            for (int j = startFrom; j < colNum; j++) {
+                // set rowHeader[0]
+                rowData[j - startFrom] = list.get(i).get(j);
+            }
+            model.addRow(rowData);
+        }
+
+        // get the content of the text file except for header (with condition)
+        /*
+        for (int i = 1; i < appointmentList.size(); i++) {
+            if (appointmentList.get(i).get(4).equals("-")) {
+                for (int j = 0; j < appointmentList.get(i).size(); j++) {
+                    rowData[j] = appointmentList.get(i).get(j);
+                }
+                model.addRow(rowData);
+            }
+        }
+         */
         //System.out.println(appointmentList.get(0).get(0));
     }
     
-    public void tableLoaderStartsWith(JTable table, ArrayList<ArrayList<String>> list, String condition) {
+    public void tableLoaderStartsWith(JTable table, ArrayList<ArrayList<String>> list, String condition, int index) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         int colNum = list.get(0).size();
         Object rowHeader[] = new Object[colNum];
@@ -129,7 +180,7 @@ public class GeneralFunction {
         model.setColumnIdentifiers(rowHeader);
         
         for (int i = 1; i < list.size(); i++) {
-            if (list.get(i).get(0).startsWith(condition)) {
+            if (list.get(i).get(index).startsWith(condition)) {
                 for (int j = 0; j < list.get(i).size(); j++) {
                     rowData[j] = list.get(i).get(j);
                 }
@@ -139,6 +190,36 @@ public class GeneralFunction {
             table.revalidate();
         }
         table.revalidate();
+    }
+    
+    public void tableLoaderStartsWithOmitted(JTable table, ArrayList<ArrayList<String>> list, String condition, int index, int startIndex) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        int colNum = list.get(0).size();
+        int afterOmmited = colNum - startIndex;
+        Object rowHeader[] = new Object[afterOmmited];
+        Object rowData[] = new Object[afterOmmited];
+
+        // get the first row of the text file
+        for (int i = 0; i == 0; i++) {
+            for (int j = startIndex; j < colNum; j++) {
+                //System.out.println(appointmentList.get(i).get(j));
+                rowHeader[j - startIndex] = list.get(i).get(j);
+            }
+        }
+        // set the header of table
+        model.setColumnIdentifiers(rowHeader);
+        
+        for (int i = 1; i < list.size(); i++) {
+            if (list.get(i).get(index).startsWith(condition)) {
+                for (int j = startIndex; j < colNum; j++) {
+                    rowData[j - startIndex] = list.get(i).get(j);
+                }
+                model.addRow(rowData);
+                //table.revalidate();
+            }
+            //table.revalidate();
+        }
+        //table.revalidate();
     }
     
     public void tableLoaderEquals(JTable table, ArrayList<ArrayList<String>> list, int index, String condition) {
@@ -163,24 +244,36 @@ public class GeneralFunction {
                     rowData[j] = list.get(i).get(j);
                 }
                 model.addRow(rowData);
-                table.revalidate();
+                //table.revalidate();
             }
-            table.revalidate();
+            //table.revalidate();
         }
-        table.revalidate();
+        //table.revalidate();
+    }
+    
+    public void setValue(String value) {
+        this.value = value;
+    }
+    
+    public String getValue() {
+        return value;
     }
     
     public void tableRowClicked(JTable table) {
+        
         table.addMouseListener(new MouseAdapter() {
+            String value;
+            @Override
             public void mouseClicked(MouseEvent me) {
+                
                 if (me.getClickCount() == 2) {     // to detect doble click events
                     JTable target = (JTable) me.getSource();
                     int row = target.getSelectedRow(); // select a row
-                    // int column = target.getSelectedColumn(); // select a column
-                    // System.out.println(table.getValueAt(row, 0));
+                    // int column = target.getSelectedColumn(); // select a column                
+                    value = (String) table.getValueAt(row, 0);
+                    setValue(value);
                 }
             }
-
         });
     }
     
@@ -197,7 +290,7 @@ public class GeneralFunction {
         while (s.hasNextLine()) {
             ArrayList<String> list = new ArrayList<>();
             String nextLine = s.nextLine();
-            String[] items = nextLine.split(",");
+            String[] items = nextLine.split(";");
 
             list.addAll(Arrays.asList(items));
             theList.add(list);
