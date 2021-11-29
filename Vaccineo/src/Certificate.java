@@ -101,12 +101,10 @@ public class Certificate extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Certificate");
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         basepanel.setBackground(new java.awt.Color(237, 246, 249));
         basepanel.setMinimumSize(new java.awt.Dimension(1440, 800));
         basepanel.setPreferredSize(new java.awt.Dimension(1440, 800));
-        basepanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         navpanel.setBackground(new java.awt.Color(0, 109, 119));
 
@@ -142,8 +140,6 @@ public class Certificate extends javax.swing.JFrame {
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
-        basepanel.add(navpanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1440, 86));
-
         logopanel.setBackground(new java.awt.Color(237, 246, 249));
         logopanel.setPreferredSize(new java.awt.Dimension(228, 86));
 
@@ -158,8 +154,6 @@ public class Certificate extends javax.swing.JFrame {
             .addGap(0, 86, Short.MAX_VALUE)
         );
 
-        basepanel.add(logopanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
-
         backbutton.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         backbutton.setForeground(new java.awt.Color(0, 109, 119));
         backbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/back-button.png"))); // NOI18N
@@ -168,7 +162,6 @@ public class Certificate extends javax.swing.JFrame {
         backbutton.setContentAreaFilled(false);
         backbutton.setIconTextGap(15);
         backbutton.setMargin(new java.awt.Insets(2, 0, 2, 0));
-        basepanel.add(backbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, -1, -1));
 
         jPanel1.setBackground(new java.awt.Color(237, 246, 249));
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
@@ -224,8 +217,6 @@ public class Certificate extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        basepanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, -1, 90));
-
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setPreferredSize(new java.awt.Dimension(157, 40));
 
@@ -248,8 +239,6 @@ public class Certificate extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-
-        basepanel.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 240, -1, 40));
 
         jPanel4.setBackground(new java.awt.Color(237, 246, 249));
         jPanel4.setPreferredSize(new java.awt.Dimension(420, 340));
@@ -451,8 +440,6 @@ public class Certificate extends javax.swing.JFrame {
 
         jPanel4.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 380, 290));
 
-        basepanel.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 360, 420, 360));
-
         jPanel5.setBackground(new java.awt.Color(237, 246, 249));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -652,9 +639,60 @@ public class Certificate extends javax.swing.JFrame {
 
         jPanel5.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 380, 290));
 
-        basepanel.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 360, 420, 360));
+        javax.swing.GroupLayout basepanelLayout = new javax.swing.GroupLayout(basepanel);
+        basepanel.setLayout(basepanelLayout);
+        basepanelLayout.setHorizontalGroup(
+            basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(navpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(basepanelLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(logopanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(basepanelLayout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addComponent(backbutton))
+            .addGroup(basepanelLayout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(144, 144, 144)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(basepanelLayout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        basepanelLayout.setVerticalGroup(
+            basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(basepanelLayout.createSequentialGroup()
+                .addGroup(basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(navpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(basepanelLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(logopanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(34, 34, 34)
+                .addComponent(backbutton)
+                .addGap(31, 31, 31)
+                .addGroup(basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(basepanelLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(60, 60, 60)
+                .addGroup(basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
 
-        getContentPane().add(basepanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 800));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(basepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(basepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
