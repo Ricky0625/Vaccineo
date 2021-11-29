@@ -1,0 +1,3 @@
+Username;Password;IC/Passport;Name;DOB;Address;State;Country;Postcode;Gender;Category;Vaccination Status
+Test;Test;1234556;Testing;12/12/1990;Hello Street;Johor;Malaysia;56000;Female;Citizen;Not registered
+Test222;Tes222t;1234556asdfsdf;Testingewerwe;12/09/2000;Byebye street;Johor;Malaysia;56000;Male;Non-citizen;Done 1st Dose
