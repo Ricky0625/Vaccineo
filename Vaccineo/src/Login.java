@@ -31,7 +31,6 @@ public class Login extends javax.swing.JFrame {
     
     public Login() {
         initComponents();
-        setExtendedState(MAXIMIZED_BOTH);
         errLoginPanel.setBackground(bgColor);
         errLabel.setForeground(bgColor);
         errIcon.setVisible(false);
@@ -183,7 +182,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(errIcon)
                 .addGap(15, 15, 15)
                 .addComponent(errLabel)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         errLoginPanelLayout.setVerticalGroup(
             errLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
