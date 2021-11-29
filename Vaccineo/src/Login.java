@@ -314,7 +314,7 @@ public class Login extends javax.swing.JFrame {
     }// GEN-LAST:event_learnMoreBtnMouseClicked
 
     private void regAccountLblMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_regAccountLblMouseClicked
-        Register register = new Register();
+        RegisterAccount register = new RegisterAccount();
         register.setVisible(true);
     }// GEN-LAST:event_regAccountLblMouseClicked
 
