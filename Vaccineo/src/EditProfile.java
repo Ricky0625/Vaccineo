@@ -44,89 +44,33 @@ public class EditProfile extends javax.swing.JFrame {
     private void initComponents() {
 
         basepanel = new javax.swing.JPanel();
-        navpanel = new javax.swing.JPanel();
-        logolabel = new javax.swing.JLabel();
-        ppllabel = new javax.swing.JLabel();
-        logoutlabel = new javax.swing.JLabel();
-        logopanel = new RoundedPanel(20, priColor);
         backbutton = new javax.swing.JButton();
         javax.swing.JPanel formpanel = new RoundedPanel(20, whiteColor);
         jTextField4 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
         jTextField8 = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jPanel2 = new RoundedPanel(5, priColor);
         jLabel12 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jTextField9 = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        navpanel = new javax.swing.JPanel();
+        logolabel = new javax.swing.JLabel();
+        ppllabel = new javax.swing.JLabel();
+        logoutlabel = new javax.swing.JLabel();
+        logopanel = new RoundedPanel(20, priColor);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Edit Profile");
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         basepanel.setBackground(new java.awt.Color(237, 246, 249));
         basepanel.setMinimumSize(new java.awt.Dimension(1440, 800));
         basepanel.setPreferredSize(new java.awt.Dimension(1440, 800));
-        basepanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        navpanel.setBackground(new java.awt.Color(0, 109, 119));
-
-        logolabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/vaccineo-logo-big.png"))); // NOI18N
-
-        ppllabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/profile-nav.png"))); // NOI18N
-
-        logoutlabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout-nav.png"))); // NOI18N
-
-        javax.swing.GroupLayout navpanelLayout = new javax.swing.GroupLayout(navpanel);
-        navpanel.setLayout(navpanelLayout);
-        navpanelLayout.setHorizontalGroup(
-            navpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(navpanelLayout.createSequentialGroup()
-                .addGap(84, 84, 84)
-                .addComponent(logolabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 982, Short.MAX_VALUE)
-                .addComponent(ppllabel)
-                .addGap(34, 34, 34)
-                .addComponent(logoutlabel)
-                .addGap(117, 117, 117))
-        );
-        navpanelLayout.setVerticalGroup(
-            navpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, navpanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(logolabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(navpanelLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(navpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ppllabel)
-                    .addComponent(logoutlabel))
-                .addContainerGap(27, Short.MAX_VALUE))
-        );
-
-        basepanel.add(navpanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1440, 86));
-
-        logopanel.setBackground(new java.awt.Color(237, 246, 249));
-        logopanel.setPreferredSize(new java.awt.Dimension(228, 86));
-
-        javax.swing.GroupLayout logopanelLayout = new javax.swing.GroupLayout(logopanel);
-        logopanel.setLayout(logopanelLayout);
-        logopanelLayout.setHorizontalGroup(
-            logopanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 228, Short.MAX_VALUE)
-        );
-        logopanelLayout.setVerticalGroup(
-            logopanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 86, Short.MAX_VALUE)
-        );
-
-        basepanel.add(logopanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
 
         backbutton.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         backbutton.setForeground(new java.awt.Color(0, 109, 119));
@@ -136,7 +80,6 @@ public class EditProfile extends javax.swing.JFrame {
         backbutton.setContentAreaFilled(false);
         backbutton.setIconTextGap(15);
         backbutton.setMargin(new java.awt.Insets(2, 0, 2, 0));
-        basepanel.add(backbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, -1, -1));
 
         formpanel.setBackground(new java.awt.Color(237, 246, 249));
         formpanel.setPreferredSize(new java.awt.Dimension(1055, 495));
@@ -150,12 +93,7 @@ public class EditProfile extends javax.swing.JFrame {
         jLabel7.setBackground(new java.awt.Color(0, 109, 119));
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel7.setText("Name");
-
-        jLabel8.setBackground(new java.awt.Color(0, 109, 119));
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel8.setText("Date of Birth");
+        jLabel7.setText("Username");
 
         jTextField6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jTextField6.setToolTipText("");
@@ -178,15 +116,6 @@ public class EditProfile extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 109, 119));
         jLabel10.setText("Postcode");
-
-        jLabel11.setBackground(new java.awt.Color(0, 109, 119));
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel11.setText("Country");
-
-        jLabel13.setBackground(new java.awt.Color(0, 109, 119));
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel13.setText("Malaysia");
 
         jTextField8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jTextField8.setToolTipText("");
@@ -227,84 +156,181 @@ public class EditProfile extends javax.swing.JFrame {
         jLabel15.setForeground(new java.awt.Color(226, 149, 120));
         jLabel15.setText("Cancel");
 
-        jDateChooser1.setBackground(new java.awt.Color(0, 109, 119));
-        jDateChooser1.setForeground(new java.awt.Color(0, 109, 119));
-        jDateChooser1.setPreferredSize(new java.awt.Dimension(337, 54));
+        jTextField9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextField9.setToolTipText("");
+        jTextField9.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
+        jTextField9.setCaretColor(new java.awt.Color(0, 109, 119));
+        jTextField9.setPreferredSize(new java.awt.Dimension(337, 54));
+
+        jLabel13.setBackground(new java.awt.Color(0, 109, 119));
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(0, 109, 119));
+        jLabel13.setText("Country");
 
         javax.swing.GroupLayout formpanelLayout = new javax.swing.GroupLayout(formpanel);
         formpanel.setLayout(formpanelLayout);
         formpanelLayout.setHorizontalGroup(
             formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(formpanelLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addGap(39, 39, 39)
                 .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
                     .addGroup(formpanelLayout.createSequentialGroup()
                         .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(59, 59, 59)
-                        .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel11)))
+                            .addGroup(formpanelLayout.createSequentialGroup()
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(32, 32, 32)
+                                .addComponent(jLabel15))
+                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(formpanelLayout.createSequentialGroup()
-                        .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
-                        .addGap(18, 18, 18)
-                        .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14)
-                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addGroup(formpanelLayout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45)
-                        .addComponent(jLabel15)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                        .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(formpanelLayout.createSequentialGroup()
+                                .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel14)))
+                            .addGroup(formpanelLayout.createSequentialGroup()
+                                .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel10))
+                                .addGap(46, 46, 46)
+                                .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel13))))
+                        .addGap(0, 271, Short.MAX_VALUE))))
         );
         formpanelLayout.setVerticalGroup(
             formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(formpanelLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel14))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel11))
-                .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(21, 21, 21)
+                .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(formpanelLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(59, 59, 59))
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(formpanelLayout.createSequentialGroup()
+                        .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22))
+                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(formpanelLayout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(30, 30, 30)
+                .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formpanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formpanelLayout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+                .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formpanelLayout.createSequentialGroup()
                         .addComponent(jLabel15)
-                        .addGap(32, 32, 32))))
+                        .addGap(12, 12, 12)))
+                .addGap(34, 34, 34))
         );
 
-        basepanel.add(formpanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 215, 1030, -1));
+        navpanel.setBackground(new java.awt.Color(0, 109, 119));
 
-        getContentPane().add(basepanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 800));
+        logolabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/vaccineo-logo-big.png"))); // NOI18N
+
+        ppllabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/profile-nav.png"))); // NOI18N
+
+        logoutlabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout-nav.png"))); // NOI18N
+
+        javax.swing.GroupLayout navpanelLayout = new javax.swing.GroupLayout(navpanel);
+        navpanel.setLayout(navpanelLayout);
+        navpanelLayout.setHorizontalGroup(
+            navpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(navpanelLayout.createSequentialGroup()
+                .addGap(84, 84, 84)
+                .addComponent(logolabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 982, Short.MAX_VALUE)
+                .addComponent(ppllabel)
+                .addGap(34, 34, 34)
+                .addComponent(logoutlabel)
+                .addGap(117, 117, 117))
+        );
+        navpanelLayout.setVerticalGroup(
+            navpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, navpanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(logolabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(navpanelLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(navpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ppllabel)
+                    .addComponent(logoutlabel))
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
+
+        logopanel.setBackground(new java.awt.Color(237, 246, 249));
+        logopanel.setPreferredSize(new java.awt.Dimension(228, 86));
+
+        javax.swing.GroupLayout logopanelLayout = new javax.swing.GroupLayout(logopanel);
+        logopanel.setLayout(logopanelLayout);
+        logopanelLayout.setHorizontalGroup(
+            logopanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 228, Short.MAX_VALUE)
+        );
+        logopanelLayout.setVerticalGroup(
+            logopanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 86, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout basepanelLayout = new javax.swing.GroupLayout(basepanel);
+        basepanel.setLayout(basepanelLayout);
+        basepanelLayout.setHorizontalGroup(
+            basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(basepanelLayout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addGroup(basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(backbutton)
+                    .addComponent(formpanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1030, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(310, 310, 310))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, basepanelLayout.createSequentialGroup()
+                .addGroup(basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(navpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(basepanelLayout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(logopanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        basepanelLayout.setVerticalGroup(
+            basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(basepanelLayout.createSequentialGroup()
+                .addGroup(basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(navpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(basepanelLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(logopanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(34, 34, 34)
+                .addComponent(backbutton)
+                .addGap(36, 36, 36)
+                .addComponent(formpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(basepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(basepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -347,21 +373,19 @@ public class EditProfile extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backbutton;
     private javax.swing.JPanel basepanel;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField jTextField9;
     private javax.swing.JLabel logolabel;
     private javax.swing.JPanel logopanel;
     private javax.swing.JLabel logoutlabel;
