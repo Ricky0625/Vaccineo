@@ -98,10 +98,10 @@ public class People {
         int age = 0;
         Date today = new Date();
         Date birthDate = dob;
-        
+
         long diff = today.getTime() - birthDate.getTime();
-        int diffYears = (int)(diff / (1000l * 60 * 60 * 24 * 365));
-        
+        int diffYears = (int) (diff / (1000l * 60 * 60 * 24 * 365));
+
         return diffYears;
     }
 
@@ -148,16 +148,17 @@ public class People {
     public String getGender() {
         return gender;
     }
-    
+
     /*
-    Vaccination Status
-    1. appointment count ic/passport == 0 means not yet registered for vaccination
-    2. appointment count ic/passport == 1 but dose 1 date == "-" means registered for vaccination
-    3. appointment count ic/passport == 1 and got dose 1 date and completed, means done 1st dose
-    4. appointment count ic/passport == 1 and got does 1 date and not yet completed, means waiting for 1st dose
-    5. appointment count ic/passport == 2 and got dose 2 date and completed, means done 2nd dose
-    6. appointment count ic/passport == 2 and got does 2 date and not yet completed, means waiting for 2nd dose
-    */
+     * Vaccination Status 1. appointment count ic/passport == 0 means not yet
+     * registered for vaccination 2. appointment count ic/passport == 1 but dose 1
+     * date == "-" means registered for vaccination 3. appointment count ic/passport
+     * == 1 and got dose 1 date and completed, means done 1st dose 4. appointment
+     * count ic/passport == 1 and got does 1 date and not yet completed, means
+     * waiting for 1st dose 5. appointment count ic/passport == 2 and got dose 2
+     * date and completed, means done 2nd dose 6. appointment count ic/passport == 2
+     * and got does 2 date and not yet completed, means waiting for 2nd dose
+     */
 
     public void setVaccinationStatus(String vacStatus) {
         vaccinationStatus = vacStatus;
@@ -184,11 +185,11 @@ public class People {
         return peopleList;
     }
 
-    //username;password;IC/passport;name;dob;address;state;country;postcode;gender;category
+    // username;password;IC/passport;name;dob;address;state;country;postcode;gender;category
     public void searchUser(ArrayList<ArrayList<String>> list, String id) {
         for (int i = 1; i < list.size(); i++) {
             for (int j = 0; j < list.get(i).size(); j++) {
-                //System.out.println(list.get(i).get(j));
+                // System.out.println(list.get(i).get(j));
                 // search using id
                 String searchId = list.get(i).get(2);
                 if (searchId.equals(id)) {
