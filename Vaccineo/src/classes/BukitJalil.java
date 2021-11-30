@@ -1,14 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package classes;
 
-/**
- *
- * @author Asus
- */
+import java.io.FileNotFoundException;
+
 public class BukitJalil extends Centre {
-    
+
+    public BukitJalil() {
+        super();
+    }
+
+    public void fetchCentreInfo() throws FileNotFoundException {
+        super.generateCentreList();
+    }
 }

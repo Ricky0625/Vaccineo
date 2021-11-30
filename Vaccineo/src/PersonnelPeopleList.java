@@ -97,6 +97,8 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
         jComboBox3 = new javax.swing.JComboBox<>();
+        editPeopleInfo = new javax.swing.JPanel();
+        jLabel36 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1440, 800));
@@ -464,6 +466,35 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
 
     jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Not registered", "Pending 1st Dose", "Done 1st Dose", "Pending 2nd Dose", "Done 2nd Dose" }));
 
+    editPeopleInfo.setBackground(new java.awt.Color(0, 109, 119));
+    editPeopleInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    editPeopleInfo.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            editPeopleInfoMouseClicked(evt);
+        }
+    });
+
+    jLabel36.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+    jLabel36.setForeground(new java.awt.Color(255, 255, 255));
+    jLabel36.setText("Add New User");
+
+    javax.swing.GroupLayout editPeopleInfoLayout = new javax.swing.GroupLayout(editPeopleInfo);
+    editPeopleInfo.setLayout(editPeopleInfoLayout);
+    editPeopleInfoLayout.setHorizontalGroup(
+        editPeopleInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(editPeopleInfoLayout.createSequentialGroup()
+            .addGap(26, 26, 26)
+            .addComponent(jLabel36)
+            .addContainerGap(26, Short.MAX_VALUE))
+    );
+    editPeopleInfoLayout.setVerticalGroup(
+        editPeopleInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(editPeopleInfoLayout.createSequentialGroup()
+            .addGap(12, 12, 12)
+            .addComponent(jLabel36)
+            .addContainerGap(12, Short.MAX_VALUE))
+    );
+
     javax.swing.GroupLayout formBackgroundLayout = new javax.swing.GroupLayout(formBackground);
     formBackground.setLayout(formBackgroundLayout);
     formBackgroundLayout.setHorizontalGroup(
@@ -497,7 +528,7 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
                             .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formBackgroundLayout.createSequentialGroup()
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -505,6 +536,8 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formBackgroundLayout.createSequentialGroup()
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(editPeopleInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
                             .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel35)
                                 .addGroup(formBackgroundLayout.createSequentialGroup()
@@ -531,7 +564,8 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
                             .addComponent(jLabel7)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel4)
-                            .addGap(6, 6, 6)))
+                            .addGap(6, 6, 6))
+                        .addComponent(editPeopleInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(8, 8, 8)
                     .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -646,6 +680,12 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
         dbPanel.setBackground(gf.priColor);
     }//GEN-LAST:event_dbPanelMouseExited
 
+    private void editPeopleInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editPeopleInfoMouseClicked
+        PersonnelAddCentre pac = new PersonnelAddCentre();
+        pac.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_editPeopleInfoMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -684,6 +724,7 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel cnPanel;
     private javax.swing.JPanel dbPanel;
+    private javax.swing.JPanel editPeopleInfo;
     private javax.swing.JPanel formBackground;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
@@ -699,6 +740,7 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel4;

@@ -1,1 +1,2 @@
-Batch Id;Serial Number;Centre;Manufactured Date;Expired Date;Added Date;Status
+Batch Id;Serial Number;Centre Id;Manufactured Date;Expired Date;Added Date;Status
+1234;1234;BUK;12/23/2021;12/23/2021;12/23/2021;Used

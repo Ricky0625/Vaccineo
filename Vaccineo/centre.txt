@@ -1,2 +1,4 @@
-Centre Name;Street;State;Postcode;Country
-Bukit Jalil Stadium;Jalan Barat, Bukit Jalil;Kuala Lumpur;57000;Malaysia;
+Id;Centre Name;Street;State;Postcode;Country
+BUK;Bukit Jalil Stadium;Jalan Barat, Bukit Jalil;Kuala Lumpur;57000;Malaysia
+UNI;Universiti Malaya;Jalan Profesor Diraja Ungku Aziz;Kuala Lumpur;50603;Malaysia
+KUA;Kuala Lumpur Convention Centre;Jalan Pinang, Kuala Lumpur City Centre;Kuala Lumpur;50088;Malaysia

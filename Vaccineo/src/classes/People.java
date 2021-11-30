@@ -93,6 +93,10 @@ public class People {
         String formattedDOB = formatter.format(dobDate);
         return formattedDOB;
     }
+    
+    public Date getDOBinDate(){
+        return dob;
+    }
 
     public int getAge() {
         int age = 0;

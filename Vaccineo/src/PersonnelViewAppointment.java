@@ -2,6 +2,13 @@
 import classes.Appointment;
 import classes.GeneralFunction;
 import classes.People;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.LayoutManager;
+import java.awt.RenderingHints;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
@@ -16,6 +23,7 @@ import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
@@ -26,7 +34,12 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
 
 public class PersonnelViewAppointment extends javax.swing.JFrame {
+    
+    Color priColor = new Color(0, 109, 119);
+    Color secColor = new Color(131, 197, 190);
+    Color bgColor = new Color(237, 246, 249);
 
+    String centreName;
     GeneralFunction gf = new GeneralFunction();
     Appointment ap = new Appointment();
     People ppl = new People();
@@ -34,12 +47,36 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
 
     public PersonnelViewAppointment() {
         initComponents();
-        
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
         appointmentTable.addMouseListener(new MouseAdapter() {
             String value;
+
             @Override
             public void mouseClicked(MouseEvent me) {
-                
+
+                if (me.getClickCount() == 2) {     // to detect doble click events
+                    JTable target = (JTable) me.getSource();
+                    int row = target.getSelectedRow(); // select a row
+                    // int column = target.getSelectedColumn(); // select a column                
+                    value = (String) appointmentTable.getValueAt(row, 0);
+                    ppl.setId(value);
+                    // System.out.println(ppl.getId());
+                }
+            }
+        });
+
+    }
+
+    public PersonnelViewAppointment(String centreName) {
+        initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
+        this.centreName = centreName;
+        appointmentTable.addMouseListener(new MouseAdapter() {
+            String value;
+
+            @Override
+            public void mouseClicked(MouseEvent me) {
+
                 if (me.getClickCount() == 2) {     // to detect doble click events
                     JTable target = (JTable) me.getSource();
                     int row = target.getSelectedRow(); // select a row
@@ -81,7 +118,7 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        centreFullName = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel34 = new javax.swing.JLabel();
         searchUser = new javax.swing.JTextField();
@@ -93,6 +130,8 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         selectAppointmentView = new javax.swing.JComboBox<>();
+        backBtn = new RoundedPanel(10, priColor);
+        jLabel33 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1440, 800));
@@ -342,9 +381,9 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 109, 119));
         jLabel4.setText("Appointment");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(226, 149, 120));
-        jLabel2.setText("Bukit Jalil");
+        centreFullName.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        centreFullName.setForeground(new java.awt.Color(226, 149, 120));
+        centreFullName.setText("Bukit Jalil");
 
         jPanel8.setBackground(new java.awt.Color(0, 109, 119));
         jPanel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -446,6 +485,37 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
         }
     });
 
+    backBtn.setBackground(new java.awt.Color(237, 246, 249));
+    backBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    backBtn.setPreferredSize(new java.awt.Dimension(58, 22));
+    backBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            backBtnMouseClicked(evt);
+        }
+    });
+
+    jLabel33.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+    jLabel33.setForeground(new java.awt.Color(255, 255, 255));
+    jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/back-btn.png"))); // NOI18N
+    jLabel33.setText("Back");
+
+    javax.swing.GroupLayout backBtnLayout = new javax.swing.GroupLayout(backBtn);
+    backBtn.setLayout(backBtnLayout);
+    backBtnLayout.setHorizontalGroup(
+        backBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(backBtnLayout.createSequentialGroup()
+            .addGap(20, 20, 20)
+            .addComponent(jLabel33)
+            .addGap(20, 20, 20))
+    );
+    backBtnLayout.setVerticalGroup(
+        backBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(backBtnLayout.createSequentialGroup()
+            .addGap(12, 12, 12)
+            .addComponent(jLabel33)
+            .addGap(12, 12, 12))
+    );
+
     javax.swing.GroupLayout formBackgroundLayout = new javax.swing.GroupLayout(formBackground);
     formBackground.setLayout(formBackgroundLayout);
     formBackgroundLayout.setHorizontalGroup(
@@ -453,34 +523,39 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
         .addGroup(formBackgroundLayout.createSequentialGroup()
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(80, 80, 80)
-            .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(jScrollPane1)
+            .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(formBackgroundLayout.createSequentialGroup()
-                    .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(selectAppointmentView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jScrollPane1)
                         .addGroup(formBackgroundLayout.createSequentialGroup()
-                            .addComponent(jLabel4)
-                            .addGap(58, 58, 58)
-                            .addComponent(jLabel7))
-                        .addComponent(jLabel2))
-                    .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(formBackgroundLayout.createSequentialGroup()
-                            .addGap(54, 54, 54)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 228, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formBackgroundLayout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel35)
+                                .addComponent(selectAppointmentView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(formBackgroundLayout.createSequentialGroup()
-                                    .addComponent(searchUser, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, 0)
-                                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-            .addGap(80, 80, 80))
+                                    .addComponent(jLabel4)
+                                    .addGap(58, 58, 58)
+                                    .addComponent(jLabel7))
+                                .addComponent(centreFullName))
+                            .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(formBackgroundLayout.createSequentialGroup()
+                                    .addGap(54, 54, 54)
+                                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 228, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formBackgroundLayout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel35)
+                                        .addGroup(formBackgroundLayout.createSequentialGroup()
+                                            .addComponent(searchUser, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(0, 0, 0)
+                                            .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                    .addGap(80, 80, 80))
+                .addGroup(formBackgroundLayout.createSequentialGroup()
+                    .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
     );
     formBackgroundLayout.setVerticalGroup(
         formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -488,12 +563,14 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
             .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(formBackgroundLayout.createSequentialGroup()
-                    .addGap(48, 48, 48)
+                    .addGap(45, 45, 45)
+                    .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(formBackgroundLayout.createSequentialGroup()
                             .addComponent(jLabel4)
                             .addGap(10, 10, 10)
-                            .addComponent(jLabel2)
+                            .addComponent(centreFullName)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(selectAppointmentView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jLabel7)
@@ -508,8 +585,8 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
                         .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGap(12, 12, 12)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGap(0, 0, 0))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGap(4, 4, 4))
     );
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -520,7 +597,7 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
     );
     layout.setVerticalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addComponent(formBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addComponent(formBackground, javax.swing.GroupLayout.DEFAULT_SIZE, 805, Short.MAX_VALUE)
     );
 
     pack();
@@ -584,12 +661,14 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
         try {
             ap.generateAppointmentList();
             appointmentList = ap.getAppointmentList();
+            centreFullName.setText(centreName);
             //System.out.println(appointmentList);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(PersonnelViewAppointment.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        gf.tableLoader(appointmentTable, appointmentList);
+
+        gf.tableLoaderEquals(appointmentTable, appointmentList, 3, centreName);
+        //gf.tableLoader(appointmentTable, appointmentList);
         gf.tableRowClicked(appointmentTable);
 //        appointmentTable.addMouseListener(new MouseAdapter() {
 //            public void mouseClicked(MouseEvent me) {
@@ -609,7 +688,7 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
         selectAppointmentView.setSelectedIndex(0);
         gf.refreshTable(appointmentTable);
         gf.tableLoaderStartsWith(appointmentTable, appointmentList, searchTerm, 0);
-        
+
     }//GEN-LAST:event_searchUserKeyReleased
 
     private void selectAppointmentViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectAppointmentViewActionPerformed
@@ -620,21 +699,33 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
         switch (index) {
             case (0) -> {
                 gf.refreshTable(appointmentTable);
-                gf.tableLoader(appointmentTable, appointmentList);
+                //gf.tableLoader(appointmentTable, appointmentList);
+                /*Need extra attention*/
+                gf.tableLoaderEquals(appointmentTable, appointmentList, 3, "Bukit Jalil");
             }
             case (1) -> {
                 gf.refreshTable(appointmentTable);
-                gf.tableLoaderEquals(appointmentTable, appointmentList, 6, "-");
+                //gf.tableLoaderEquals(appointmentTable, appointmentList, 6, "-");
+                /*Need extra attention*/
+                gf.tableLoaderEqualsMore(appointmentTable, appointmentList, 6, "-", 3, "Bukit Jalil");
             }
             case (2) -> {
                 gf.refreshTable(appointmentTable);
-                gf.tableLoaderEquals(appointmentTable, appointmentList, 6, "1");
+                //gf.tableLoaderEquals(appointmentTable, appointmentList, 6, "1");
+                /*Need extra attention*/
+                gf.tableLoaderEqualsMore(appointmentTable, appointmentList, 6, "1", 3, "Bukit Jalil");
             }
 
         }
 
 
     }//GEN-LAST:event_selectAppointmentViewActionPerformed
+
+    private void backBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseClicked
+        PersonnelCentreDetail pcd = new PersonnelCentreDetail(centreFullName.getText());
+        pcd.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_backBtnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -673,6 +764,8 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable appointmentTable;
+    private javax.swing.JPanel backBtn;
+    private javax.swing.JLabel centreFullName;
     private javax.swing.JPanel cnPanel;
     private javax.swing.JPanel dbPanel;
     private javax.swing.JPanel formBackground;
@@ -681,8 +774,8 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel37;
@@ -704,4 +797,57 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> selectAppointmentView;
     private javax.swing.JPanel vaPanel;
     // End of variables declaration//GEN-END:variables
+class RoundedPanel extends JPanel {
+
+        private Color backgroundColor;
+        private int cornerRadius = 15;
+
+        public RoundedPanel(LayoutManager layout, int radius) {
+            super(layout);
+            cornerRadius = radius;
+        }
+
+        public RoundedPanel(LayoutManager layout, int radius, Color bgColor) {
+            super(layout);
+            cornerRadius = radius;
+            backgroundColor = bgColor;
+        }
+
+        public RoundedPanel(int radius) {
+            super();
+            cornerRadius = radius;
+
+        }
+
+        public RoundedPanel(int radius, Color bgColor) {
+            super();
+            cornerRadius = radius;
+            backgroundColor = bgColor;
+        }
+
+        public RoundedPanel(Color bgColor) {
+            super();
+            backgroundColor = bgColor;
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            Dimension arcs = new Dimension(cornerRadius, cornerRadius);
+            int width = getWidth();
+            int height = getHeight();
+            Graphics2D graphics = (Graphics2D) g;
+            graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            //Draws the rounded panel with borders.
+            if (backgroundColor != null) {
+                graphics.setColor(backgroundColor);
+            } else {
+                graphics.setColor(getBackground());
+            }
+            graphics.fillRoundRect(0, 0, width - 1, height - 1, arcs.width, arcs.height); //paint background
+            graphics.setColor(getForeground());
+//            graphics.drawRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height); //paint border
+//             
+        }
+    }
 }

@@ -114,6 +114,32 @@ public class GeneralFunction {
         // System.out.println(appointmentList.get(0).get(0));
     }
     
+    public void tableLoaderOneColumn(JTable table, ArrayList<ArrayList<String>> list, int index) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        int colNum = list.get(0).size();
+        Object rowHeader[] = new Object[1];
+        Object rowData[] = new Object[colNum];
+
+        // get the first row of the text file
+        for (int i = 0; i == 0; i++) {
+            for (int j = index; j < index + 1; j++) {
+                //System.out.println(appointmentList.get(i).get(j));
+                rowHeader[j - 1] = list.get(i).get(index);
+            }
+        }
+        System.out.println(Arrays.toString(rowHeader));
+        // set the header of table
+        model.setColumnIdentifiers(rowHeader);
+        
+        // get the content of the text file except for header
+        for (int i = 1; i < list.size(); i++) {
+            for (int j = 0; j < index; j++) {
+                rowData[j] = list.get(i).get(index);
+            }
+            model.addRow(rowData);
+        }
+    }
+    
     public void tableLoaderOmittedColumn(JTable table, ArrayList<ArrayList<String>> list, int startFrom) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         // The total number of the column
@@ -240,6 +266,35 @@ public class GeneralFunction {
         
         for (int i = 1; i < list.size(); i++) {
             if (list.get(i).get(index).equals(condition)) {
+                for (int j = 0; j < list.get(i).size(); j++) {
+                    rowData[j] = list.get(i).get(j);
+                }
+                model.addRow(rowData);
+                //table.revalidate();
+            }
+            //table.revalidate();
+        }
+        //table.revalidate();
+    }
+    
+    public void tableLoaderEqualsMore(JTable table, ArrayList<ArrayList<String>> list, int index1, String condition1, int index2, String condition2) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        int colNum = list.get(0).size();
+        Object rowHeader[] = new Object[colNum];
+        Object rowData[] = new Object[colNum];
+
+        // get the first row of the text file
+        for (int i = 0; i == 0; i++) {
+            for (int j = 0; j < list.get(i).size(); j++) {
+                //System.out.println(appointmentList.get(i).get(j));
+                rowHeader[j] = list.get(i).get(j);
+            }
+        }
+        // set the header of table
+        model.setColumnIdentifiers(rowHeader);
+        
+        for (int i = 1; i < list.size(); i++) {
+            if (list.get(i).get(index1).equals(condition1) && list.get(i).get(index2).equals(condition2)) {
                 for (int j = 0; j < list.get(i).size(); j++) {
                     rowData[j] = list.get(i).get(j);
                 }
