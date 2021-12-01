@@ -498,8 +498,8 @@ public class PersonnelVaccine extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutPanelMouseClicked
 
     private void addVaccineMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addVaccineMouseClicked
-        PersonnelAddCentre pac = new PersonnelAddCentre();
-        pac.setVisible(true);
+        PersonnelAddVaccine pav = new PersonnelAddVaccine();
+        pav.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_addVaccineMouseClicked
 

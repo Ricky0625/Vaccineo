@@ -16,7 +16,9 @@ import javax.swing.JPanel;
 import classes.GeneralFunction;
 import classes.Appointment;
 import classes.Centre;
+import classes.People;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.logging.Level;
@@ -31,6 +33,9 @@ public class PersonnelDashboard extends javax.swing.JFrame {
 
     Appointment ap = new Appointment();
     Centre c = new Centre();
+    People p = new People();
+    ArrayList<ArrayList<String>> peopleList;
+    ArrayList<ArrayList<String>> centreList;
 
     public PersonnelDashboard() {
         initComponents();
@@ -677,7 +682,7 @@ public class PersonnelDashboard extends javax.swing.JFrame {
         cvIcon.setBackground(new java.awt.Color(127, 192, 185));
         cvIcon.setPreferredSize(new java.awt.Dimension(40, 40));
 
-        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/check_vaccine.png"))); // NOI18N
+        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/vaccine-list.png"))); // NOI18N
 
         javax.swing.GroupLayout cvIconLayout = new javax.swing.GroupLayout(cvIcon);
         cvIcon.setLayout(cvIconLayout);
@@ -698,7 +703,7 @@ public class PersonnelDashboard extends javax.swing.JFrame {
 
         jLabel33.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel33.setForeground(new java.awt.Color(237, 246, 249));
-        jLabel33.setText("Check vaccine supply");
+        jLabel33.setText("View Remaining Vaccine");
 
         javax.swing.GroupLayout cvPanelLayout = new javax.swing.GroupLayout(cvPanel);
         cvPanel.setLayout(cvPanelLayout);
@@ -984,13 +989,18 @@ public class PersonnelDashboard extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         try {
+            p.generatePeopleList();
+            peopleList = p.getPeopleList();
+            c.generateCentreList();
+            centreList = c.getCentreList();
+            
             int totalAppointment = ap.countTotalAppointment();
             totalAppLabel.setText(Integer.toString(totalAppointment));
             int totalFirstDose = ap.countDoseCompleted(1);
             compFirstLabel.setText(Integer.toString(totalFirstDose));
             int totalSecondDose = ap.countDoseCompleted(2);
             compSecLabel.setText(Integer.toString(totalSecondDose));
-            int notRegistered = ap.countNotRegistered();
+            int notRegistered = p.countNotRegistered();
             regForVaccination.setText(Integer.toString(notRegistered));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(PersonnelDashboard.class.getName()).log(Level.SEVERE, null, ex);
@@ -999,9 +1009,19 @@ public class PersonnelDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void seaPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seaPanelMouseClicked
-        PersonnelPeopleList ppl = new PersonnelPeopleList();
-        ppl.setVisible(true);
-        this.setVisible(false);
+
+        String value = JOptionPane.showInputDialog(this, "Enter IC/Passport No");
+        
+        // get the input value
+        boolean exist = p.searchUserById(peopleList, value);
+        if(exist){
+            PersonnelPeople pp = new PersonnelPeople(value);
+            pp.setVisible(true);
+            this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(this, "User not found!", "Error Message", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }//GEN-LAST:event_seaPanelMouseClicked
 
     private void cvPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cvPanelMouseClicked
@@ -1018,7 +1038,10 @@ public class PersonnelDashboard extends javax.swing.JFrame {
             // get selected item
             if(input == JOptionPane.OK_OPTION) {
                 String selected = (String)cb.getSelectedItem();
-                // System.out.println(selected);
+                String centreId = c.getCentreIdByName(selected);
+                PersonnelRemainingVaccine prv = new PersonnelRemainingVaccine(centreId);
+                prv.setVisible(true);
+                this.setVisible(false);
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(PersonnelDashboard.class.getName()).log(Level.SEVERE, null, ex);
@@ -1062,7 +1085,10 @@ public class PersonnelDashboard extends javax.swing.JFrame {
             // get selected item
             if(input == JOptionPane.OK_OPTION) {
                 String selected = (String)cb.getSelectedItem();
-                
+                String targetId = c.getCentreIdByName(selected);
+                PersonnelVaccineSupply pvs = new PersonnelVaccineSupply(targetId);
+                pvs.setVisible(true);
+                this.setVisible(false);
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(PersonnelDashboard.class.getName()).log(Level.SEVERE, null, ex);
@@ -1083,7 +1109,9 @@ public class PersonnelDashboard extends javax.swing.JFrame {
             // get selected item
             if(input == JOptionPane.OK_OPTION) {
                 String selected = (String)cb.getSelectedItem();
-
+                PersonnelAddAppointment paa = new PersonnelAddAppointment(selected);
+                paa.setVisible(true);
+                this.setVisible(false);
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(PersonnelDashboard.class.getName()).log(Level.SEVERE, null, ex);

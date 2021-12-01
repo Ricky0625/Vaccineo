@@ -59,7 +59,7 @@ public class PersonnelAddCentre extends javax.swing.JFrame {
         savePeopleInfo = new RoundedPanel(10, priColor);
         jLabel34 = new javax.swing.JLabel();
         savePeopleInfo1 = new javax.swing.JPanel();
-        jLabel35 = new javax.swing.JLabel();
+        cancelAdd = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1440, 800));
@@ -404,10 +404,15 @@ public class PersonnelAddCentre extends javax.swing.JFrame {
             }
         });
 
-        jLabel35.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel35.setForeground(new java.awt.Color(226, 149, 120));
-        jLabel35.setText("Cancel");
-        jLabel35.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cancelAdd.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        cancelAdd.setForeground(new java.awt.Color(226, 149, 120));
+        cancelAdd.setText("Cancel");
+        cancelAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cancelAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cancelAddMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout savePeopleInfo1Layout = new javax.swing.GroupLayout(savePeopleInfo1);
         savePeopleInfo1.setLayout(savePeopleInfo1Layout);
@@ -415,14 +420,14 @@ public class PersonnelAddCentre extends javax.swing.JFrame {
             savePeopleInfo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, savePeopleInfo1Layout.createSequentialGroup()
                 .addContainerGap(23, Short.MAX_VALUE)
-                .addComponent(jLabel35)
+                .addComponent(cancelAdd)
                 .addGap(23, 23, 23))
         );
         savePeopleInfo1Layout.setVerticalGroup(
             savePeopleInfo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(savePeopleInfo1Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(jLabel35)
+                .addComponent(cancelAdd)
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
@@ -574,6 +579,12 @@ public class PersonnelAddCentre extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_savePeopleInfo1MouseClicked
 
+    private void cancelAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelAddMouseClicked
+        PersonnelCentre pc = new PersonnelCentre();
+        pc.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_cancelAddMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -611,6 +622,7 @@ public class PersonnelAddCentre extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backBtn;
+    private javax.swing.JLabel cancelAdd;
     private javax.swing.JLabel centreNameLbl;
     private javax.swing.JPanel cnPanel;
     private javax.swing.JPanel dbPanel;
@@ -628,7 +640,6 @@ public class PersonnelAddCentre extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel5;

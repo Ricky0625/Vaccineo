@@ -6,6 +6,7 @@
 package classes;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,8 +30,8 @@ public class Vaccine {
     private double size;
     private int dose;
     private int expiryDuration;
-    private String remainingData;
-    private String vaccineData;
+    private final String remainingData;
+    private final String vaccineData;
     ArrayList<ArrayList<String>> vaccineRemainingList;
     ArrayList<ArrayList<String>> vaccineList;
 
@@ -130,7 +131,7 @@ public class Vaccine {
         return vaccineList;
     }
 
-    private void generateCode() {
+    public String generateCode() {
         String saltchars = "1234567890";
         StringBuilder salt = new StringBuilder();
         Random rdm = new Random();
@@ -140,7 +141,8 @@ public class Vaccine {
 
         }
         String saltStr = salt.toString();
-        // System.out.println(saltStr);
+        
+        return saltStr;
     }
 
     public int countTotalVaccineRemainingByCentre(String centreId) throws FileNotFoundException {
@@ -148,12 +150,31 @@ public class Vaccine {
         generateRemainingVaccineList();
 
         for (int i = 1; i < vaccineRemainingList.size(); i++) {
-            if (vaccineRemainingList.get(i).get(2).equals(centreId)) {
+            if (vaccineRemainingList.get(i).get(3).equals(centreId)) {
                 total++;
             }
         }
 
         return total;
+    }
+    
+    public void searchVaccineById(ArrayList<ArrayList<String>> list, String vacId) {
+        for (int i = 1; i < list.size(); i++) {
+            for (int j = 0; j < list.get(i).size(); j++) {
+                // Id;Vaccine Name;Manufacturer;Batch Quantity;Size;Dose Needed;Expiry Duration
+                // search using vac name
+                String searchId = list.get(i).get(0);
+                if (searchId.equals(vacId)) {
+                    setVacId(list.get(i).get(0));
+                    setVacName(list.get(i).get(1));
+                    setManufacturer(list.get(i).get(2));
+                    setBatchSize(Integer.valueOf(list.get(i).get(3)));
+                    setSize(Double.valueOf(list.get(i).get(4)));
+                    setDoseNeeded(Integer.valueOf(list.get(i).get(5)));
+                    setDuration(Integer.valueOf(list.get(i).get(6)));
+                }
+            }
+        }
     }
 
     public void searchVaccineByName(ArrayList<ArrayList<String>> list, String vacName) {
@@ -173,5 +194,25 @@ public class Vaccine {
                 }
             }
         }
+    }
+    
+    public Object[] getAllVaccineName() throws FileNotFoundException {
+        generateVaccineList();
+        Object allCentreName[] = new Object[vaccineList.size() - 1];
+        for(int i = 1; i < vaccineList.size(); i++) {
+            allCentreName[i - 1] = vaccineList.get(i).get(1);
+        }
+        
+        return allCentreName;
+    }
+    
+    public void writeIntoVaccineFile(ArrayList<ArrayList<String>> list) throws IOException {
+        GeneralFunction gf = new GeneralFunction();
+        gf.writeIntoFile(list, vaccineData);
+    }
+    
+    public void writeIntoVaccineQuanFile(ArrayList<ArrayList<String>> list) throws IOException {
+        GeneralFunction gf = new GeneralFunction();
+        gf.writeIntoFile(list, remainingData);
     }
 }

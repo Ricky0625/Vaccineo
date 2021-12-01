@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import classes.Centre;
 import classes.Vaccine;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 /*
@@ -31,23 +32,23 @@ public class PersonnelCentreDetail extends javax.swing.JFrame {
     Color priColor = new Color(0, 109, 119);
     Color secColor = new Color(131, 197, 190);
     Color bgColor = new Color(237, 246, 249);
-    
+
     String centreName;
     Centre c = new Centre();
     Vaccine v = new Vaccine();
     Appointment ap = new Appointment();
-    ArrayList<ArrayList<String>> centreList;
+    ArrayList<ArrayList<String>> centreList, appointmentList;
 
     public PersonnelCentreDetail() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
     }
-    
-    public PersonnelCentreDetail(String value){
+
+    public PersonnelCentreDetail(String value) {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
         centreName = value;
-        //System.out.println(centreName);
+        System.out.println(centreName);
     }
 
     /**
@@ -108,10 +109,6 @@ public class PersonnelCentreDetail extends javax.swing.JFrame {
         avIcon = new RoundedPanel(10, bgColor);
         jLabel22 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
-        cvPanel = new javax.swing.JPanel();
-        cvIcon = new RoundedPanel(10, bgColor);
-        jLabel23 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
         vrPanel = new javax.swing.JPanel();
         vrIcon = new RoundedPanel(10, bgColor);
         jLabel24 = new javax.swing.JLabel();
@@ -481,6 +478,11 @@ public class PersonnelCentreDetail extends javax.swing.JFrame {
         cappPanel.setToolTipText("Register new user");
         cappPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cappPanel.setPreferredSize(new java.awt.Dimension(300, 100));
+        cappPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cappPanelMouseClicked(evt);
+            }
+        });
 
         cappIcon.setBackground(new java.awt.Color(127, 192, 185));
         cappIcon.setPreferredSize(new java.awt.Dimension(40, 40));
@@ -535,6 +537,11 @@ public class PersonnelCentreDetail extends javax.swing.JFrame {
         anPanel.setToolTipText("Register new user");
         anPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         anPanel.setPreferredSize(new java.awt.Dimension(300, 100));
+        anPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                anPanelMouseClicked(evt);
+            }
+        });
 
         anIcon.setBackground(new java.awt.Color(127, 192, 185));
         anIcon.setPreferredSize(new java.awt.Dimension(40, 40));
@@ -678,6 +685,11 @@ public class PersonnelCentreDetail extends javax.swing.JFrame {
         avPanel.setToolTipText("Register new user");
         avPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         avPanel.setPreferredSize(new java.awt.Dimension(300, 100));
+        avPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                avPanelMouseClicked(evt);
+            }
+        });
 
         avIcon.setBackground(new java.awt.Color(127, 192, 185));
         avIcon.setPreferredSize(new java.awt.Dimension(40, 40));
@@ -728,64 +740,15 @@ public class PersonnelCentreDetail extends javax.swing.JFrame {
                 .addGap(24, 24, 24))
         );
 
-        cvPanel.setBackground(new java.awt.Color(131, 197, 190));
-        cvPanel.setToolTipText("Register new user");
-        cvPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        cvPanel.setPreferredSize(new java.awt.Dimension(300, 100));
-
-        cvIcon.setBackground(new java.awt.Color(127, 192, 185));
-        cvIcon.setPreferredSize(new java.awt.Dimension(40, 40));
-
-        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/check_vaccine.png"))); // NOI18N
-
-        javax.swing.GroupLayout cvIconLayout = new javax.swing.GroupLayout(cvIcon);
-        cvIcon.setLayout(cvIconLayout);
-        cvIconLayout.setHorizontalGroup(
-            cvIconLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cvIconLayout.createSequentialGroup()
-                .addContainerGap(9, Short.MAX_VALUE)
-                .addComponent(jLabel23)
-                .addGap(9, 9, 9))
-        );
-        cvIconLayout.setVerticalGroup(
-            cvIconLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cvIconLayout.createSequentialGroup()
-                .addContainerGap(9, Short.MAX_VALUE)
-                .addComponent(jLabel23)
-                .addGap(9, 9, 9))
-        );
-
-        jLabel29.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel29.setForeground(new java.awt.Color(237, 246, 249));
-        jLabel29.setText("Check vaccine supply");
-
-        javax.swing.GroupLayout cvPanelLayout = new javax.swing.GroupLayout(cvPanel);
-        cvPanel.setLayout(cvPanelLayout);
-        cvPanelLayout.setHorizontalGroup(
-            cvPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(cvPanelLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(cvIcon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(jLabel29)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        cvPanelLayout.setVerticalGroup(
-            cvPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(cvPanelLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(cvIcon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cvPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel29)
-                .addGap(24, 24, 24))
-        );
-
         vrPanel.setBackground(new java.awt.Color(131, 197, 190));
         vrPanel.setToolTipText("Register new user");
         vrPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         vrPanel.setPreferredSize(new java.awt.Dimension(300, 100));
+        vrPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                vrPanelMouseClicked(evt);
+            }
+        });
 
         vrIcon.setBackground(new java.awt.Color(127, 192, 185));
         vrIcon.setPreferredSize(new java.awt.Dimension(40, 40));
@@ -844,7 +807,6 @@ public class PersonnelCentreDetail extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(avPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
-                    .addComponent(cvPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
                     .addComponent(vrPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
@@ -854,14 +816,11 @@ public class PersonnelCentreDetail extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(avPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(cvPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
                 .addComponent(vrPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelHover(avPanel,avIcon);
-        panelHover(cvPanel,cvIcon);
         panelHover(vrPanel,vrIcon);
 
         centreAddress1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -1046,6 +1005,8 @@ public class PersonnelCentreDetail extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         try {
+            ap.generateAppointmentList();
+            appointmentList = ap.getAppointmentList();
             c.generateCentreList();
             centreList = c.getCentreList();
             c.searchCentre(centreName);
@@ -1054,7 +1015,8 @@ public class PersonnelCentreDetail extends javax.swing.JFrame {
             centreAddress.setText(c.getAddress());
             int totalAppointment = ap.countTotalAppointmentByCentre(centreName);
             centreTotalAppointment.setText(Integer.toString(totalAppointment));
-            int totalRemainingVaccine = v.countTotalVaccineRemainingByCentre(c.getCentreId());
+            int totalRemainingVaccine = v.countTotalVaccineRemainingByCentre(centreId.getText());
+            System.out.println(c.getCentreId());
             centreTotalVaccine.setText(Integer.toString(totalRemainingVaccine));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(PersonnelCentre.class.getName()).log(Level.SEVERE, null, ex);
@@ -1079,6 +1041,45 @@ public class PersonnelCentreDetail extends javax.swing.JFrame {
         pec.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_editCentreInfoMouseClicked
+
+    private void vrPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vrPanelMouseClicked
+        PersonnelRemainingVaccine prv = new PersonnelRemainingVaccine(centreId.getText());
+        prv.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_vrPanelMouseClicked
+
+    private void avPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_avPanelMouseClicked
+        PersonnelVaccineSupply pvs = new PersonnelVaccineSupply(centreId.getText());
+        pvs.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_avPanelMouseClicked
+
+    private void cappPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cappPanelMouseClicked
+        String value = JOptionPane.showInputDialog(this, "Enter IC/Passport No");
+        // System.out.println(centreList);
+
+        // get the input value
+        boolean exist;
+        try {
+            exist = ap.searchAppointmentByCentre(appointmentList, centreName, value);
+            if (exist) {
+                PersonnelPeople pp = new PersonnelPeople(value);
+                pp.setVisible(true);
+                this.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(this, "Appointment for this user not found!", "Error Message", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(PersonnelCentreDetail.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_cappPanelMouseClicked
+
+    private void anPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_anPanelMouseClicked
+        PersonnelAddAppointment paa = new PersonnelAddAppointment(centreNameLbl.getText());
+        paa.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_anPanelMouseClicked
     private void panelHover(JPanel panel, JPanel icon) {
         panel.addMouseListener(new java.awt.event.MouseAdapter() {
 
@@ -1143,8 +1144,6 @@ public class PersonnelCentreDetail extends javax.swing.JFrame {
     private javax.swing.JLabel centreTotalAppointment;
     private javax.swing.JLabel centreTotalVaccine;
     private javax.swing.JPanel cnPanel;
-    private javax.swing.JPanel cvIcon;
-    private javax.swing.JPanel cvPanel;
     private javax.swing.JPanel dbPanel;
     private javax.swing.JPanel editCentreInfo;
     private javax.swing.JPanel formBackground;
@@ -1157,13 +1156,11 @@ public class PersonnelCentreDetail extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;

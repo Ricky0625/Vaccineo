@@ -4,6 +4,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.table.DefaultTableModel;
+import classes.GeneralFunction;
+import classes.People;
+import classes.Vaccine;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,14 +24,19 @@ import javax.swing.table.DefaultTableModel;
  */
 public class test extends javax.swing.JFrame {
 
-    /**
-     * Creates new form test
-     */
-    public test() {
+    GeneralFunction gf = new GeneralFunction();
+    People p = new People();
+    Vaccine vac = new Vaccine();
+    
+    ArrayList<ArrayList<String>> peopleList, vaccineList;
+    
+    public test() throws FileNotFoundException, IOException {
         initComponents();
-        
-        String path = "appointment.txt";
-        File file = new File(path);
+        //p.generatePeopleList();
+        vac.generateVaccineList();
+        //peopleList = p.getPeopleList();
+        vaccineList = vac.getVaccineList();
+        gf.writeIntoFile(vaccineList, "test.txt");
         
     }
 
@@ -40,6 +52,11 @@ public class test extends javax.swing.JFrame {
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -54,6 +71,10 @@ public class test extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -85,7 +106,11 @@ public class test extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new test().setVisible(true);
+                try {
+                    new test().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

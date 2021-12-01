@@ -1,5 +1,2 @@
-ic/passport;date;time;centre;status;vaccine;dose;complete;serial_number
-1234556;23/12/2021;0900;Bukit Jalil Stadium;Pending;Phizer;1;Yes;-
-1234556;23/12/2021;0900;Bukit Jalil Stadium;Pending;-;2;No;-
-456;23/12/2021;1000;UPM;-;-;-;-;-
-1234;23/12/2021;0900;UPM;pending;-;-;-;-
+IC/Passport;Date;Time;Centre;Status;Vaccine;Dose;Complete;Serial Number
+000625131095;3/12/2021;-;Bukit Jalil Stadium;pending;-;1;No;-

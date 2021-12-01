@@ -757,6 +757,11 @@ public class PersonnelViewVaccine extends javax.swing.JFrame {
 
         editVacInfo.setBackground(new java.awt.Color(0, 109, 119));
         editVacInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        editVacInfo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editVacInfoMouseClicked(evt);
+            }
+        });
 
         jLabel36.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel36.setForeground(new java.awt.Color(255, 255, 255));
@@ -1016,6 +1021,12 @@ public class PersonnelViewVaccine extends javax.swing.JFrame {
             Logger.getLogger(PersonnelViewVaccine.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formWindowOpened
+
+    private void editVacInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editVacInfoMouseClicked
+        PersonnelEditVaccine pev = new PersonnelEditVaccine(vacId.getText(), vaccineName.getText());
+        pev.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_editVacInfoMouseClicked
 
     /**
      * @param args the command line arguments

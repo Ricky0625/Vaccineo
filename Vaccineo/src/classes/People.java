@@ -189,7 +189,6 @@ public class People {
         return peopleList;
     }
 
-    // username;password;IC/passport;name;dob;address;state;country;postcode;gender;category
     public void searchUser(ArrayList<ArrayList<String>> list, String id) {
         for (int i = 1; i < list.size(); i++) {
             for (int j = 0; j < list.get(i).size(); j++) {
@@ -214,5 +213,27 @@ public class People {
                 }
             }
         }
+    }
+    
+    public boolean searchUserById(ArrayList<ArrayList<String>> list, String id) {
+        boolean exist = false;
+        for (int i = 1; i < list.size(); i++) {
+            if(list.get(i).get(2).equals(id)) {
+                exist = true;
+            }
+        }
+        return exist;
+    }
+    
+    public int countNotRegistered() throws FileNotFoundException {
+        int total = 0;
+        generatePeopleList();
+        for (int i = 1; i < peopleList.size(); i++) {
+            if (peopleList.get(i).get(11).equals("Not Registered")) {
+                total++;
+            }
+        }
+
+        return total;
     }
 }

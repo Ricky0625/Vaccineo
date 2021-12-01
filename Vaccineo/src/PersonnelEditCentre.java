@@ -72,6 +72,7 @@ public class PersonnelEditCentre extends javax.swing.JFrame {
         jLabel34 = new javax.swing.JLabel();
         savePeopleInfo1 = new javax.swing.JPanel();
         jLabel35 = new javax.swing.JLabel();
+        centreNameHidden = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1440, 800));
@@ -425,6 +426,11 @@ public class PersonnelEditCentre extends javax.swing.JFrame {
         jLabel35.setForeground(new java.awt.Color(226, 149, 120));
         jLabel35.setText("Cancel");
         jLabel35.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel35.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel35MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout savePeopleInfo1Layout = new javax.swing.GroupLayout(savePeopleInfo1);
         savePeopleInfo1.setLayout(savePeopleInfo1Layout);
@@ -443,6 +449,10 @@ public class PersonnelEditCentre extends javax.swing.JFrame {
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
+        centreNameHidden.setBackground(new java.awt.Color(237, 246, 249));
+        centreNameHidden.setForeground(new java.awt.Color(237, 246, 249));
+        centreNameHidden.setText("jLabel2");
+
         javax.swing.GroupLayout formBackgroundLayout = new javax.swing.GroupLayout(formBackground);
         formBackground.setLayout(formBackgroundLayout);
         formBackgroundLayout.setHorizontalGroup(
@@ -452,7 +462,10 @@ public class PersonnelEditCentre extends javax.swing.JFrame {
                 .addGap(50, 50, 50)
                 .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(centreNameLbl)
+                    .addGroup(formBackgroundLayout.createSequentialGroup()
+                        .addComponent(centreNameLbl)
+                        .addGap(42, 42, 42)
+                        .addComponent(centreNameHidden))
                     .addComponent(jLabel8)
                     .addComponent(jLabel18)
                     .addComponent(centreNameTf, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -480,7 +493,9 @@ public class PersonnelEditCentre extends javax.swing.JFrame {
                 .addGap(45, 45, 45)
                 .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16)
-                .addComponent(centreNameLbl)
+                .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(centreNameLbl)
+                    .addComponent(centreNameHidden))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -595,6 +610,7 @@ public class PersonnelEditCentre extends javax.swing.JFrame {
         try {
             c.generateCentreList();
             c.searchCentreById(centreId);
+            centreNameHidden.setText(c.getCentreName());
             centreNameTf.setText(c.getCentreName());
             centreStreetTf.setText(c.getStreet());
             centreStateTf.setText(c.getState());
@@ -604,6 +620,12 @@ public class PersonnelEditCentre extends javax.swing.JFrame {
             Logger.getLogger(PersonnelEditCentre.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formWindowOpened
+
+    private void jLabel35MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel35MouseClicked
+        PersonnelCentreDetail pcd = new PersonnelCentreDetail(centreNameHidden.getText());
+        pcd.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel35MouseClicked
 
     /**
      * @param args the command line arguments
@@ -643,6 +665,7 @@ public class PersonnelEditCentre extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backBtn;
     private javax.swing.JLabel centreCountryLbl;
+    private javax.swing.JLabel centreNameHidden;
     private javax.swing.JLabel centreNameLbl;
     private javax.swing.JTextField centreNameTf;
     private javax.swing.JTextField centrePostcodeTf;

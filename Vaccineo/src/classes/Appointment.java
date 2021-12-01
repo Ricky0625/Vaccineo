@@ -52,77 +52,86 @@ public class Appointment {
     private void cancelAppointment() {
 
     }
-    
+
     public void setPeopleId(String id) {
         this.id = id;
     }
-    
+
     public String getPeopleId() {
         return id;
     }
-    
+
     public void setAppointmentDate(String appDate) throws ParseException {
-        Date formattedDate = new SimpleDateFormat("dd/MM/yyyy").parse(appDate);
-        this.appDate = formattedDate;
+        if ("-".equals(appDate)) {
+            this.appDate = null;
+            System.out.println(appDate);
+        } else {
+            Date formattedDate = new SimpleDateFormat("dd/MM/yyyy").parse(appDate);
+            this.appDate = formattedDate;
+        }
     }
-    
+
     public String getAppointmentDate() {
-        Date oriAppDate = appDate;
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String formattedDate = formatter.format(oriAppDate);
-        return formattedDate;
+        if (appDate == null) {
+            return null;
+        } else {
+            Date oriAppDate = appDate;
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            String formattedDate = formatter.format(oriAppDate);
+            return formattedDate;
+        }
     }
-    
+
     public Date getAppointmentDateInDate() {
         return appDate;
     }
-    
+
     /*time setter and getter*/
-    
     public void setVenue(String venue) {
         this.venue = venue;
     }
-    
+
     public String getVenue() {
         return venue;
     }
-       //ic/passport;date;time;centre;status;vaccine;dose;complete;serial_number
+    //ic/passport;date;time;centre;status;vaccine;dose;complete;serial_number
+
     public void setAppointmentStatus(String appStatus) {
         this.appStatus = appStatus;
     }
-    
+
     public String getAppointmentStatus() {
         return appStatus;
     }
-    
+
     public void setVaccine(String vacName) {
         this.vacName = vacName;
     }
-    
+
     public String getVaccine() {
         return vacName;
     }
-    
+
     public void setDose(String dose) {
         this.dose = dose;
     }
-    
+
     public String getDose() {
         return dose;
     }
-    
+
     public void setCompleted(String completed) {
         this.completed = completed;
     }
-    
+
     public String getCompleted() {
         return completed;
     }
-    
+
     public void setVacSerialNo(String vacSN) {
         vacSerialNo = vacSN;
     }
-    
+
     public String getVacSerialNo() {
         return vacSerialNo;
     }
@@ -131,18 +140,38 @@ public class Appointment {
         return data;
     }
 
-    public void checkAppointmentExist(String id) {
-        GeneralFunction gf = new GeneralFunction();
-    }
-    
     public boolean checkDose(int doseNum, String id) throws FileNotFoundException, ParseException {
         boolean exist = false;
         generateAppointmentList();
-        
+
         for (int i = 1; i < appointmentList.size(); i++) {
             if (appointmentList.get(i).get(0).equals(id) && appointmentList.get(i).get(6).equals(Integer.toString(doseNum))) {
                 exist = true;
-                for(int j = 0; j < appointmentList.get(i).size(); j++) {
+                for (int j = 0; j < appointmentList.get(i).size(); j++) {
+                    // ic/passport;date;time;centre;status;vaccine;dose;complete;serial_number
+                    setPeopleId(appointmentList.get(i).get(0));
+                    setAppointmentDate(appointmentList.get(i).get(1));
+                    setVenue(appointmentList.get(i).get(3));
+                    setAppointmentStatus(appointmentList.get(i).get(4));
+                    setVaccine(appointmentList.get(i).get(5));
+                    setDose(appointmentList.get(i).get(6));
+                    setCompleted(appointmentList.get(i).get(7));
+                    setVacSerialNo(appointmentList.get(i).get(8));
+                }
+            }
+        }
+
+        return exist;
+    }
+    
+    public boolean checkNoDate(int doseNum, String id) throws FileNotFoundException, ParseException {
+        boolean noDate = true;
+        generateAppointmentList();
+        
+        for (int i = 1; i < appointmentList.size(); i++) {
+            if (appointmentList.get(i).get(0).equals(id) && appointmentList.get(i).get(6).equals(Integer.toString(doseNum)) && appointmentList.get(i).get(1) != "-") {
+                noDate = false;
+                for (int j = 0; j < appointmentList.get(i).size(); j++) {
                     // ic/passport;date;time;centre;status;vaccine;dose;complete;serial_number
                     setPeopleId(appointmentList.get(i).get(0));
                     setAppointmentDate(appointmentList.get(i).get(1));
@@ -156,7 +185,26 @@ public class Appointment {
             }
         }
         
-        return exist;
+        return noDate;
+    }
+
+    public void setAppointmentValue(int doseNum, String id) throws FileNotFoundException, ParseException {
+        generateAppointmentList();
+
+        for (int i = 1; i < appointmentList.size(); i++) {
+            if (appointmentList.get(i).get(0).equals(id) && appointmentList.get(i).get(6).equals(Integer.toString(doseNum))) {
+                for (int j = 0; j < appointmentList.get(i).size(); j++) {
+                    setPeopleId(appointmentList.get(i).get(0));
+                    setAppointmentDate(appointmentList.get(i).get(1));
+                    setVenue(appointmentList.get(i).get(3));
+                    setAppointmentStatus(appointmentList.get(i).get(4));
+                    setVaccine(appointmentList.get(i).get(5));
+                    setDose(appointmentList.get(i).get(6));
+                    setCompleted(appointmentList.get(i).get(7));
+                    setVacSerialNo(appointmentList.get(i).get(8));
+                }
+            }
+        }
     }
 
     /*
@@ -168,23 +216,29 @@ public class Appointment {
     5. appointment count ic/passport == 2 and got dose 2 date and completed, means done 2nd dose
     6. appointment count ic/passport == 2 and got does 2 date and not yet completed, means waiting for 2nd dose
      */
-    public void searchAppointment(ArrayList<ArrayList<String>> list, int searchIndex, String condition) {
-        int count = 0;
-
+    public boolean searchAppointmentByCentre(ArrayList<ArrayList<String>> list, String centreName, String peopleId) throws ParseException {
+        boolean exist = false;
         for (int i = 1; i < list.size(); i++) {
-            if (list.get(i).get(searchIndex).equals(condition)) {
-                int doseNo;
-                String doseCompleted;
-                doseNo = Integer.parseInt(list.get(i).get(6));
-                doseCompleted = list.get(i).get(7);
-                //System.out.println(doseNo);
-                //System.out.println(doseCompleted);
-            } else {
-                // System.out.println("Not found");
+            if (list.get(i).get(3).equals(centreName)) {
+                for (int j = 0; j < list.get(i).size(); j++) {
+                    // search using peopleId
+                    String targetId = list.get(i).get(0);
+                    // set values
+                    if (targetId.equals(peopleId)) {
+                        setPeopleId(appointmentList.get(i).get(0));
+                        setAppointmentDate(appointmentList.get(i).get(1));
+                        setVenue(appointmentList.get(i).get(3));
+                        setAppointmentStatus(appointmentList.get(i).get(4));
+                        setVaccine(appointmentList.get(i).get(5));
+                        setDose(appointmentList.get(i).get(6));
+                        setCompleted(appointmentList.get(i).get(7));
+                        setVacSerialNo(appointmentList.get(i).get(8));
+                        exist = true;
+                    }
+                }
             }
         }
-
-        // return count;
+        return exist;
     }
 
     public void generateAppointmentList() throws FileNotFoundException {
@@ -195,53 +249,61 @@ public class Appointment {
     public ArrayList<ArrayList<String>> getAppointmentList() {
         return appointmentList;
     }
-    
-    public int countNotRegistered() throws FileNotFoundException {
-        int total = 0;
-        generateAppointmentList();
-        for(int i = 1; i < appointmentList.size(); i++) {
-            if (appointmentList.get(i).get(6).equals("-")) {
-                total++;
-            }
-        }
-        
-        return total;
-    }
-    
+
     public int countTotalAppointment() throws FileNotFoundException {
         int total = 0;
         generateAppointmentList();
-        for(int i = 1; i < appointmentList.size(); i++) {
+        for (int i = 1; i < appointmentList.size(); i++) {
             if (!"-".equals(appointmentList.get(i).get(6))) {
                 total++;
             }
         }
-        
+
         return total;
     }
-    
+
     public int countDoseCompleted(int doseNum) throws FileNotFoundException {
         int total = 0;
         generateAppointmentList();
-        for(int i = 1; i < appointmentList.size(); i++) {
+        for (int i = 1; i < appointmentList.size(); i++) {
             if (appointmentList.get(i).get(6).equals(Integer.toString(doseNum)) && appointmentList.get(i).get(7).equals("Yes")) {
                 total++;
             }
         }
-        
+
         return total;
     }
-    
+
     public int countTotalAppointmentByCentre(String centreName) throws FileNotFoundException {
         int total = 0;
         generateAppointmentList();
-        
+
         for (int i = 1; i < appointmentList.size(); i++) {
             if (appointmentList.get(i).get(3).equals(centreName)) {
                 total++;
             }
         }
-        
+
         return total;
+    }
+
+    public int checkAppointmentStatus(String peopleId, String doseNum) throws FileNotFoundException {
+        generateAppointmentList();
+        int reschedule = 0;
+
+        for (int i = 1; i < appointmentList.size(); i++) {
+            if (appointmentList.get(i).get(0).equals(peopleId) && appointmentList.get(i).get(6).equals(doseNum)) {
+                String status = appointmentList.get(i).get(4);
+                if ("accepted".equals(status)) {
+                    reschedule = 0;
+                } else if ("pending".equals(status)) {
+                    reschedule = -1;
+                } else {
+                    reschedule = 0;
+                }
+            }
+        }
+
+        return reschedule;
     }
 }

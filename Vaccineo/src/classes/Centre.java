@@ -110,6 +110,16 @@ public class Centre {
         }
     }
     
+    public String getCentreIdByName(String centreName) {
+        String centreId = "";
+        for (int i = 1; i< centreList.size(); i++) {
+            if (centreList.get(i).get(1).equals(centreName)) {
+                centreId = centreList.get(i).get(0);
+            }
+        }
+        return centreId;
+    }
+    
     public Object[] getAllCentreName() throws FileNotFoundException {
         generateCentreList();
         Object allCentreName[] = new Object[centreList.size() - 1];

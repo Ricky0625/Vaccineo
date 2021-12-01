@@ -1,5 +1,6 @@
 
 import classes.Appointment;
+import classes.Centre;
 import classes.GeneralFunction;
 import classes.People;
 import java.awt.Color;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -38,8 +40,8 @@ public class PersonnelPeople extends javax.swing.JFrame {
     GeneralFunction gf = new GeneralFunction();
     Appointment ap = new Appointment();
     People ppl = new People();
-    ArrayList<ArrayList<String>> peopleList;
-    ArrayList<ArrayList<String>> appointmentList;
+    Centre c = new Centre();
+    ArrayList<ArrayList<String>> appointmentList, centreList, peopleList;
 
     public PersonnelPeople() {
         initComponents();
@@ -117,6 +119,8 @@ public class PersonnelPeople extends javax.swing.JFrame {
         secDoseDone = new javax.swing.JLabel();
         scheduleAppointment = new javax.swing.JPanel();
         jLabel39 = new javax.swing.JLabel();
+        registerVaccination = new javax.swing.JPanel();
+        jLabel40 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1400, 800));
@@ -217,14 +221,6 @@ public class PersonnelPeople extends javax.swing.JFrame {
         ppPanel.setBackground(new java.awt.Color(131, 197, 190));
         ppPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ppPanel.setPreferredSize(new java.awt.Dimension(300, 65));
-        ppPanel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ppPanelMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                ppPanelMouseExited(evt);
-            }
-        });
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -579,14 +575,14 @@ public class PersonnelPeople extends javax.swing.JFrame {
             .addGroup(editPeopleInfoLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jLabel36)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGap(26, 26, 26))
         );
         editPeopleInfoLayout.setVerticalGroup(
             editPeopleInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(editPeopleInfoLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jLabel36)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addGap(12, 12, 12))
         );
 
         secDosePanel.setBackground(new java.awt.Color(237, 246, 249));
@@ -645,12 +641,9 @@ public class PersonnelPeople extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(secDosePanelLayout.createSequentialGroup()
                         .addGroup(secDosePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(secDosePanelLayout.createSequentialGroup()
-                                .addComponent(secDoseLocation)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 227, Short.MAX_VALUE))
-                            .addGroup(secDosePanelLayout.createSequentialGroup()
-                                .addComponent(secDoseLbl)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(secDoseLocation)
+                            .addComponent(secDoseLbl))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 227, Short.MAX_VALUE)
                         .addComponent(secDoseDone)
                         .addGap(50, 50, 50))))
         );
@@ -699,6 +692,35 @@ public class PersonnelPeople extends javax.swing.JFrame {
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
+        registerVaccination.setBackground(new java.awt.Color(0, 109, 119));
+        registerVaccination.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        registerVaccination.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                registerVaccinationMouseClicked(evt);
+            }
+        });
+
+        jLabel40.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel40.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel40.setText("Register for Vaccination");
+
+        javax.swing.GroupLayout registerVaccinationLayout = new javax.swing.GroupLayout(registerVaccination);
+        registerVaccination.setLayout(registerVaccinationLayout);
+        registerVaccinationLayout.setHorizontalGroup(
+            registerVaccinationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(registerVaccinationLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel40)
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+        registerVaccinationLayout.setVerticalGroup(
+            registerVaccinationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(registerVaccinationLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(jLabel40)
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout formBackgroundLayout = new javax.swing.GroupLayout(formBackground);
         formBackground.setLayout(formBackgroundLayout);
         formBackgroundLayout.setHorizontalGroup(
@@ -707,11 +729,6 @@ public class PersonnelPeople extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(80, 80, 80)
                 .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(formBackgroundLayout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(formBackgroundLayout.createSequentialGroup()
                         .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -732,6 +749,12 @@ public class PersonnelPeople extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formBackgroundLayout.createSequentialGroup()
                         .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(formBackgroundLayout.createSequentialGroup()
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(registerVaccination, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(formBackgroundLayout.createSequentialGroup()
                                 .addComponent(firstDosePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
@@ -756,12 +779,15 @@ public class PersonnelPeople extends javax.swing.JFrame {
                         .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(pplName)
-                            .addComponent(editPeopleInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(20, 20, 20)
-                        .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(formBackgroundLayout.createSequentialGroup()
+                                .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(pplName)
+                                    .addComponent(editPeopleInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(20, 20, 20)
+                                .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(registerVaccination, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(14, 14, 14)
                         .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(idLabel)
@@ -814,14 +840,6 @@ public class PersonnelPeople extends javax.swing.JFrame {
     private void dbPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dbPanelMouseExited
         dbPanel.setBackground(priColor);
     }//GEN-LAST:event_dbPanelMouseExited
-
-    private void ppPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ppPanelMouseEntered
-        ppPanel.setBackground(secColor);
-    }//GEN-LAST:event_ppPanelMouseEntered
-
-    private void ppPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ppPanelMouseExited
-        ppPanel.setBackground(priColor);
-    }//GEN-LAST:event_ppPanelMouseExited
 
     private void vaPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vaPanelMouseEntered
         vaPanel.setBackground(secColor);
@@ -876,10 +894,12 @@ public class PersonnelPeople extends javax.swing.JFrame {
         firstDoseVacPanel.setVisible(false);
 
         try {
-            // Generate the peopleList when the form opened
+            // fetch data
             ppl.generatePeopleList();
-            // Set the generated peopleList to the variable
             peopleList = ppl.getPeopleList();
+            c.generateCentreList();
+            centreList = c.getCentreList();
+
             // Set the value or the labels (people detail)
             ppl.searchUser(peopleList, id);
             pplName.setText(ppl.getName());
@@ -889,6 +909,12 @@ public class PersonnelPeople extends javax.swing.JFrame {
             pplAge.setText(Integer.toString(ppl.getAge()));
             pplAddress.setText(ppl.getAddress());
             vacStatus.setText(ppl.getVaccinationStatus());
+
+            if ("Not Registered".equals(ppl.getVaccinationStatus())) {
+                registerVaccination.setVisible(true);
+            } else {
+                registerVaccination.setVisible(false);
+            }
 
             ap.generateAppointmentList();
             appointmentList = ap.getAppointmentList();
@@ -905,27 +931,32 @@ public class PersonnelPeople extends javax.swing.JFrame {
                     firstDosePanel.setVisible(true);
                     firstDoseLocation.setText(ap1.getVenue());
                     // time haven't set
-                    firstDoseDate.setText(ap1.getAppointmentDate());
-                    
+                    if (ap1.getAppointmentDate() == null) {
+                        firstDoseDate.setText("-");
+                        scheduleAppointment.setVisible(true);
+                    } else {
+                        firstDoseDate.setText(ap1.getAppointmentDate());
+                    }
+
                     String vacName = ap1.getVaccine();
-                    if(!"-".equals(vacName)) {
+                    if (!"-".equals(vacName)) {
                         firstDoseVacPanel.setVisible(true);
                         firstDoseVac.setText(vacName);
-                    } else{
+                    } else {
                         firstDoseVacPanel.setVisible(false);
                     }
-                    
+
                     String completed = ap1.getCompleted();
-                    if(completed.equals("Yes")){
+                    if (completed.equals("Yes")) {
                         firstDoseDone.setVisible(true);
                     }
                 } else {
-                    scheduleAppointment.setVisible(true);
+                    // scheduleAppointment.setVisible(true);
                 }
             } catch (ParseException ex) {
                 Logger.getLogger(PersonnelPeople.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
             boolean secDoseExist;
             try {
                 secDoseExist = ap2.checkDose(2, id);
@@ -933,18 +964,22 @@ public class PersonnelPeople extends javax.swing.JFrame {
                     secDosePanel.setVisible(true);
                     secDoseLocation.setText(ap2.getVenue());
                     // time haven't set
-                    secDoseDate.setText(ap2.getAppointmentDate());
-                    
+                    if (ap2.getAppointmentDate() == null) {
+                        secDoseDate.setText("-");
+                    } else {
+                        secDoseDate.setText(ap2.getAppointmentDate());
+                    }
+
                     String vacName = ap2.getVaccine();
-                    if(!"-".equals(vacName)) {
+                    if (!"-".equals(vacName)) {
                         secDoseVacPanel.setVisible(true);
                         secDoseVac.setText(vacName);
-                    } else{
+                    } else {
                         secDoseVacPanel.setVisible(false);
                     }
-                    
+
                     String completed = ap2.getCompleted();
-                    if(completed.equals("Yes")){
+                    if (completed.equals("Yes")) {
                         secDoseDone.setVisible(true);
                     }
                 }
@@ -965,8 +1000,40 @@ public class PersonnelPeople extends javax.swing.JFrame {
     }//GEN-LAST:event_editPeopleInfoMouseClicked
 
     private void scheduleAppointmentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scheduleAppointmentMouseClicked
-        // TODO add your handling code here:
+        String vaccinationStatus = vacStatus.getText();
+        if (vaccinationStatus.equals("Not Registered")) {
+            JOptionPane.showMessageDialog(this, "Please register for vaccination first!", "Error Message", JOptionPane.ERROR_MESSAGE);
+        } else {
+            PersonnelAddAppointment paa = new PersonnelAddAppointment(firstDoseLocation.getText(), pplId.getText());
+            paa.setVisible(true);
+            this.setVisible(false);
+
+//            try {
+//                // combo box elements
+//                Object[] centreName = c.getAllCentreName();
+//                // combo box to choose centre
+//                JComboBox cb = new JComboBox(centreName);
+//
+//                // joption pane
+//                int input;
+//                input = JOptionPane.showConfirmDialog(this, cb, "Add new appointment for...", JOptionPane.DEFAULT_OPTION);
+//
+//                // get selected item
+//                if (input == JOptionPane.OK_OPTION) {
+//                    String selected = (String) cb.getSelectedItem();
+//                    PersonnelAddAppointment paa = new PersonnelAddAppointment(selected, pplId.getText());
+//                    paa.setVisible(true);
+//                    this.setVisible(false);
+//                }
+//            } catch (FileNotFoundException ex) {
+//                Logger.getLogger(PersonnelDashboard.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+        }
     }//GEN-LAST:event_scheduleAppointmentMouseClicked
+
+    private void registerVaccinationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerVaccinationMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registerVaccinationMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1033,6 +1100,7 @@ public class PersonnelPeople extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
+    private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
@@ -1048,6 +1116,7 @@ public class PersonnelPeople extends javax.swing.JFrame {
     private javax.swing.JLabel pplGender;
     private javax.swing.JLabel pplId;
     private javax.swing.JLabel pplName;
+    private javax.swing.JPanel registerVaccination;
     private javax.swing.JPanel scheduleAppointment;
     private javax.swing.JLabel secDoseDate;
     private javax.swing.JLabel secDoseDone;

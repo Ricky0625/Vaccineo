@@ -1,5 +1,6 @@
 
 import classes.Appointment;
+import classes.Centre;
 import classes.GeneralFunction;
 import classes.People;
 import java.awt.Color;
@@ -34,16 +35,21 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
 
 public class PersonnelViewAppointment extends javax.swing.JFrame {
-    
+
     Color priColor = new Color(0, 109, 119);
     Color secColor = new Color(131, 197, 190);
     Color bgColor = new Color(237, 246, 249);
 
     String centreName;
+    String centreId;
+    String peopleId;
+    String appStatus;
     GeneralFunction gf = new GeneralFunction();
+    Centre c = new Centre();
     Appointment ap = new Appointment();
     People ppl = new People();
-    ArrayList<ArrayList<String>> appointmentList;
+    ArrayList<ArrayList<String>> appointmentList, centreList;
+    JFrame PersonnelViewAppointment = this;
 
     public PersonnelViewAppointment() {
         initComponents();
@@ -73,6 +79,7 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
         this.centreName = centreName;
         appointmentTable.addMouseListener(new MouseAdapter() {
             String value;
+            String doseNum;
 
             @Override
             public void mouseClicked(MouseEvent me) {
@@ -82,8 +89,12 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
                     int row = target.getSelectedRow(); // select a row
                     // int column = target.getSelectedColumn(); // select a column                
                     value = (String) appointmentTable.getValueAt(row, 0);
-                    ppl.setId(value);
-                    // System.out.println(ppl.getId());
+                    doseNum = (String) appointmentTable.getValueAt(row, 6);
+                    
+                    // pass to next jframe
+                    PersonnelEditAppointment pea = new PersonnelEditAppointment(centreId, value, doseNum);
+                    pea.setVisible(true);
+                    PersonnelViewAppointment.setVisible(false);
                 }
             }
         });
@@ -152,9 +163,20 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
         jLabel1.setMaximumSize(new java.awt.Dimension(154, 41));
         jLabel1.setMinimumSize(new java.awt.Dimension(154, 41));
 
-        dbPanel.setBackground(new java.awt.Color(131, 197, 190));
+        dbPanel.setBackground(new java.awt.Color(0, 109, 119));
         dbPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         dbPanel.setPreferredSize(new java.awt.Dimension(300, 65));
+        dbPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                dbPanelMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                dbPanelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                dbPanelMouseExited(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -261,21 +283,10 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        cnPanel.setBackground(new java.awt.Color(0, 109, 119));
+        cnPanel.setBackground(new java.awt.Color(131, 197, 190));
         cnPanel.setToolTipText("Centre");
         cnPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cnPanel.setPreferredSize(new java.awt.Dimension(300, 65));
-        cnPanel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cnPanelMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                cnPanelMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                cnPanelMouseExited(evt);
-            }
-        });
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
@@ -478,7 +489,7 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
 
     selectAppointmentView.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
     selectAppointmentView.setForeground(new java.awt.Color(0, 109, 119));
-    selectAppointmentView.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Waiting for 1st Dose", "Waiting for 2nd Dose" }));
+    selectAppointmentView.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "pending", "accepted", "cancelled" }));
     selectAppointmentView.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             selectAppointmentViewActionPerformed(evt);
@@ -629,20 +640,6 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
         ppPanel.setBackground(gf.priColor);
     }//GEN-LAST:event_ppPanelMouseExited
 
-    private void cnPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cnPanelMouseClicked
-        PersonnelCentre pc = new PersonnelCentre();
-        this.setVisible(false);
-        pc.setVisible(true);
-    }//GEN-LAST:event_cnPanelMouseClicked
-
-    private void cnPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cnPanelMouseEntered
-        cnPanel.setBackground(gf.secColor);
-    }//GEN-LAST:event_cnPanelMouseEntered
-
-    private void cnPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cnPanelMouseExited
-        cnPanel.setBackground(gf.priColor);
-    }//GEN-LAST:event_cnPanelMouseExited
-
     private void vaPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vaPanelMouseClicked
         PersonnelVaccine pv = new PersonnelVaccine();
         this.setVisible(false);
@@ -659,6 +656,10 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         try {
+            c.generateCentreList();
+            centreList = c.getCentreList();
+            c.searchCentre(centreName);
+            centreId = c.getCentreId();
             ap.generateAppointmentList();
             appointmentList = ap.getAppointmentList();
             centreFullName.setText(centreName);
@@ -668,54 +669,55 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
         }
 
         gf.tableLoaderEquals(appointmentTable, appointmentList, 3, centreName);
-        //gf.tableLoader(appointmentTable, appointmentList);
         gf.tableRowClicked(appointmentTable);
-//        appointmentTable.addMouseListener(new MouseAdapter() {
-//            public void mouseClicked(MouseEvent me) {
-//                if (me.getClickCount() == 2) {     // to detect doble click events
-//                    JTable target = (JTable) me.getSource();
-//                    int row = target.getSelectedRow(); // select a row
-//                    //int column = target.getSelectedColumn(); // select a column
-//                    System.out.println(appointmentTable.getValueAt(row, 0));
-//                }
-//            }
-//
-//        });
+
     }//GEN-LAST:event_formWindowOpened
 
     private void searchUserKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchUserKeyReleased
         String searchTerm = searchUser.getText();
         selectAppointmentView.setSelectedIndex(0);
         gf.refreshTable(appointmentTable);
-        gf.tableLoaderStartsWith(appointmentTable, appointmentList, searchTerm, 0);
+        gf.tableLoaderStartsWith(appointmentTable, appointmentList, 0, searchTerm, 3, centreFullName.getText());
 
     }//GEN-LAST:event_searchUserKeyReleased
 
     private void selectAppointmentViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectAppointmentViewActionPerformed
+//        JComboBox selectAppointmentView = (JComboBox) evt.getSource();
+//
+//        int index = selectAppointmentView.getSelectedIndex();
+//
+//        switch (index) {
+//            case (0) -> {
+//                gf.refreshTable(appointmentTable);
+//                //gf.tableLoader(appointmentTable, appointmentList);
+//                /*Need extra attention*/
+//                gf.tableLoaderEquals(appointmentTable, appointmentList, 3, "Bukit Jalil");
+//            }
+//            case (1) -> {
+//                gf.refreshTable(appointmentTable);
+//                //gf.tableLoaderEquals(appointmentTable, appointmentList, 6, "-");
+//                /*Need extra attention*/
+//                gf.tableLoaderEqualsMore(appointmentTable, appointmentList, 6, "-", 3, "Bukit Jalil");
+//            }
+//            case (2) -> {
+//                gf.refreshTable(appointmentTable);
+//                //gf.tableLoaderEquals(appointmentTable, appointmentList, 6, "1");
+//                /*Need extra attention*/
+//                gf.tableLoaderEqualsMore(appointmentTable, appointmentList, 6, "1", 3, "Bukit Jalil");
+//            }
+//
+//        }
+
         JComboBox selectAppointmentView = (JComboBox) evt.getSource();
 
         int index = selectAppointmentView.getSelectedIndex();
-
-        switch (index) {
-            case (0) -> {
-                gf.refreshTable(appointmentTable);
-                //gf.tableLoader(appointmentTable, appointmentList);
-                /*Need extra attention*/
-                gf.tableLoaderEquals(appointmentTable, appointmentList, 3, "Bukit Jalil");
-            }
-            case (1) -> {
-                gf.refreshTable(appointmentTable);
-                //gf.tableLoaderEquals(appointmentTable, appointmentList, 6, "-");
-                /*Need extra attention*/
-                gf.tableLoaderEqualsMore(appointmentTable, appointmentList, 6, "-", 3, "Bukit Jalil");
-            }
-            case (2) -> {
-                gf.refreshTable(appointmentTable);
-                //gf.tableLoaderEquals(appointmentTable, appointmentList, 6, "1");
-                /*Need extra attention*/
-                gf.tableLoaderEqualsMore(appointmentTable, appointmentList, 6, "1", 3, "Bukit Jalil");
-            }
-
+        if (index != 0) {
+            String selectedStatus = (String) selectAppointmentView.getSelectedItem();
+            gf.refreshTable(appointmentTable);
+            gf.tableLoaderEqualsMore(appointmentTable, appointmentList, 3, centreName, 4, selectedStatus);
+        } else {
+            gf.refreshTable(appointmentTable);
+            gf.tableLoaderEquals(appointmentTable, appointmentList, 3, centreName);
         }
 
 
@@ -726,6 +728,20 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
         pcd.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_backBtnMouseClicked
+
+    private void dbPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dbPanelMouseEntered
+        dbPanel.setBackground(secColor);
+    }//GEN-LAST:event_dbPanelMouseEntered
+
+    private void dbPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dbPanelMouseClicked
+        PersonnelDashboard pd = new PersonnelDashboard();
+        pd.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_dbPanelMouseClicked
+
+    private void dbPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dbPanelMouseExited
+        dbPanel.setBackground(priColor);
+    }//GEN-LAST:event_dbPanelMouseExited
 
     /**
      * @param args the command line arguments
