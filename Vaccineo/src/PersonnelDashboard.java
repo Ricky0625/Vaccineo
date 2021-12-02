@@ -17,6 +17,8 @@ import classes.GeneralFunction;
 import classes.Appointment;
 import classes.Centre;
 import classes.People;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,6 +38,7 @@ public class PersonnelDashboard extends javax.swing.JFrame {
     People p = new People();
     ArrayList<ArrayList<String>> peopleList;
     ArrayList<ArrayList<String>> centreList;
+    JFrame PersonnelDashboard = this;
 
     public PersonnelDashboard() {
         initComponents();
@@ -43,7 +46,21 @@ public class PersonnelDashboard extends javax.swing.JFrame {
         String str = "Universiti Malaya";
         String code = str.substring(0, 4);
         // System.out.println(code.toUpperCase());
-        
+
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                String ObjButtons[] = {"Yes", "No"};
+                int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Vaccineo", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+                if (PromptResult == JOptionPane.YES_OPTION) {
+                    Login log = new Login();
+                    log.setVisible(true);
+                    PersonnelDashboard.setVisible(false);
+                }
+            }
+        });
+
     }
 
     /**
@@ -993,7 +1010,7 @@ public class PersonnelDashboard extends javax.swing.JFrame {
             peopleList = p.getPeopleList();
             c.generateCentreList();
             centreList = c.getCentreList();
-            
+
             int totalAppointment = ap.countTotalAppointment();
             totalAppLabel.setText(Integer.toString(totalAppointment));
             int totalFirstDose = ap.countDoseCompleted(1);
@@ -1011,17 +1028,17 @@ public class PersonnelDashboard extends javax.swing.JFrame {
     private void seaPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seaPanelMouseClicked
 
         String value = JOptionPane.showInputDialog(this, "Enter IC/Passport No");
-        
+
         // get the input value
         boolean exist = p.searchUserById(peopleList, value);
-        if(exist){
+        if (exist) {
             PersonnelPeople pp = new PersonnelPeople(value);
             pp.setVisible(true);
             this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(this, "User not found!", "Error Message", JOptionPane.ERROR_MESSAGE);
         }
-        
+
     }//GEN-LAST:event_seaPanelMouseClicked
 
     private void cvPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cvPanelMouseClicked
@@ -1030,14 +1047,14 @@ public class PersonnelDashboard extends javax.swing.JFrame {
             Object[] centreName = c.getAllCentreName();
             // combo box to choose centre
             JComboBox cb = new JComboBox(centreName);
-            
+
             // joption pane
             int input;
-            input = JOptionPane.showConfirmDialog(this,cb,"Choose one centre",JOptionPane.DEFAULT_OPTION);
-            
+            input = JOptionPane.showConfirmDialog(this, cb, "Choose one centre", JOptionPane.DEFAULT_OPTION);
+
             // get selected item
-            if(input == JOptionPane.OK_OPTION) {
-                String selected = (String)cb.getSelectedItem();
+            if (input == JOptionPane.OK_OPTION) {
+                String selected = (String) cb.getSelectedItem();
                 String centreId = c.getCentreIdByName(selected);
                 PersonnelRemainingVaccine prv = new PersonnelRemainingVaccine(centreId);
                 prv.setVisible(true);
@@ -1054,14 +1071,14 @@ public class PersonnelDashboard extends javax.swing.JFrame {
             Object[] centreName = c.getAllCentreName();
             // combo box to choose centre
             JComboBox cb = new JComboBox(centreName);
-            
+
             // joption pane
             int input;
-            input = JOptionPane.showConfirmDialog(this,cb,"Choose one centre",JOptionPane.DEFAULT_OPTION);
-            
+            input = JOptionPane.showConfirmDialog(this, cb, "Choose one centre", JOptionPane.DEFAULT_OPTION);
+
             // get selected item
-            if(input == JOptionPane.OK_OPTION) {
-                String selected = (String)cb.getSelectedItem();
+            if (input == JOptionPane.OK_OPTION) {
+                String selected = (String) cb.getSelectedItem();
                 PersonnelViewAppointment pva = new PersonnelViewAppointment(selected);
                 pva.setVisible(true);
                 this.setVisible(false);
@@ -1077,14 +1094,14 @@ public class PersonnelDashboard extends javax.swing.JFrame {
             Object[] centreName = c.getAllCentreName();
             // combo box to choose centre
             JComboBox cb = new JComboBox(centreName);
-            
+
             // joption pane
             int input;
-            input = JOptionPane.showConfirmDialog(this,cb,"Add Vaccine supply for...",JOptionPane.DEFAULT_OPTION);
-            
+            input = JOptionPane.showConfirmDialog(this, cb, "Add Vaccine supply for...", JOptionPane.DEFAULT_OPTION);
+
             // get selected item
-            if(input == JOptionPane.OK_OPTION) {
-                String selected = (String)cb.getSelectedItem();
+            if (input == JOptionPane.OK_OPTION) {
+                String selected = (String) cb.getSelectedItem();
                 String targetId = c.getCentreIdByName(selected);
                 PersonnelVaccineSupply pvs = new PersonnelVaccineSupply(targetId);
                 pvs.setVisible(true);
@@ -1101,14 +1118,14 @@ public class PersonnelDashboard extends javax.swing.JFrame {
             Object[] centreName = c.getAllCentreName();
             // combo box to choose centre
             JComboBox cb = new JComboBox(centreName);
-            
+
             // joption pane
             int input;
-            input = JOptionPane.showConfirmDialog(this,cb,"Add new appointment for...",JOptionPane.DEFAULT_OPTION);
-            
+            input = JOptionPane.showConfirmDialog(this, cb, "Add new appointment for...", JOptionPane.DEFAULT_OPTION);
+
             // get selected item
-            if(input == JOptionPane.OK_OPTION) {
-                String selected = (String)cb.getSelectedItem();
+            if (input == JOptionPane.OK_OPTION) {
+                String selected = (String) cb.getSelectedItem();
                 PersonnelAddAppointment paa = new PersonnelAddAppointment(selected);
                 paa.setVisible(true);
                 this.setVisible(false);

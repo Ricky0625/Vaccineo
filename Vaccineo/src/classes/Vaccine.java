@@ -30,6 +30,7 @@ public class Vaccine {
     private double size;
     private int dose;
     private int expiryDuration;
+    private int waitingDuration;
     private final String remainingData;
     private final String vaccineData;
     ArrayList<ArrayList<String>> vaccineRemainingList;
@@ -45,6 +46,7 @@ public class Vaccine {
         batchSize = 0;
         size = 0;
         dose = 0;
+        waitingDuration = 0;
         remainingData = "vaccine_quantity.txt";
         vaccineData = "vaccine.txt";
     }
@@ -112,6 +114,14 @@ public class Vaccine {
     public int getDuration() {
         return expiryDuration;
     }
+    
+    public void setWaiting(int duration) {
+        waitingDuration = duration;
+    }
+
+    public int getWaiting() {
+        return waitingDuration;
+    }
 
     public void generateRemainingVaccineList() throws FileNotFoundException {
         GeneralFunction gf = new GeneralFunction();
@@ -172,6 +182,7 @@ public class Vaccine {
                     setSize(Double.valueOf(list.get(i).get(4)));
                     setDoseNeeded(Integer.valueOf(list.get(i).get(5)));
                     setDuration(Integer.valueOf(list.get(i).get(6)));
+                    setWaiting(Integer.valueOf(list.get(i).get(7)));
                 }
             }
         }
@@ -184,6 +195,7 @@ public class Vaccine {
                 // search using vac name
                 String searchId = list.get(i).get(1);
                 if (searchId.equals(vacName)) {
+                    //Id;Vaccine Name;Manufacturer;Batch Quantity;Size;Dose Needed;Expiry Duration;Waiting Period
                     setVacId(list.get(i).get(0));
                     setVacName(list.get(i).get(1));
                     setManufacturer(list.get(i).get(2));
@@ -191,6 +203,7 @@ public class Vaccine {
                     setSize(Double.valueOf(list.get(i).get(4)));
                     setDoseNeeded(Integer.valueOf(list.get(i).get(5)));
                     setDuration(Integer.valueOf(list.get(i).get(6)));
+                    setWaiting(Integer.valueOf(list.get(i).get(7)));
                 }
             }
         }
@@ -206,6 +219,16 @@ public class Vaccine {
         return allCentreName;
     }
     
+    public Object[] getAllVaccineId() throws FileNotFoundException {
+        generateVaccineList();
+        Object allCentreName[] = new Object[vaccineList.size() - 1];
+        for(int i = 1; i < vaccineList.size(); i++) {
+            allCentreName[i - 1] = vaccineList.get(i).get(0);
+        }
+        
+        return allCentreName;
+    }
+    
     public void writeIntoVaccineFile(ArrayList<ArrayList<String>> list) throws IOException {
         GeneralFunction gf = new GeneralFunction();
         gf.writeIntoFile(list, vaccineData);
@@ -214,5 +237,69 @@ public class Vaccine {
     public void writeIntoVaccineQuanFile(ArrayList<ArrayList<String>> list) throws IOException {
         GeneralFunction gf = new GeneralFunction();
         gf.writeIntoFile(list, remainingData);
+    }
+    
+    public String generateCode(String vaccineName) throws FileNotFoundException {
+        String saltChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        String theName = vaccineName;
+        String code;
+
+        StringBuilder salt = new StringBuilder();
+        Random rdm = new Random();
+
+        if (theName.length() == 2) {
+            // the code
+            salt.append(theName);
+
+            // generate one more char
+            int index = (int) (rdm.nextFloat() * saltChars.length());
+            salt.append(saltChars.charAt(index));
+
+            code = salt.toString().toUpperCase();
+        } else {
+            code = theName.substring(0, 3).toUpperCase();
+        }
+
+        // check if the generated code existed or not
+        Object[] vacId = getAllVaccineId();
+        for (Object theId : vacId) {
+            if (theId.equals(code)) {
+                String tempStr = theName.substring(0, 2).toUpperCase();
+                
+                salt.append(tempStr);
+                
+                // generate one more char
+                int index = (int) (rdm.nextFloat() * saltChars.length());
+                salt.append(saltChars.charAt(index));
+                
+                code = salt.toString().toUpperCase();
+            }
+        }
+
+        return code;
+    }
+    
+    public int getRecordIndex(String vacId) throws FileNotFoundException {
+        generateVaccineList();
+        
+        int targetIndex = -1;
+        for(int i = 0; i < vaccineList.size(); i++) {
+            if (vaccineList.get(i).get(0).equals(vacId)){
+                targetIndex = i;
+            }
+        }
+        return targetIndex;
+    }
+    
+    public int getRemainingRecordIndex(String vacSN) throws FileNotFoundException {
+        generateRemainingVaccineList();
+        
+        int targetIndex = -1;
+        for(int i = 0; i < vaccineRemainingList.size(); i++) {
+            if (vaccineRemainingList.get(i).get(2).equals(vacSN)){
+                targetIndex = i;
+            }
+        }
+        return targetIndex;
     }
 }

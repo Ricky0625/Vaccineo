@@ -11,14 +11,26 @@ import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -40,16 +52,32 @@ public class PersonnelEditAppointment extends javax.swing.JFrame {
     String centreName;
     String peopleId;
     String doseNum;
+    boolean selectedVaccine = false;
     GeneralFunction gf = new GeneralFunction();
     Centre c = new Centre();
     People p = new People();
     Vaccine vac = new Vaccine();
     Appointment ap = new Appointment();
-    ArrayList<ArrayList<String>> remainingVaccine, peopleList, appointmentList, centreList;
+    ArrayList<ArrayList<String>> vaccineList, remainingVaccine, peopleList, appointmentList, centreList;
+    JFrame PersonnelEditAppointment = this;
 
     public PersonnelEditAppointment() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
+        
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                String ObjButtons[] = {"Yes", "No"};
+                int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Vaccineo", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+                if (PromptResult == JOptionPane.YES_OPTION) {
+                    Login log = new Login();
+                    log.setVisible(true);
+                    PersonnelEditAppointment.setVisible(false);
+                }
+            }
+        });
     }
 
     public PersonnelEditAppointment(String centreId, String peopleId, String doseNum) {
@@ -58,6 +86,20 @@ public class PersonnelEditAppointment extends javax.swing.JFrame {
         this.centreId = centreId;
         this.peopleId = peopleId;
         this.doseNum = doseNum;
+        
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                String ObjButtons[] = {"Yes", "No"};
+                int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Vaccineo", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+                if (PromptResult == JOptionPane.YES_OPTION) {
+                    Login log = new Login();
+                    log.setVisible(true);
+                    PersonnelEditAppointment.setVisible(false);
+                }
+            }
+        });
     }
 
     /**
@@ -128,6 +170,8 @@ public class PersonnelEditAppointment extends javax.swing.JFrame {
         vacDose = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
         venueName = new javax.swing.JLabel();
+        vacInstruction1 = new javax.swing.JLabel();
+        scheduleTime = new com.github.lgooddatepicker.components.TimePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1440, 800));
@@ -421,6 +465,11 @@ public class PersonnelEditAppointment extends javax.swing.JFrame {
         saveBtn.setBackground(new java.awt.Color(237, 246, 249));
         saveBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         saveBtn.setPreferredSize(new java.awt.Dimension(58, 22));
+        saveBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                saveBtnMouseClicked(evt);
+            }
+        });
 
         jLabel45.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel45.setForeground(new java.awt.Color(255, 255, 255));
@@ -491,7 +540,7 @@ public class PersonnelEditAppointment extends javax.swing.JFrame {
 
         jLabel32.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel32.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel32.setText("Choose Date:");
+        jLabel32.setText("Date:");
 
         scheduleDate.setForeground(new java.awt.Color(0, 109, 119));
         scheduleDate.setDateFormatString("dd/MM/yyyy");
@@ -513,11 +562,16 @@ public class PersonnelEditAppointment extends javax.swing.JFrame {
 
         jLabel37.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel37.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel37.setText("Choose Time:");
+        jLabel37.setText("Time:");
 
         rescheduleBtn.setBackground(new java.awt.Color(237, 246, 249));
         rescheduleBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         rescheduleBtn.setPreferredSize(new java.awt.Dimension(58, 22));
+        rescheduleBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rescheduleBtnMouseClicked(evt);
+            }
+        });
 
         jLabel38.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel38.setForeground(new java.awt.Color(255, 255, 255));
@@ -600,7 +654,7 @@ public class PersonnelEditAppointment extends javax.swing.JFrame {
 
     vacDoseLbl.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
     vacDoseLbl.setForeground(new java.awt.Color(0, 109, 119));
-    vacDoseLbl.setText("Dose");
+    vacDoseLbl.setText("Dose:");
 
     vacDose.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
     vacDose.setForeground(new java.awt.Color(0, 109, 119));
@@ -613,6 +667,13 @@ public class PersonnelEditAppointment extends javax.swing.JFrame {
     venueName.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
     venueName.setForeground(new java.awt.Color(0, 109, 119));
     venueName.setText("Venue");
+
+    vacInstruction1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+    vacInstruction1.setForeground(new java.awt.Color(0, 109, 119));
+    vacInstruction1.setText("Serial No.");
+
+    scheduleTime.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+    scheduleTime.setForeground(new java.awt.Color(0, 109, 119));
 
     javax.swing.GroupLayout formBackground1Layout = new javax.swing.GroupLayout(formBackground1);
     formBackground1.setLayout(formBackground1Layout);
@@ -669,28 +730,31 @@ public class PersonnelEditAppointment extends javax.swing.JFrame {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel4)
-                        .addComponent(jLabel37)
                         .addComponent(userCancelled)
                         .addComponent(plsReschedule)
                         .addComponent(rescheduleBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(formBackground1Layout.createSequentialGroup()
                             .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel32)
-                                .addComponent(jLabel42))
+                                .addComponent(jLabel42)
+                                .addComponent(jLabel37))
                             .addGap(18, 18, 18)
-                            .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(venueName)
-                                .addComponent(scheduleDate, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(scheduleDate, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                                .addComponent(scheduleTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGap(159, 159, 159))
                 .addGroup(formBackground1Layout.createSequentialGroup()
                     .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(formBackground1Layout.createSequentialGroup()
                             .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(vaccineLbl)
-                                .addComponent(vacInstruction))
+                                .addComponent(vacInstruction)
+                                .addComponent(vaccineLbl))
                             .addGap(93, 93, 93)
-                            .addComponent(searchVac, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(vacInstruction1)
+                                .addComponent(searchVac, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addContainerGap())))
     );
     formBackground1Layout.setVerticalGroup(
@@ -732,8 +796,10 @@ public class PersonnelEditAppointment extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel32))
                         .addComponent(scheduleDate, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(27, 27, 27)
-                    .addComponent(jLabel37)))
+                    .addGap(18, 18, 18)
+                    .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel37)
+                        .addComponent(scheduleTime, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
             .addGap(18, 18, 18)
             .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                 .addGroup(formBackground1Layout.createSequentialGroup()
@@ -747,7 +813,8 @@ public class PersonnelEditAppointment extends javax.swing.JFrame {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(vaccineLbl)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(vacInstruction))
+                    .addComponent(vacInstruction)
+                    .addGap(18, 18, 18))
                 .addGroup(formBackground1Layout.createSequentialGroup()
                     .addComponent(userCancelled)
                     .addGap(0, 0, 0)
@@ -755,8 +822,10 @@ public class PersonnelEditAppointment extends javax.swing.JFrame {
                     .addGap(18, 18, 18)
                     .addComponent(rescheduleBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(searchVac, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(vacInstruction1)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(searchVac, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(12, 12, 12)))
             .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(formBackground1Layout.createSequentialGroup()
                     .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -780,8 +849,8 @@ public class PersonnelEditAppointment extends javax.swing.JFrame {
                             .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(formBackground1Layout.createSequentialGroup()
                             .addGap(105, 105, 105)
-                            .addComponent(cancelBtn)
-                            .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(cancelBtn)))
+                    .addGap(0, 0, Short.MAX_VALUE))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
             .addGap(29, 29, 29))
     );
@@ -867,9 +936,9 @@ public class PersonnelEditAppointment extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelBtnMouseClicked
 
     private void searchVacKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchVacKeyReleased
-//        String searchTerm = searchVac.getText();
-//        gf.refreshTable(remainingVacTable);
-//        gf.tableLoaderStartsWith(remainingVacTable, remainingVaccine, 0, searchTerm, 3, centreFullName.getText());
+        String searchTerm = searchVac.getText();
+        gf.refreshTable(remainingVacTable);
+        gf.tableLoaderStartsWith(remainingVacTable, remainingVaccine, 2, searchTerm, 3, centreId, 7, "Not Used");
     }//GEN-LAST:event_searchVacKeyReleased
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -881,12 +950,19 @@ public class PersonnelEditAppointment extends javax.swing.JFrame {
             rescheduleBtn.setEnabled(false);
 
             // fetch data
+            vac.generateVaccineList();
+            vaccineList = vac.getVaccineList();
             vac.generateRemainingVaccineList();
             remainingVaccine = vac.getRemainingVaccineList();
             p.generatePeopleList();
             peopleList = p.getPeopleList();
             c.generateCentreList();
             centreList = c.getCentreList();
+            ap.generateAppointmentList();
+            appointmentList = ap.getAppointmentList();
+
+            // set appointment data
+            ap.setAppointmentValue(Integer.valueOf(doseNum), peopleId);
 
             // get centre name and set to venue
             c.searchCentreById(centreId);
@@ -900,7 +976,23 @@ public class PersonnelEditAppointment extends javax.swing.JFrame {
             pplGender.setText(p.getGender());
             pplAge.setText(Integer.toString(p.getAge()));
             pplAddress.setText(p.getAddress());
+            // if non-citizen, get country only
+            if("Non-citizen".equals(p.getCategory())) {
+                pplAddress.setText(p.getCountry());
+            }
             pplCategory.setText(p.getCategory());
+
+            // set the schedule time
+            String time = ap.getAppointmentTime();
+            System.out.println(time);
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+            LocalTime formattedTime = LocalTime.parse(time, dtf);
+
+            Date appointmentDate = ap.getAppointmentDateInDate();
+            Date today = new Date();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            String appDate = formatter.format(appointmentDate);
+            String todayDate = formatter.format(today);
 
             // check if the appointment need rescedule
             int reschedule = ap.checkAppointmentStatus(peopleId, doseNum);
@@ -915,6 +1007,7 @@ public class PersonnelEditAppointment extends javax.swing.JFrame {
                     userCancelled.setVisible(true);
                     plsReschedule.setVisible(true);
                     scheduleDate.setDate(ap.getAppointmentDateInDate());
+                    scheduleTime.setTime(formattedTime);
                     rescheduleBtn.setEnabled(true);
 
                     // don't display choose vaccine
@@ -930,6 +1023,8 @@ public class PersonnelEditAppointment extends javax.swing.JFrame {
                     userCancelled.setText("Waiting for user to accept.");
                     scheduleDate.setDate(ap.getAppointmentDateInDate());
                     scheduleDate.setEnabled(false);
+                    scheduleTime.setTime(formattedTime);
+                    scheduleTime.setEnabled(false);
 
                     // don't display choose vaccine
                     searchVac.setEnabled(false);
@@ -940,21 +1035,213 @@ public class PersonnelEditAppointment extends javax.swing.JFrame {
                     rescheduleBtn.setVisible(false);
                 }
                 default -> {
-                    scheduleDate.setDate(ap.getAppointmentDateInDate());
+
+                    scheduleDate.setDate(appointmentDate);
                     scheduleDate.setEnabled(false);
+                    scheduleTime.setTime(formattedTime);
+                    scheduleTime.setEnabled(false);
                     rescheduleBtn.setVisible(false);
+                    if (appDate.equals(todayDate)) {
+                        // add double click listener to the table
+                        remainingVacTable.addMouseListener(new MouseAdapter() {
+                            String vacSerialNum;
+                            String vacId;
+
+                            @Override
+                            public void mouseClicked(MouseEvent me) {
+
+                                if (me.getClickCount() == 2) {     // to detect doble click events
+                                    JTable target = (JTable) me.getSource();
+                                    int row = target.getSelectedRow(); // select a row
+                                    // get the serial number
+                                    vacSerialNum = (String) remainingVacTable.getValueAt(row, 2);
+                                    // get the vaccine unique id
+                                    vacId = (String) remainingVacTable.getValueAt(row, 1);
+
+                                    // search the selected vaccine details
+                                    vac.searchVaccineById(vaccineList, vacId);
+
+                                    // set value for displaying the selected vaccine details
+                                    vacSN.setText(vacSerialNum);
+                                    vacName.setText(vac.getVacName());
+                                    vacManu.setText(vac.getManufacturer());
+                                    vacDose.setText(doseNum);
+                                    selectedVaccine = true;
+
+                                }
+                            }
+                        });
+
+                    } else {
+                        // don't display choose vaccine
+                        searchVac.setEnabled(false);
+                        remainingVacTable.setEnabled(false);
+
+                        userCancelled.setVisible(true);
+                        userCancelled.setText("Today is not the appointment date.");
+                    }
+
                 }
 
             }
             // set data
-
             gf.tableLoaderEqualsMore(remainingVacTable, remainingVaccine, 3, centreId, 7, "Not Used");
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(PersonnelEditAppointment.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
+        } catch (FileNotFoundException | ParseException ex) {
             Logger.getLogger(PersonnelEditAppointment.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formWindowOpened
+
+    private void saveBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveBtnMouseClicked
+        if (selectedVaccine) {
+            int response = JOptionPane.showConfirmDialog(
+                    this,
+                    "Please confirm your action.\nIC/Passport: " + pplId.getText() + "\nWill receive this vaccine:\nSN:" + vacSN.getText() + "\nManufacturer: " + vacManu.getText() + "\nFor Dose " + doseNum,
+                    "Confirmation",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (response == JOptionPane.YES_OPTION) {
+                // prepare to update the appointment file, vaccine remaining file, people file
+                // create a copy appointmentList, remainingVaccine, and peopleList (all of these are arraylist)
+                ArrayList<ArrayList<String>> tempAppointment = appointmentList;
+                ArrayList<ArrayList<String>> tempRemaining = remainingVaccine;
+                ArrayList<ArrayList<String>> tempPeople = peopleList;
+
+                try {
+                    // Handle appointment
+                    // IC/Passport;Date;Time;Centre;Status;Vaccine;Dose;Complete;Serial Number
+                    // get the index of this record in the arraylist
+                    int appTargetIndex = ap.getRecordIndex(peopleId, doseNum);
+
+                    // update record
+                    tempAppointment.get(appTargetIndex).set(5, vacName.getText());
+                    tempAppointment.get(appTargetIndex).set(7, "Yes");
+                    tempAppointment.get(appTargetIndex).set(8, vacSN.getText());
+
+                    // at the same time, book the second appointment, if the current appointment is 1st dose
+                    // Vaccine file = Id;Vaccine Name;Manufacturer;Batch Quantity;Size;Dose Needed;Expiry Duration;Waiting Period
+                    // Appointment file = IC/Passport;Date;Time;Centre;Status;Vaccine;Dose;Complete;Serial Number
+                    // get the waiting period
+                    int waitingPeriod = vac.getWaiting();
+
+                    // prepare today's date (added date)
+                    Date today = new Date();
+                    DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                    // manufactured Date equals three days before adding the batch (manufactured date)
+                    Calendar secDate = Calendar.getInstance();
+                    secDate.setTime(today);
+                    secDate.add(Calendar.MONTH, +waitingPeriod);
+                    Date secAppDate = secDate.getTime();
+                    String formattedSecAppDate = df.format(secAppDate);
+
+                    if (Integer.valueOf(doseNum) == 1) {
+                        ArrayList<String> secDose = new ArrayList();
+                        String record = peopleId + ";" + formattedSecAppDate + ";" + "-" + ";" + centreName + ";" + "pending" + ";" + "-" + ";" + "2" + ";" + "No" + ";" + "-";
+                        secDose.add(record);
+
+                        // add second appointment to the tempAppointment and be ready to update the file
+                        tempAppointment.add(secDose);
+                    }
+
+                    // write into appointment file
+                    ap.writeIntoAppointmentFile(tempAppointment);
+
+                    /**
+                     * *********Appointment file updated*************
+                     */
+                    // Handle remainingVaccine
+                    // Batch Id;Vaccine Id;Serial Number;Centre Id;Manufactured Date;Expired Date;Added Date;Status
+                    int usedVaccineIndex = vac.getRemainingRecordIndex(vacSN.getText());
+
+                    // update record
+                    tempRemaining.get(usedVaccineIndex).set(7, "Used");
+
+                    // write into remaing vaccine file
+                    vac.writeIntoVaccineQuanFile(tempRemaining);
+
+                    /**
+                     * *********Remaining Vaccine file updated*************
+                     */
+                    // Handle people
+                    int pplTargetIndex = p.getRecordIndex(peopleId);
+
+                    // update record
+                    if (Integer.valueOf(doseNum) == 1) {
+                        tempPeople.get(pplTargetIndex).set(11, "Pending 2nd Dose");
+                    } else {
+                        tempPeople.get(pplTargetIndex).set(11, "Fully Vaccinated");
+                    }
+
+                    // write into people file
+                    p.writeIntoPeopleFile(tempPeople);
+
+                    /**
+                     * *********People file updated*************
+                     */
+                    JOptionPane.showMessageDialog(this, "Appointment for:\n" + pplId.getText() + " has been updated.", "Appointment updated", JOptionPane.INFORMATION_MESSAGE);
+
+                    PersonnelViewAppointment pva = new PersonnelViewAppointment(centreName);
+                    pva.setVisible(true);
+                    this.setVisible(false);
+
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(PersonnelEditAppointment.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(PersonnelEditAppointment.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        }
+    }//GEN-LAST:event_saveBtnMouseClicked
+
+    private void rescheduleBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rescheduleBtnMouseClicked
+        Date oriDate = ap.getAppointmentDateInDate();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String formattedOriDate = formatter.format(oriDate);
+
+        String oriTime = ap.getAppointmentTime();
+
+        Date newDate = scheduleDate.getDate();
+        String formattedNewDate = formatter.format(newDate);
+
+        LocalTime newTime = scheduleTime.getTime();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+        String formattedTime = newTime.format(dtf);
+
+        if ((formattedOriDate.equals(formattedNewDate) && oriTime.equals(formattedTime))) {
+            // means schedule didn't changed at all
+            JOptionPane.showMessageDialog(this, "The new schedule is still the same as the previous one!", "Schedule Error", JOptionPane.WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Confirm to reschedule to the new slot?\n" + formattedNewDate + " " + formattedTime, "Confirmation", JOptionPane.YES_NO_OPTION);
+
+            try {
+                int targetIndex = ap.getRecordIndex(peopleId, doseNum);
+
+                ArrayList<ArrayList<String>> tempAppointment = appointmentList;
+
+                // update record
+                tempAppointment.get(targetIndex).set(1, formattedNewDate);
+                tempAppointment.get(targetIndex).set(2, formattedTime);
+                tempAppointment.get(targetIndex).set(4, "pending");
+
+                ap.writeIntoAppointmentFile(tempAppointment);
+
+                JOptionPane.showMessageDialog(this, "Appointment for:\n" + pplId.getText() + " has been updated.", "Appointment updated", JOptionPane.INFORMATION_MESSAGE);
+
+                PersonnelCentreDetail pcd = new PersonnelCentreDetail(centreName);
+                pcd.setVisible(true);
+                this.setVisible(false);
+
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(PersonnelEditAppointment.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(PersonnelEditAppointment.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+
+    }//GEN-LAST:event_rescheduleBtnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1013,22 +1300,16 @@ public class PersonnelEditAppointment extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
-    private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel logoutPanel1;
     private javax.swing.JLabel plsReschedule;
@@ -1043,12 +1324,14 @@ public class PersonnelEditAppointment extends javax.swing.JFrame {
     private javax.swing.JPanel rescheduleBtn;
     private javax.swing.JPanel saveBtn;
     private com.toedter.calendar.JDateChooser scheduleDate;
+    private com.github.lgooddatepicker.components.TimePicker scheduleTime;
     private javax.swing.JTextField searchVac;
     private javax.swing.JLabel userCancelled;
     private javax.swing.JPanel vaPanel;
     private javax.swing.JLabel vacDose;
     private javax.swing.JLabel vacDoseLbl;
     private javax.swing.JLabel vacInstruction;
+    private javax.swing.JLabel vacInstruction1;
     private javax.swing.JLabel vacManu;
     private javax.swing.JLabel vacManuLbl;
     private javax.swing.JLabel vacName;

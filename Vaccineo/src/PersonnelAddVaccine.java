@@ -1,4 +1,5 @@
 
+import classes.Vaccine;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -6,6 +7,14 @@ import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,9 +36,27 @@ public class PersonnelAddVaccine extends javax.swing.JFrame {
     Color bgColor = new Color(237, 246, 249);
     Color errColor = new Color(238, 118, 116);
     
+    Vaccine vac = new Vaccine();
+    ArrayList<ArrayList<String>> vaccineList;
+    JFrame PersonnelAddVaccine = this;
+    
     public PersonnelAddVaccine() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
+        
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                String ObjButtons[] = {"Yes", "No"};
+                int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Vaccineo", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+                if (PromptResult == JOptionPane.YES_OPTION) {
+                    Login log = new Login();
+                    log.setVisible(true);
+                    PersonnelAddVaccine.setVisible(false);
+                }
+            }
+        });
     }
 
     /**
@@ -65,21 +92,28 @@ public class PersonnelAddVaccine extends javax.swing.JFrame {
         jLabel27 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jPanel8 = new RoundedPanel(10, priColor);
+        vacDoseNeeded = new javax.swing.JTextField();
+        vacBatchQuantity = new javax.swing.JTextField();
+        vacSize = new javax.swing.JTextField();
+        vacManu = new javax.swing.JTextField();
+        saveBtn = new RoundedPanel(10, priColor);
         jLabel36 = new javax.swing.JLabel();
         cancelBtn = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        vacName = new javax.swing.JTextField();
         jLabel30 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        vacExpiry = new javax.swing.JTextField();
         centreNameLbl = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        vacWaiting = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1440, 800));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         formBackground1.setBackground(new java.awt.Color(237, 246, 249));
         formBackground1.setMaximumSize(new java.awt.Dimension(1440, 800));
@@ -362,34 +396,54 @@ public class PersonnelAddVaccine extends javax.swing.JFrame {
         jLabel31.setForeground(new java.awt.Color(0, 109, 119));
         jLabel31.setText("Quantity(per Box):");
 
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        vacDoseNeeded.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        vacDoseNeeded.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                vacDoseNeededKeyTyped(evt);
+            }
+        });
 
-        jTextField4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        vacBatchQuantity.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        vacBatchQuantity.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                vacBatchQuantityKeyTyped(evt);
+            }
+        });
 
-        jTextField5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        vacSize.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        vacSize.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                vacSizeKeyTyped(evt);
+            }
+        });
 
-        jTextField6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        vacManu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        jPanel8.setBackground(new java.awt.Color(237, 246, 249));
-        jPanel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel8.setPreferredSize(new java.awt.Dimension(58, 22));
+        saveBtn.setBackground(new java.awt.Color(237, 246, 249));
+        saveBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        saveBtn.setPreferredSize(new java.awt.Dimension(58, 22));
+        saveBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                saveBtnMouseClicked(evt);
+            }
+        });
 
         jLabel36.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel36.setForeground(new java.awt.Color(255, 255, 255));
         jLabel36.setText("Save");
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+        javax.swing.GroupLayout saveBtnLayout = new javax.swing.GroupLayout(saveBtn);
+        saveBtn.setLayout(saveBtnLayout);
+        saveBtnLayout.setHorizontalGroup(
+            saveBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, saveBtnLayout.createSequentialGroup()
                 .addContainerGap(29, Short.MAX_VALUE)
                 .addComponent(jLabel36)
                 .addGap(29, 29, 29))
         );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
+        saveBtnLayout.setVerticalGroup(
+            saveBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(saveBtnLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jLabel36)
                 .addContainerGap(12, Short.MAX_VALUE))
@@ -409,17 +463,33 @@ public class PersonnelAddVaccine extends javax.swing.JFrame {
         jLabel22.setForeground(new java.awt.Color(0, 109, 119));
         jLabel22.setText("Vaccine Name:");
 
-        jTextField7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        vacName.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jLabel30.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(0, 109, 119));
         jLabel30.setText("Expiry Duration(month):");
 
-        jTextField8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        vacExpiry.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        vacExpiry.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                vacExpiryKeyTyped(evt);
+            }
+        });
 
         centreNameLbl.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         centreNameLbl.setForeground(new java.awt.Color(226, 149, 120));
         centreNameLbl.setText("Add New Vaccine");
+
+        jLabel32.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel32.setForeground(new java.awt.Color(0, 109, 119));
+        jLabel32.setText("Waiting Period(month):");
+
+        vacWaiting.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        vacWaiting.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                vacWaitingKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout formBackground1Layout = new javax.swing.GroupLayout(formBackground1);
         formBackground1.setLayout(formBackground1Layout);
@@ -429,13 +499,9 @@ public class PersonnelAddVaccine extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(80, 80, 80)
                 .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(formBackground1Layout.createSequentialGroup()
-                        .addComponent(jLabel30)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(formBackground1Layout.createSequentialGroup()
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(64, 64, 64)
                         .addComponent(cancelBtn))
                     .addGroup(formBackground1Layout.createSequentialGroup()
@@ -447,13 +513,22 @@ public class PersonnelAddVaccine extends javax.swing.JFrame {
                             .addComponent(jLabel22))
                         .addGap(62, 62, 62)
                         .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(vacName, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(vacManu, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(centreNameLbl))
+                                .addComponent(vacSize, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(vacDoseNeeded, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(vacBatchQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(centreNameLbl)
+                    .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(formBackground1Layout.createSequentialGroup()
+                            .addComponent(jLabel32)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(vacWaiting, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(formBackground1Layout.createSequentialGroup()
+                            .addComponent(jLabel30)
+                            .addGap(18, 18, 18)
+                            .addComponent(vacExpiry, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(378, Short.MAX_VALUE))
         );
         formBackground1Layout.setVerticalGroup(
@@ -467,30 +542,34 @@ public class PersonnelAddVaccine extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel22)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(vacName, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(vacManu, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(vacBatchQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel31))
                 .addGap(18, 18, 18)
                 .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(vacSize, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel27))
                 .addGap(18, 18, 18)
                 .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(vacDoseNeeded, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel29))
                 .addGap(18, 18, 18)
                 .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel30)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
+                    .addComponent(vacExpiry, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel32)
+                    .addComponent(vacWaiting, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(62, 62, 62)
                 .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(formBackground1Layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(cancelBtn))))
@@ -565,16 +644,131 @@ public class PersonnelAddVaccine extends javax.swing.JFrame {
     }//GEN-LAST:event_cnPanelMouseExited
 
     private void backBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseClicked
-        PersonnelVaccine pv = new PersonnelVaccine();
-        pv.setVisible(true);
-        this.setVisible(false);
+        int response = JOptionPane.showConfirmDialog(this, "Stop adding new vaccine?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+        if (response == JOptionPane.YES_OPTION) {
+            PersonnelVaccine pv = new PersonnelVaccine();
+            pv.setVisible(true);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_backBtnMouseClicked
 
     private void cancelBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelBtnMouseClicked
-        PersonnelVaccine pv = new PersonnelVaccine();
-        pv.setVisible(true);
-        this.setVisible(false);
+        int response = JOptionPane.showConfirmDialog(this, "Stop adding new vaccine?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+        if (response == JOptionPane.YES_OPTION) {
+            PersonnelVaccine pv = new PersonnelVaccine();
+            pv.setVisible(true);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_cancelBtnMouseClicked
+
+    private void vacBatchQuantityKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_vacBatchQuantityKeyTyped
+        char nums = evt.getKeyChar();
+        if (!(Character.isDigit(nums) || (nums == KeyEvent.VK_BACK_SPACE) || (nums == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_vacBatchQuantityKeyTyped
+
+    private void vacSizeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_vacSizeKeyTyped
+        char nums = evt.getKeyChar();
+        if (!(Character.isDigit(nums) || (nums == KeyEvent.VK_BACK_SPACE) || (nums == KeyEvent.VK_DELETE) || (nums == KeyEvent.VK_PERIOD))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_vacSizeKeyTyped
+
+    private void vacDoseNeededKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_vacDoseNeededKeyTyped
+        char nums = evt.getKeyChar();
+        if (!(Character.isDigit(nums) || (nums == KeyEvent.VK_BACK_SPACE) || (nums == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_vacDoseNeededKeyTyped
+
+    private void vacExpiryKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_vacExpiryKeyTyped
+        char nums = evt.getKeyChar();
+        if (!(Character.isDigit(nums) || (nums == KeyEvent.VK_BACK_SPACE) || (nums == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_vacExpiryKeyTyped
+
+    private void vacWaitingKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_vacWaitingKeyTyped
+        char nums = evt.getKeyChar();
+        if (!(Character.isDigit(nums) || (nums == KeyEvent.VK_BACK_SPACE) || (nums == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_vacWaitingKeyTyped
+
+    private void saveBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveBtnMouseClicked
+        String name = vacName.getText();
+        String manu = vacManu.getText();
+        String quantity = vacBatchQuantity.getText();
+        String size = vacSize.getText();
+        String firstCharSize = null;
+        if(size.length() != 0) {
+            firstCharSize = size.substring(0,1);
+        }
+        String doseNeeded = vacDoseNeeded.getText();
+        String expiry = vacExpiry.getText();
+        String waiting = vacWaiting.getText();
+        
+        if (name.isEmpty() || manu.isEmpty() || quantity.isEmpty() || size.isEmpty() || doseNeeded.isEmpty() || expiry.isEmpty() || waiting.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill in all the fields!", "Empty fields", JOptionPane.WARNING_MESSAGE);
+        } else if (".".equals(firstCharSize)) {
+            JOptionPane.showMessageDialog(this, "The size for vaccine could not starts with (.)", "Invalid format", JOptionPane.WARNING_MESSAGE);
+        } else if (name.length() < 5) {
+            JOptionPane.showMessageDialog(this, "Vaccine Name should have more than 5 letters.", "Invalid format", JOptionPane.WARNING_MESSAGE);
+        } else if (manu.length() < 5) {
+            JOptionPane.showMessageDialog(this, "Manufacturer Name should have more than 5 letters.", "Invalid format", JOptionPane.WARNING_MESSAGE);
+        } else {
+            // ready to write into file, prompt user to confirm
+            int response = JOptionPane.showConfirmDialog(this, "Confirm to add new Vaccine?\nNew Vaccine: " + vacName.getText(), "Confirmation", JOptionPane.YES_NO_OPTION);
+            
+            if (response == JOptionPane.YES_OPTION) {
+                // generate unique centre code
+                String vacCode;
+                try {
+                    vacCode = vac.generateCode(name);
+
+                    // a copy of ori centreList
+                    ArrayList<ArrayList<String>> tempVaccine = vaccineList;
+
+                    // prepare data to write into file
+                    // Id;Vaccine Name;Manufacturer;Batch Quantity;Size;Dose Needed;Expiry Duration;Waiting Period
+                    ArrayList<String> newVaccine = new ArrayList();
+                    String record = vacCode + ";" + name + ";" + manu + ";" + quantity + ";" + size + ";" + doseNeeded + ";" + expiry + ";" + waiting;
+                    newVaccine.add(record);
+
+                    // append new record to the arraylist
+                    tempVaccine.add(newVaccine);
+                    //System.out.println(tempCentre);
+
+                    // write into file
+                    vac.writeIntoVaccineFile(tempVaccine);
+
+                    JOptionPane.showMessageDialog(this, "New Vaccine: " + name + " added.", "Vaccine added", JOptionPane.INFORMATION_MESSAGE);
+
+                    // return back to center list JFrame
+                    PersonnelVaccine pv = new PersonnelVaccine();
+                    pv.setVisible(true);
+                    this.setVisible(false);
+
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(PersonnelAddCentre.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(PersonnelAddCentre.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }//GEN-LAST:event_saveBtnMouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        try {
+            vac.generateVaccineList();
+            vaccineList = vac.getVaccineList();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(PersonnelAddVaccine.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -631,6 +825,7 @@ public class PersonnelAddVaccine extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel39;
@@ -638,16 +833,17 @@ public class PersonnelAddVaccine extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
     private javax.swing.JPanel logoutPanel1;
     private javax.swing.JPanel ppPanel;
+    private javax.swing.JPanel saveBtn;
     private javax.swing.JPanel vaPanel;
+    private javax.swing.JTextField vacBatchQuantity;
+    private javax.swing.JTextField vacDoseNeeded;
+    private javax.swing.JTextField vacExpiry;
+    private javax.swing.JTextField vacManu;
+    private javax.swing.JTextField vacName;
+    private javax.swing.JTextField vacSize;
+    private javax.swing.JTextField vacWaiting;
     // End of variables declaration//GEN-END:variables
 
     class RoundedPanel extends JPanel {

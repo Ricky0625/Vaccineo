@@ -1,6 +1,7 @@
 package classes;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -235,5 +236,22 @@ public class People {
         }
 
         return total;
+    }
+    
+    public void writeIntoPeopleFile(ArrayList<ArrayList<String>> list) throws IOException {
+        GeneralFunction gf = new GeneralFunction();
+        gf.writeIntoFile(list, data);
+    }
+    
+    public int getRecordIndex(String peopleId) throws FileNotFoundException {
+        generatePeopleList();
+        
+        int targetIndex = -1;
+        for(int i = 0; i < peopleList.size(); i++) {
+            if (peopleList.get(i).get(2).equals(peopleId)){
+                targetIndex = i;
+            }
+        }
+        return targetIndex;
     }
 }

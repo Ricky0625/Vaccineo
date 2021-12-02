@@ -1,6 +1,9 @@
 
 import classes.Appointment;
 import classes.People;
+import com.github.lgooddatepicker.components.TimePicker;
+import com.github.lgooddatepicker.components.TimePickerSettings;
+import com.github.lgooddatepicker.optionalusertools.PickerUtilities;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -8,10 +11,16 @@ import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -41,23 +50,66 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
     People p = new People();
     Appointment ap = new Appointment();
     ArrayList<ArrayList<String>> peopleList, appointmentList;
+    JFrame PersonnelAddAppointment = this;
 
     public PersonnelAddAppointment() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
+        
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                String ObjButtons[] = {"Yes", "No"};
+                int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Vaccineo", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+                if (PromptResult == JOptionPane.YES_OPTION) {
+                    Login log = new Login();
+                    log.setVisible(true);
+                    PersonnelAddAppointment.setVisible(false);
+                }
+            }
+        });
     }
-    
+
     public PersonnelAddAppointment(String centreName) {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
         this.centreName = centreName;
+        
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                String ObjButtons[] = {"Yes", "No"};
+                int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Vaccineo", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+                if (PromptResult == JOptionPane.YES_OPTION) {
+                    Login log = new Login();
+                    log.setVisible(true);
+                    PersonnelAddAppointment.setVisible(false);
+                }
+            }
+        });
     }
-    
+
     public PersonnelAddAppointment(String centreName, String pplId) {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
         this.centreName = centreName;
         peopleId.setText(pplId);
+        
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                String ObjButtons[] = {"Yes", "No"};
+                int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Vaccineo", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+                if (PromptResult == JOptionPane.YES_OPTION) {
+                    Login log = new Login();
+                    log.setVisible(true);
+                    PersonnelAddAppointment.setVisible(false);
+                }
+            }
+        });
     }
 
     /**
@@ -69,6 +121,7 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         formBackground1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -93,7 +146,7 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
         jLabel27 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
-        jPanel8 = new RoundedPanel(10, priColor);
+        addAppointment = new RoundedPanel(10, priColor);
         jLabel36 = new javax.swing.JLabel();
         cancelBtn = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
@@ -112,6 +165,11 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
         scheduleDate = new com.toedter.calendar.JDateChooser();
         userNotFound = new javax.swing.JLabel();
         centreNameLbl1 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        scheduleTime = new com.github.lgooddatepicker.components.TimePicker();
+        jLabel5 = new javax.swing.JLabel();
+        yesWalkIn = new javax.swing.JRadioButton();
+        noWalkIn = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1440, 800));
@@ -402,26 +460,31 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
         jLabel31.setForeground(new java.awt.Color(0, 109, 119));
         jLabel31.setText("Gender:");
 
-        jPanel8.setBackground(new java.awt.Color(237, 246, 249));
-        jPanel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel8.setPreferredSize(new java.awt.Dimension(58, 22));
+        addAppointment.setBackground(new java.awt.Color(237, 246, 249));
+        addAppointment.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        addAppointment.setPreferredSize(new java.awt.Dimension(58, 22));
+        addAppointment.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addAppointmentMouseClicked(evt);
+            }
+        });
 
         jLabel36.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel36.setForeground(new java.awt.Color(255, 255, 255));
         jLabel36.setText("Add");
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+        javax.swing.GroupLayout addAppointmentLayout = new javax.swing.GroupLayout(addAppointment);
+        addAppointment.setLayout(addAppointmentLayout);
+        addAppointmentLayout.setHorizontalGroup(
+            addAppointmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addAppointmentLayout.createSequentialGroup()
                 .addContainerGap(31, Short.MAX_VALUE)
                 .addComponent(jLabel36)
                 .addGap(32, 32, 32))
         );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
+        addAppointmentLayout.setVerticalGroup(
+            addAppointmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addAppointmentLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jLabel36)
                 .addContainerGap(12, Short.MAX_VALUE))
@@ -525,6 +588,27 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
         centreNameLbl1.setForeground(new java.awt.Color(0, 109, 119));
         centreNameLbl1.setText("Centre Name");
 
+        jLabel35.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel35.setForeground(new java.awt.Color(0, 109, 119));
+        jLabel35.setText("Choose Time:");
+
+        scheduleTime.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        scheduleTime.setForeground(new java.awt.Color(0, 109, 119));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 109, 119));
+        jLabel5.setText("Is this a walk-in appointment?");
+
+        buttonGroup1.add(yesWalkIn);
+        yesWalkIn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        yesWalkIn.setForeground(new java.awt.Color(0, 109, 119));
+        yesWalkIn.setText("Yes");
+
+        buttonGroup1.add(noWalkIn);
+        noWalkIn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        noWalkIn.setForeground(new java.awt.Color(0, 109, 119));
+        noWalkIn.setText("No");
+
         javax.swing.GroupLayout formBackground1Layout = new javax.swing.GroupLayout(formBackground1);
         formBackground1.setLayout(formBackground1Layout);
         formBackground1Layout.setHorizontalGroup(
@@ -535,7 +619,7 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
                 .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(formBackground1Layout.createSequentialGroup()
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(addAppointment, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(64, 64, 64)
                         .addComponent(cancelBtn))
                     .addComponent(centreNameLbl)
@@ -561,12 +645,26 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
                             .addComponent(peopleAge)
                             .addComponent(peopleAddress)))
                     .addComponent(jLabel4)
+                    .addComponent(centreNameLbl1)
                     .addGroup(formBackground1Layout.createSequentialGroup()
-                        .addComponent(jLabel32)
-                        .addGap(18, 18, 18)
-                        .addComponent(scheduleDate, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(centreNameLbl1))
-                .addContainerGap(501, Short.MAX_VALUE))
+                        .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formBackground1Layout.createSequentialGroup()
+                                .addComponent(jLabel32)
+                                .addGap(18, 18, 18))
+                            .addGroup(formBackground1Layout.createSequentialGroup()
+                                .addComponent(jLabel35)
+                                .addGap(15, 15, 15)))
+                        .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(scheduleTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(scheduleDate, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE))
+                        .addGap(109, 109, 109)
+                        .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addGroup(formBackground1Layout.createSequentialGroup()
+                                .addComponent(yesWalkIn)
+                                .addGap(18, 18, 18)
+                                .addComponent(noWalkIn)))))
+                .addContainerGap(340, Short.MAX_VALUE))
         );
         formBackground1Layout.setVerticalGroup(
             formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -613,13 +711,27 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
                     .addComponent(peopleCategory))
                 .addGap(42, 42, 42)
                 .addComponent(jLabel4)
-                .addGap(20, 20, 20)
-                .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(scheduleDate, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel32))
-                .addGap(63, 63, 63)
                 .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(formBackground1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(scheduleDate, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel32))
+                        .addGap(33, 33, 33))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formBackground1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(yesWalkIn)
+                            .addComponent(noWalkIn))
+                        .addGap(17, 17, 17)))
+                .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel35)
+                    .addComponent(scheduleTime, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(addAppointment, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(formBackground1Layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(cancelBtn)))
@@ -728,6 +840,8 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
             scheduleDate.setMinSelectableDate(today);
             scheduleDate.setMaxSelectableDate(after3);
 
+            noWalkIn.setSelected(true);
+
             String formattedDate = new SimpleDateFormat("dd/MM/yyyy").format(after3);
             //System.out.println(formattedDate);
         } catch (FileNotFoundException ex) {
@@ -788,6 +902,95 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
         userNotFound.setVisible(false);
     }//GEN-LAST:event_peopleIdKeyPressed
 
+    private void addAppointmentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addAppointmentMouseClicked
+        // IC/Passport;Date;Time;Centre;Status;Vaccine;Dose;Complete;Serial Number
+        // id
+        String id = peopleId.getText();
+        // appointment date
+        Date appDate = scheduleDate.getDate();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String formattedAppDate = formatter.format(appDate);
+        // appointment time
+        LocalTime time = scheduleTime.getTime();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+        String formattedTime = time.format(dtf);
+        // centre name
+        String centreName = centreNameLbl1.getText();
+        // dose will always be 1 because add appointment only work if that user don't have any appointment
+        int dose = 1;
+        String completed = "No";
+
+        // validation
+        if (userNotFound.isVisible() == true) {
+            JOptionPane.showMessageDialog(this, "Please search the user using the id first!", "Empty records", JOptionPane.WARNING_MESSAGE);
+        } else if (formattedAppDate.isEmpty() || formattedTime.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please choose the date and time for the appointment!", "Empty date and time", JOptionPane.WARNING_MESSAGE);
+        } else {
+            // add appointment
+            int response = JOptionPane.showConfirmDialog(this, "Confirm to add new appointment for:\n" + peopleName.getText() + " at " + centreName + "?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+            if (response == JOptionPane.YES_OPTION) {
+
+                // check if this is a walk in appointment
+                if (yesWalkIn.isSelected()) {
+                    try {
+                        // create a copy of the ori arraylist
+                        ArrayList<ArrayList<String>> tempAppointment = appointmentList;
+
+                        // IC/Passport;Date;Time;Centre;Status;Vaccine;Dose;Complete;Serial Number
+                        // prepare data to write into file
+                        ArrayList<String> newAppointment = new ArrayList();
+                        String record = id + ";" + formattedAppDate + ";" + formattedTime + ";" + centreName + ";" + "accepted" + ";" + "-" + ";" + Integer.toString(dose) + ";" + "No" + ";" + "-";
+                        newAppointment.add(record);
+
+                        // append new record to the arraylist
+                        tempAppointment.add(newAppointment);
+                        //System.out.println(tempCentre);
+
+                        // write into file
+                        ap.writeIntoAppointmentFile(tempAppointment);
+
+                        JOptionPane.showMessageDialog(this, "Added new appointment for: " + id, "Appointment added", JOptionPane.INFORMATION_MESSAGE);
+                        
+                        PersonnelCentreDetail pcd = new PersonnelCentreDetail(centreName);
+                        pcd.setVisible(true);
+                        this.setVisible(false);
+                    } catch (IOException ex) {
+                        Logger.getLogger(PersonnelAddAppointment.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    try {
+                        // create a copy of the ori arraylist
+                        ArrayList<ArrayList<String>> tempAppointment = appointmentList;
+
+                        // IC/Passport;Date;Time;Centre;Status;Vaccine;Dose;Complete;Serial Number
+                        // prepare data to write into file
+                        ArrayList<String> newAppointment = new ArrayList();
+                        String record = id + ";" + formattedAppDate + ";" + formattedTime + ";" + centreName + ";" + "pending" + ";" + "-" + ";" + Integer.toString(dose) + ";" + "No" + ";" + "-";
+                        newAppointment.add(record);
+
+                        // append new record to the arraylist
+                        tempAppointment.add(newAppointment);
+                        //System.out.println(tempCentre);
+
+                        // write into file
+                        ap.writeIntoAppointmentFile(tempAppointment);
+
+                        JOptionPane.showMessageDialog(this, "Added new appointment for: " + id, "Appointment added", JOptionPane.INFORMATION_MESSAGE);
+                        
+                        PersonnelCentreDetail pcd = new PersonnelCentreDetail(centreName);
+                        pcd.setVisible(true);
+                        this.setVisible(false);
+                    } catch (IOException ex) {
+                        Logger.getLogger(PersonnelAddAppointment.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }
+
+
+    }//GEN-LAST:event_addAppointmentMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -824,7 +1027,9 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel addAppointment;
     private javax.swing.JPanel backBtn;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel cancelBtn;
     private javax.swing.JLabel centreNameLbl;
     private javax.swing.JLabel centreNameLbl1;
@@ -847,15 +1052,17 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel logoutPanel1;
+    private javax.swing.JRadioButton noWalkIn;
     private javax.swing.JLabel peopleAddress;
     private javax.swing.JLabel peopleAge;
     private javax.swing.JLabel peopleCategory;
@@ -864,9 +1071,11 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
     private javax.swing.JLabel peopleName;
     private javax.swing.JPanel ppPanel;
     private com.toedter.calendar.JDateChooser scheduleDate;
+    private com.github.lgooddatepicker.components.TimePicker scheduleTime;
     private javax.swing.JPanel searchId;
     private javax.swing.JLabel userNotFound;
     private javax.swing.JPanel vaPanel;
+    private javax.swing.JRadioButton yesWalkIn;
     // End of variables declaration//GEN-END:variables
 
     class RoundedPanel extends JPanel {

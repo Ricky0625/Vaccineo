@@ -14,10 +14,6 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -249,6 +245,35 @@ public class GeneralFunction {
         }
         table.revalidate();
     }
+    
+    public void tableLoaderStartsWith(JTable table, ArrayList<ArrayList<String>> list, int index1, String condition1, int index2, String condition2, int index3, String condition3) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        int colNum = list.get(0).size();
+        Object rowHeader[] = new Object[colNum];
+        Object rowData[] = new Object[colNum];
+
+        // get the first row of the text file
+        for (int i = 0; i == 0; i++) {
+            for (int j = 0; j < list.get(i).size(); j++) {
+                //System.out.println(appointmentList.get(i).get(j));
+                rowHeader[j] = list.get(i).get(j);
+            }
+        }
+        // set the header of table
+        model.setColumnIdentifiers(rowHeader);
+
+        for (int i = 1; i < list.size(); i++) {
+            if (list.get(i).get(index1).startsWith(condition1) && list.get(i).get(index2).equals(condition2) && list.get(i).get(index3).equals(condition3)) {
+                for (int j = 0; j < list.get(i).size(); j++) {
+                    rowData[j] = list.get(i).get(j);
+                }
+                model.addRow(rowData);
+                table.revalidate();
+            }
+            table.revalidate();
+        }
+        table.revalidate();
+    }
 
     public void tableLoaderStartsWithOmitted(JTable table, ArrayList<ArrayList<String>> list, String condition, int index, int startIndex) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
@@ -422,21 +447,20 @@ public class GeneralFunction {
         File fileName = new File(file);
 
         FileWriter fw = new FileWriter(fileName);
-        try (Writer output = new BufferedWriter(fw)) {
+        try ( Writer output = new BufferedWriter(fw)) {
             int size = list.size();
-            for(int i = 0; i < size; i++) {
-                for(int j = 0; j == 0; j++) {
-                    output.write(list.get(i).get(j));
-                }
-                for(int j = 1; j < list.get(i).size(); j++) {                
-                    if(j != list.get(i).size() - 1) {
-                        output.write(";" + list.get(i).get(j));
+            for (int i = 0; i < size; i++) {
+                for (int j = 0; j < list.get(i).size(); j++) {
+                    if (j != list.get(i).size() - 1) {
+                        System.out.println(list.get(i).size());
+                        output.write(list.get(i).get(j) + ";");
                     } else {
-                        output.write(";" + list.get(i).get(j) + "\n");
+                        output.write(list.get(i).get(j) + "\n");
                     }
-                    
+
                 }
             }
+
         }
 
     }

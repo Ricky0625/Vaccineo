@@ -10,6 +10,8 @@ import java.awt.LayoutManager;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -53,10 +55,25 @@ public class PersonnelVaccineSupply extends javax.swing.JFrame {
     Centre c = new Centre();
     Vaccine vac = new Vaccine();
     ArrayList<ArrayList<String>> centreList, vaccineList, remainingVaccine;
+    JFrame PersonnelVaccineSupply = this;
 
     public PersonnelVaccineSupply() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
+        
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                String ObjButtons[] = {"Yes", "No"};
+                int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Vaccineo", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+                if (PromptResult == JOptionPane.YES_OPTION) {
+                    Login log = new Login();
+                    log.setVisible(true);
+                    PersonnelVaccineSupply.setVisible(false);
+                }
+            }
+        });
     }
 
     public PersonnelVaccineSupply(String centreId) {
@@ -64,6 +81,20 @@ public class PersonnelVaccineSupply extends javax.swing.JFrame {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
         this.centreId = centreId;
         System.out.println(centreId);
+        
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                String ObjButtons[] = {"Yes", "No"};
+                int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Vaccineo", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+                if (PromptResult == JOptionPane.YES_OPTION) {
+                    Login log = new Login();
+                    log.setVisible(true);
+                    PersonnelVaccineSupply.setVisible(false);
+                }
+            }
+        });
 
     }
 
@@ -667,7 +698,7 @@ public class PersonnelVaccineSupply extends javax.swing.JFrame {
                 // Batch Id;Vaccine Id;Serial Number;Centre Id;Manufactured Date;Expired Date;Added Date;Status
                 //String batchId
                 String strBatch = batchID.getText();
-
+                
                 // prepare today's date (added date)
                 Date today = new Date();
                 DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -681,9 +712,9 @@ public class PersonnelVaccineSupply extends javax.swing.JFrame {
                 // get expired date (expired date)
                 int expirationDuration = vac.getDuration();
                 Calendar expiry = Calendar.getInstance();
-                expiry.setTime(today);
-                expiry.add(Calendar.MONTH, +expirationDuration);
-                Date expiryDate = bfThreeDay.getTime();
+                expiry.setTime(before3);
+                expiry.add(Calendar.MONTH, expirationDuration);
+                Date expiryDate = expiry.getTime();
                 String formattedExpiryDate = df.format(expiryDate);
                 // set status as Not Used
                 String status = "Not Used";
@@ -706,24 +737,9 @@ public class PersonnelVaccineSupply extends javax.swing.JFrame {
                 //System.out.println(tempVRL.get(0));
 
                 try {
-                    File fileName = new File("vaccine_quantity.txt");
-
-                    FileWriter fw = new FileWriter(fileName);
-                    try ( Writer output = new BufferedWriter(fw)) {
-                        int size = tempVRL.size();
-                        for (int i = 0; i < size; i++) {
-                            for (int j = 0; j < tempVRL.get(i).size(); j++) {
-                                if (j != tempVRL.get(i).size() - 1) {
-                                    System.out.println(tempVRL.get(i).size());
-                                    output.write(tempVRL.get(i).get(j) + ";");
-                                } else {
-                                    output.write(tempVRL.get(i).get(j) + "\n");
-                                }
-
-                            }
-                        }
-
-                    }
+                    vac.writeIntoVaccineQuanFile(tempVRL);
+                    
+                    JOptionPane.showMessageDialog(this, "Added " + batchQuantity + " " + vac.getVacName() + " vaccine.", "Appointment updated", JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException ex) {
                     Logger.getLogger(PersonnelVaccineSupply.class.getName()).log(Level.SEVERE, null, ex);
                 }

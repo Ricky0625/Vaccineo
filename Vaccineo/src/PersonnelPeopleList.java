@@ -6,12 +6,15 @@ import classes.People;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -28,16 +31,17 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
     People ppl = new People();
     ArrayList<ArrayList<String>> peopleList;
     JFrame PersonnelPeopleList = this;
-    
+
     public PersonnelPeopleList() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
-        
+
         peopleTable.addMouseListener(new MouseAdapter() {
             String value;
+
             @Override
             public void mouseClicked(MouseEvent me) {
-                
+
                 if (me.getClickCount() == 2) {     // to detect doble click events
                     JTable target = (JTable) me.getSource();
                     int row = target.getSelectedRow(); // select a row
@@ -46,6 +50,20 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
                     // System.out.println(ppl.getId());
                     PersonnelPeople pp = new PersonnelPeople(value);
                     pp.setVisible(true);
+                    PersonnelPeopleList.setVisible(false);
+                }
+            }
+        });
+        
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                String ObjButtons[] = {"Yes", "No"};
+                int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Vaccineo", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+                if (PromptResult == JOptionPane.YES_OPTION) {
+                    Login log = new Login();
+                    log.setVisible(true);
                     PersonnelPeopleList.setVisible(false);
                 }
             }
@@ -448,7 +466,7 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
     jLabel8.setForeground(new java.awt.Color(0, 109, 119));
     jLabel8.setText("Vaccination Status:");
 
-    vacStatusCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Not registered", "Pending for 1st Dose", "Done 1st Dose", "Pending for 2nd Dose", "Done 2nd Dose" }));
+    vacStatusCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Not Registered", "Pending 1st Dose", "Done 1st Dose", "Pending 2nd Dose", "Done 2nd Dose" }));
     vacStatusCB.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             vacStatusCBActionPerformed(evt);
@@ -625,7 +643,7 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
     private void searchUserKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchUserKeyReleased
         String searchTerm = searchUser.getText();
         gf.refreshTable(peopleTable);
-        gf.tableLoaderStartsWithOmitted(peopleTable, peopleList, searchTerm,2,2);
+        gf.tableLoaderStartsWithOmitted(peopleTable, peopleList, searchTerm, 2, 2);
     }//GEN-LAST:event_searchUserKeyReleased
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -635,8 +653,8 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(PersonnelPeopleList.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        gf.tableLoaderOmittedColumn(peopleTable, peopleList,2);
+
+        gf.tableLoaderOmittedColumn(peopleTable, peopleList, 2);
         gf.tableRowClicked(peopleTable);
         // System.out.println(peopleList);
     }//GEN-LAST:event_formWindowOpened
@@ -665,8 +683,14 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
         JComboBox vacStatusCB = (JComboBox) evt.getSource();
 
         String selectedStatus = (String) vacStatusCB.getSelectedItem();
-        gf.refreshTable(peopleTable);
-        gf.tableLoaderEqualsOmmited(peopleTable, peopleList, 11, selectedStatus, 2);
+
+        if ("All".equals(selectedStatus)) {
+            gf.refreshTable(peopleTable);
+            gf.tableLoaderOmittedColumn(peopleTable, peopleList, 2);
+        } else {
+            gf.refreshTable(peopleTable);
+            gf.tableLoaderEqualsOmmited(peopleTable, peopleList, 11, selectedStatus, 2);
+        }
     }//GEN-LAST:event_vacStatusCBActionPerformed
 
     /**

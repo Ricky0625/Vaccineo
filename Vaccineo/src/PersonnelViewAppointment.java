@@ -12,6 +12,8 @@ import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -70,6 +72,20 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
                 }
             }
         });
+        
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                String ObjButtons[] = {"Yes", "No"};
+                int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Vaccineo", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+                if (PromptResult == JOptionPane.YES_OPTION) {
+                    Login log = new Login();
+                    log.setVisible(true);
+                    PersonnelViewAppointment.setVisible(false);
+                }
+            }
+        });
 
     }
 
@@ -80,6 +96,7 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
         appointmentTable.addMouseListener(new MouseAdapter() {
             String value;
             String doseNum;
+            String completed;
 
             @Override
             public void mouseClicked(MouseEvent me) {
@@ -90,10 +107,30 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
                     // int column = target.getSelectedColumn(); // select a column                
                     value = (String) appointmentTable.getValueAt(row, 0);
                     doseNum = (String) appointmentTable.getValueAt(row, 6);
-                    
-                    // pass to next jframe
-                    PersonnelEditAppointment pea = new PersonnelEditAppointment(centreId, value, doseNum);
-                    pea.setVisible(true);
+                    completed = (String) appointmentTable.getValueAt(row, 7);
+
+                    if (completed.equals("No")) {
+                        // pass to next jframe
+                        PersonnelEditAppointment pea = new PersonnelEditAppointment(centreId, value, doseNum);
+                        pea.setVisible(true);
+                        PersonnelViewAppointment.setVisible(false);
+                    } else {
+                        JOptionPane.showMessageDialog(PersonnelViewAppointment, "This appointment already completed.", "Appointment updated", JOptionPane.WARNING_MESSAGE);
+                    }
+
+                }
+            }
+        });
+        
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                String ObjButtons[] = {"Yes", "No"};
+                int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Vaccineo", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+                if (PromptResult == JOptionPane.YES_OPTION) {
+                    Login log = new Login();
+                    log.setVisible(true);
                     PersonnelViewAppointment.setVisible(false);
                 }
             }
@@ -682,31 +719,6 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
     }//GEN-LAST:event_searchUserKeyReleased
 
     private void selectAppointmentViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectAppointmentViewActionPerformed
-//        JComboBox selectAppointmentView = (JComboBox) evt.getSource();
-//
-//        int index = selectAppointmentView.getSelectedIndex();
-//
-//        switch (index) {
-//            case (0) -> {
-//                gf.refreshTable(appointmentTable);
-//                //gf.tableLoader(appointmentTable, appointmentList);
-//                /*Need extra attention*/
-//                gf.tableLoaderEquals(appointmentTable, appointmentList, 3, "Bukit Jalil");
-//            }
-//            case (1) -> {
-//                gf.refreshTable(appointmentTable);
-//                //gf.tableLoaderEquals(appointmentTable, appointmentList, 6, "-");
-//                /*Need extra attention*/
-//                gf.tableLoaderEqualsMore(appointmentTable, appointmentList, 6, "-", 3, "Bukit Jalil");
-//            }
-//            case (2) -> {
-//                gf.refreshTable(appointmentTable);
-//                //gf.tableLoaderEquals(appointmentTable, appointmentList, 6, "1");
-//                /*Need extra attention*/
-//                gf.tableLoaderEqualsMore(appointmentTable, appointmentList, 6, "1", 3, "Bukit Jalil");
-//            }
-//
-//        }
 
         JComboBox selectAppointmentView = (JComboBox) evt.getSource();
 

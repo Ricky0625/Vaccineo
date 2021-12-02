@@ -1,4 +1,5 @@
 
+import classes.Centre;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -6,6 +7,14 @@ import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -15,10 +24,28 @@ public class PersonnelAddCentre extends javax.swing.JFrame {
     Color priColor = new Color(0, 109, 119);
     Color secColor = new Color(131, 197, 190);
     Color bgColor = new Color(237, 246, 249);
-    
+
+    Centre c = new Centre();
+    ArrayList<ArrayList<String>> centreList;
+    JFrame PersonnelAddCentre = this;
+
     public PersonnelAddCentre() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
+        
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                String ObjButtons[] = {"Yes", "No"};
+                int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Vaccineo", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+                if (PromptResult == JOptionPane.YES_OPTION) {
+                    Login log = new Login();
+                    log.setVisible(true);
+                    PersonnelAddCentre.setVisible(false);
+                }
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -48,21 +75,26 @@ public class PersonnelAddCentre extends javax.swing.JFrame {
         centreNameLbl = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        pplNameTf = new javax.swing.JTextField();
-        pplNameTf1 = new javax.swing.JTextField();
+        cNameTf = new javax.swing.JTextField();
+        cStreetTf = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
-        pplNameTf2 = new javax.swing.JTextField();
+        cStateTf = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
-        pplNameTf3 = new javax.swing.JTextField();
+        cPostcodeTf = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
+        cCountry = new javax.swing.JLabel();
         savePeopleInfo = new RoundedPanel(10, priColor);
         jLabel34 = new javax.swing.JLabel();
-        savePeopleInfo1 = new javax.swing.JPanel();
+        cancelBtn = new javax.swing.JPanel();
         cancelAdd = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1440, 800));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         formBackground.setBackground(new java.awt.Color(237, 246, 249));
         formBackground.setMaximumSize(new java.awt.Dimension(1440, 800));
@@ -341,29 +373,39 @@ public class PersonnelAddCentre extends javax.swing.JFrame {
         jLabel18.setForeground(new java.awt.Color(0, 109, 119));
         jLabel18.setText("Street");
 
-        pplNameTf.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        cNameTf.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        pplNameTf1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        cStreetTf.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(0, 109, 119));
         jLabel19.setText("State");
 
-        pplNameTf2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        cStateTf.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        cStateTf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cStateTfKeyTyped(evt);
+            }
+        });
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(0, 109, 119));
         jLabel20.setText("Postcode");
 
-        pplNameTf3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        cPostcodeTf.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        cPostcodeTf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cPostcodeTfKeyTyped(evt);
+            }
+        });
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(0, 109, 119));
         jLabel21.setText("Country");
 
-        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel22.setText("Malaysia");
+        cCountry.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        cCountry.setForeground(new java.awt.Color(0, 109, 119));
+        cCountry.setText("Malaysia");
 
         savePeopleInfo.setBackground(new java.awt.Color(237, 246, 249));
         savePeopleInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -395,12 +437,12 @@ public class PersonnelAddCentre extends javax.swing.JFrame {
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        savePeopleInfo1.setBackground(new java.awt.Color(237, 246, 249));
-        savePeopleInfo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        savePeopleInfo1.setPreferredSize(new java.awt.Dimension(58, 22));
-        savePeopleInfo1.addMouseListener(new java.awt.event.MouseAdapter() {
+        cancelBtn.setBackground(new java.awt.Color(237, 246, 249));
+        cancelBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cancelBtn.setPreferredSize(new java.awt.Dimension(58, 22));
+        cancelBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                savePeopleInfo1MouseClicked(evt);
+                cancelBtnMouseClicked(evt);
             }
         });
 
@@ -414,18 +456,18 @@ public class PersonnelAddCentre extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout savePeopleInfo1Layout = new javax.swing.GroupLayout(savePeopleInfo1);
-        savePeopleInfo1.setLayout(savePeopleInfo1Layout);
-        savePeopleInfo1Layout.setHorizontalGroup(
-            savePeopleInfo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, savePeopleInfo1Layout.createSequentialGroup()
+        javax.swing.GroupLayout cancelBtnLayout = new javax.swing.GroupLayout(cancelBtn);
+        cancelBtn.setLayout(cancelBtnLayout);
+        cancelBtnLayout.setHorizontalGroup(
+            cancelBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cancelBtnLayout.createSequentialGroup()
                 .addContainerGap(23, Short.MAX_VALUE)
                 .addComponent(cancelAdd)
                 .addGap(23, 23, 23))
         );
-        savePeopleInfo1Layout.setVerticalGroup(
-            savePeopleInfo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(savePeopleInfo1Layout.createSequentialGroup()
+        cancelBtnLayout.setVerticalGroup(
+            cancelBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cancelBtnLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(cancelAdd)
                 .addContainerGap(12, Short.MAX_VALUE))
@@ -443,22 +485,22 @@ public class PersonnelAddCentre extends javax.swing.JFrame {
                     .addComponent(centreNameLbl)
                     .addComponent(jLabel8)
                     .addComponent(jLabel18)
-                    .addComponent(pplNameTf, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pplNameTf1, javax.swing.GroupLayout.PREFERRED_SIZE, 850, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cNameTf, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cStreetTf, javax.swing.GroupLayout.PREFERRED_SIZE, 850, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(formBackgroundLayout.createSequentialGroup()
                         .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel19)
-                            .addComponent(pplNameTf2, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cStateTf, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20)
                         .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel20)
-                            .addComponent(pplNameTf3, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cPostcodeTf, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel21)
-                    .addComponent(jLabel22)
+                    .addComponent(cCountry)
                     .addGroup(formBackgroundLayout.createSequentialGroup()
                         .addComponent(savePeopleInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(60, 60, 60)
-                        .addComponent(savePeopleInfo1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(240, Short.MAX_VALUE))
         );
         formBackgroundLayout.setVerticalGroup(
@@ -472,29 +514,29 @@ public class PersonnelAddCentre extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pplNameTf, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cNameTf, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(formBackgroundLayout.createSequentialGroup()
                         .addComponent(jLabel18)
                         .addGap(12, 12, 12)
-                        .addComponent(pplNameTf1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cStreetTf, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20)
                         .addComponent(jLabel19)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pplNameTf2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cStateTf, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(formBackgroundLayout.createSequentialGroup()
                         .addComponent(jLabel20)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pplNameTf3, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cPostcodeTf, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20)
                 .addComponent(jLabel21)
                 .addGap(12, 12, 12)
-                .addComponent(jLabel22)
+                .addComponent(cCountry)
                 .addGap(18, 18, 18)
                 .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(savePeopleInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(savePeopleInfo1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -572,18 +614,105 @@ public class PersonnelAddCentre extends javax.swing.JFrame {
     }//GEN-LAST:event_backBtnMouseClicked
 
     private void savePeopleInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_savePeopleInfoMouseClicked
+        // check if all the fields not empty
+        String name = cNameTf.getText();
+        String street = cStreetTf.getText();
+        String state = cStateTf.getText();
+        String postcode = cPostcodeTf.getText();
+        String country = cCountry.getText();
 
+        if (name.isEmpty() || street.isEmpty() || state.isEmpty() || postcode.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill in all the fields!", "Empty fields", JOptionPane.WARNING_MESSAGE);
+        } else if (name.length() < 2) {
+            JOptionPane.showMessageDialog(this, "Centre Name should have more than 2 letters.", "Invalid format", JOptionPane.WARNING_MESSAGE);
+        } else if (street.length() < 5) {
+            JOptionPane.showMessageDialog(this, "Street should have more than 5 letters.", "Invalid format", JOptionPane.WARNING_MESSAGE);
+        } else if (state.length() < 4) {
+            JOptionPane.showMessageDialog(this, "State should have more than 4 letters.", "Invalid format", JOptionPane.WARNING_MESSAGE);
+        } else if (postcode.length() < 5) {
+            JOptionPane.showMessageDialog(this, "Postcode should have only 5 numbers.", "Invalid format", JOptionPane.WARNING_MESSAGE);
+        } else {
+            // ready to write into file, prompt user to confirm
+            int response = JOptionPane.showConfirmDialog(this, "Confirm to add new Centre?\nNew Centre: " + cNameTf.getText(), "Confirmation", JOptionPane.YES_NO_OPTION);
+
+            if (response == JOptionPane.YES_OPTION) {
+                // generate unique centre code
+                String centreCode;
+                try {
+                    centreCode = c.generateCode(name);
+
+                    // a copy of ori centreList
+                    ArrayList<ArrayList<String>> tempCentre = centreList;
+
+                    // prepare data to write into file
+                    // Id;Centre Name;Street;State;Postcode;Country
+                    ArrayList<String> newCentre = new ArrayList();
+                    String record = centreCode + ";" + name + ";" + street + ";" + state + ";" + postcode + ";" + country;
+                    newCentre.add(record);
+
+                    // append new record to the arraylist
+                    tempCentre.add(newCentre);
+                    //System.out.println(tempCentre);
+
+                    // write into file
+                    c.writeIntoCentreFile(tempCentre);
+
+                    JOptionPane.showMessageDialog(this, "New Centre: " + name + " added.", "Centre added", JOptionPane.INFORMATION_MESSAGE);
+
+                    // return back to center list JFrame
+                    PersonnelCentre pc = new PersonnelCentre();
+                    pc.setVisible(true);
+                    this.setVisible(false);
+
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(PersonnelAddCentre.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(PersonnelAddCentre.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
     }//GEN-LAST:event_savePeopleInfoMouseClicked
 
-    private void savePeopleInfo1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_savePeopleInfo1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_savePeopleInfo1MouseClicked
+    private void cancelBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelBtnMouseClicked
+        int response = JOptionPane.showConfirmDialog(this, "Stop adding new centre?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+        if (response == JOptionPane.YES_OPTION) {
+            PersonnelCentre pc = new PersonnelCentre();
+            pc.setVisible(true);
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_cancelBtnMouseClicked
 
     private void cancelAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelAddMouseClicked
-        PersonnelCentre pc = new PersonnelCentre();
-        pc.setVisible(true);
-        this.setVisible(false);
+
     }//GEN-LAST:event_cancelAddMouseClicked
+
+    private void cPostcodeTfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cPostcodeTfKeyTyped
+        char nums = evt.getKeyChar();
+        if (!(Character.isDigit(nums) || (nums == KeyEvent.VK_BACK_SPACE) || (nums == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+
+        if (cPostcodeTf.getText().length() >= 5) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_cPostcodeTfKeyTyped
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        try {
+            c.generateCentreList();
+            centreList = c.getCentreList();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(PersonnelAddCentre.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowOpened
+
+    private void cStateTfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cStateTfKeyTyped
+        char nums = evt.getKeyChar();
+        if (!(Character.isAlphabetic(nums) || (nums == KeyEvent.VK_BACK_SPACE) || (nums == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_cStateTfKeyTyped
 
     /**
      * @param args the command line arguments
@@ -622,7 +751,13 @@ public class PersonnelAddCentre extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backBtn;
+    private javax.swing.JLabel cCountry;
+    private javax.swing.JTextField cNameTf;
+    private javax.swing.JTextField cPostcodeTf;
+    private javax.swing.JTextField cStateTf;
+    private javax.swing.JTextField cStreetTf;
     private javax.swing.JLabel cancelAdd;
+    private javax.swing.JPanel cancelBtn;
     private javax.swing.JLabel centreNameLbl;
     private javax.swing.JPanel cnPanel;
     private javax.swing.JPanel dbPanel;
@@ -636,7 +771,6 @@ public class PersonnelAddCentre extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
@@ -649,12 +783,7 @@ public class PersonnelAddCentre extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel logoutPanel;
     private javax.swing.JPanel ppPanel;
-    private javax.swing.JTextField pplNameTf;
-    private javax.swing.JTextField pplNameTf1;
-    private javax.swing.JTextField pplNameTf2;
-    private javax.swing.JTextField pplNameTf3;
     private javax.swing.JPanel savePeopleInfo;
-    private javax.swing.JPanel savePeopleInfo1;
     private javax.swing.JPanel vaPanel;
     // End of variables declaration//GEN-END:variables
 
@@ -711,6 +840,5 @@ public class PersonnelAddCentre extends javax.swing.JFrame {
 //             
         }
     }
-    
-    
+
 }

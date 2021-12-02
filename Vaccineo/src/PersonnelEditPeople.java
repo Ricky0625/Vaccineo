@@ -7,8 +7,14 @@ import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -33,18 +39,49 @@ public class PersonnelEditPeople extends javax.swing.JFrame {
     Color errColor = new Color(238, 118, 116);
 
     String id;
+    String category;
     People ppl = new People();
     ArrayList<ArrayList<String>> peopleList;
+    
+    JFrame PersonnelEditPeople = this;
 
     public PersonnelEditPeople() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
+        
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                String ObjButtons[] = {"Yes", "No"};
+                int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Vaccineo", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+                if (PromptResult == JOptionPane.YES_OPTION) {
+                    Login log = new Login();
+                    log.setVisible(true);
+                    PersonnelEditPeople.setVisible(false);
+                }
+            }
+        });
     }
 
     public PersonnelEditPeople(String pplId) {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
         this.id = pplId;
+        
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                String ObjButtons[] = {"Yes", "No"};
+                int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Vaccineo", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+                if (PromptResult == JOptionPane.YES_OPTION) {
+                    Login log = new Login();
+                    log.setVisible(true);
+                    PersonnelEditPeople.setVisible(false);
+                }
+            }
+        });
     }
 
     /**
@@ -415,12 +452,27 @@ public class PersonnelEditPeople extends javax.swing.JFrame {
         );
 
         pplNameTf.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplNameTf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                pplNameTfKeyTyped(evt);
+            }
+        });
 
         pplStreetTf.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         pplStateTf.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplStateTf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                pplStateTfKeyTyped(evt);
+            }
+        });
 
         pplPostcodeTf.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplPostcodeTf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                pplPostcodeTfKeyTyped(evt);
+            }
+        });
 
         pplDOB.setDateFormatString("dd/MM/yyyy");
         pplDOB.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -479,6 +531,11 @@ public class PersonnelEditPeople extends javax.swing.JFrame {
         nonCitizenCountryLbl.setText("Country");
 
         nonCitizenCountryTf.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        nonCitizenCountryTf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nonCitizenCountryTfKeyTyped(evt);
+            }
+        });
 
         savePeopleInfo1.setBackground(new java.awt.Color(237, 246, 249));
         savePeopleInfo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -556,9 +613,9 @@ public class PersonnelEditPeople extends javax.swing.JFrame {
                             .addComponent(citizenCountryLbl)))
                     .addGroup(formBackgroundLayout.createSequentialGroup()
                         .addComponent(savePeopleInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(60, 60, 60)
+                        .addGap(30, 30, 30)
                         .addComponent(savePeopleInfo1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
         formBackgroundLayout.setVerticalGroup(
             formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -615,7 +672,7 @@ public class PersonnelEditPeople extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(formBackground, javax.swing.GroupLayout.DEFAULT_SIZE, 1401, Short.MAX_VALUE)
+            .addComponent(formBackground, javax.swing.GroupLayout.DEFAULT_SIZE, 1402, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -690,7 +747,7 @@ public class PersonnelEditPeople extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutPanelMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        String category;
+
         String gender;
         nonCitizenCountryLbl.setVisible(false);
         nonCitizenCountryTf.setVisible(false);
@@ -728,7 +785,7 @@ public class PersonnelEditPeople extends javax.swing.JFrame {
                     pplPostcodeTf.setVisible(false);
                     break;
             }
-            
+
             switch (gender) {
                 case "Male":
                     maleBtn.setSelected(true);
@@ -737,7 +794,6 @@ public class PersonnelEditPeople extends javax.swing.JFrame {
                     femaleBtn.setSelected(true);
                     break;
             }
-            
 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(PersonnelPeopleList.class.getName()).log(Level.SEVERE, null, ex);
@@ -748,6 +804,111 @@ public class PersonnelEditPeople extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void savePeopleInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_savePeopleInfoMouseClicked
+        String name = pplNameTf.getText();
+        String gender;
+        if (femaleBtn.isSelected()) {
+            gender = "Female";
+        } else {
+            gender = "Male";
+        }
+        Date dob = pplDOB.getDate();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String dobDate = formatter.format(dob);
+        String street = pplStreetTf.getText();
+        String state = pplStateTf.getText();
+        String postcode = pplPostcodeTf.getText();
+        String citiCountry = citizenCountryTf.getText();
+        String noncitiCountry = nonCitizenCountryTf.getText();
+
+        // check if the current user if citizen or non-citizen
+        switch (category) {
+            case ("Citizen"):
+
+                // check if the textfields are empty or not
+                if (name.isEmpty() || gender.isEmpty() || dobDate.isEmpty() || street.isEmpty() || state.isEmpty() || postcode.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Please fill in all the fields!", "Empty fields", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    try {
+                        // get the index of the current record in the arraylist
+                        int targetIndex = ppl.getRecordIndex(id);
+
+                        // create a copy of the arraylist
+                        ArrayList<ArrayList<String>> tempPeople = peopleList;
+
+                        // modify the record in the arraylist
+                        // Username;Password;IC/Passport;Name;DOB;Address;State;Country;Postcode;Gender;Category;Vaccination Status
+                        tempPeople.get(targetIndex).set(3, name);
+                        tempPeople.get(targetIndex).set(4, dobDate);
+                        tempPeople.get(targetIndex).set(5, street);
+                        tempPeople.get(targetIndex).set(6, state);
+                        tempPeople.get(targetIndex).set(7, citiCountry);
+                        tempPeople.get(targetIndex).set(8, postcode);
+                        tempPeople.get(targetIndex).set(9, gender);
+                        tempPeople.get(targetIndex).set(10, category);
+
+                        // write into file
+                        ppl.writeIntoPeopleFile(tempPeople);
+
+                        JOptionPane.showMessageDialog(this, "Successfully edited.", "People info edited", JOptionPane.INFORMATION_MESSAGE);
+
+                        // return back to people profile
+                        PersonnelPeople pp = new PersonnelPeople(id);
+                        pp.setVisible(true);
+                        this.setVisible(false);
+
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(PersonnelEditPeople.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(PersonnelEditPeople.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }
+
+                break;
+            case ("Non-citizen"):
+
+                // check if the textfields are empty or not
+                if (name.isEmpty() || gender.isEmpty() || dobDate.isEmpty() || noncitiCountry.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Please fill in all the fields!", "Empty fields", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    try {
+                        // get the index of the current record in the arraylist
+                        int targetIndex = ppl.getRecordIndex(id);
+
+                        // create a copy of the arraylist
+                        ArrayList<ArrayList<String>> tempPeople = peopleList;
+
+                        // modify the record in the arraylist
+                        // Username;Password;IC/Passport;Name;DOB;Address;State;Country;Postcode;Gender;Category;Vaccination Status
+                        tempPeople.get(targetIndex).set(3, name);
+                        tempPeople.get(targetIndex).set(4, dobDate);
+                        tempPeople.get(targetIndex).set(5, "-");
+                        tempPeople.get(targetIndex).set(6, "-");
+                        tempPeople.get(targetIndex).set(7, noncitiCountry);
+                        tempPeople.get(targetIndex).set(8, "-");
+                        tempPeople.get(targetIndex).set(9, gender);
+                        tempPeople.get(targetIndex).set(10, category);
+
+                        // write into file
+                        ppl.writeIntoPeopleFile(tempPeople);
+
+                        JOptionPane.showMessageDialog(this, "Successfully edited.", "People info edited", JOptionPane.INFORMATION_MESSAGE);
+
+                        // return back to people profile
+                        PersonnelPeople pp = new PersonnelPeople(id);
+                        pp.setVisible(true);
+                        this.setVisible(false);
+
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(PersonnelEditPeople.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(PersonnelEditPeople.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }
+
+                break;
+        }
 
     }//GEN-LAST:event_savePeopleInfoMouseClicked
 
@@ -760,6 +921,34 @@ public class PersonnelEditPeople extends javax.swing.JFrame {
         pp.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnBtnMouseClicked
+
+    private void pplPostcodeTfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pplPostcodeTfKeyTyped
+        char nums = evt.getKeyChar();
+        if (!(Character.isDigit(nums) || (nums == KeyEvent.VK_BACK_SPACE) || (nums == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_pplPostcodeTfKeyTyped
+
+    private void pplStateTfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pplStateTfKeyTyped
+        char nums = evt.getKeyChar();
+        if (!(Character.isAlphabetic(nums) || (nums == KeyEvent.VK_BACK_SPACE) || (nums == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_pplStateTfKeyTyped
+
+    private void nonCitizenCountryTfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nonCitizenCountryTfKeyTyped
+        char nums = evt.getKeyChar();
+        if (!(Character.isAlphabetic(nums) || (nums == KeyEvent.VK_BACK_SPACE) || (nums == KeyEvent.VK_DELETE) || (nums == KeyEvent.VK_SPACE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_nonCitizenCountryTfKeyTyped
+
+    private void pplNameTfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pplNameTfKeyTyped
+        char nums = evt.getKeyChar();
+        if (!(Character.isAlphabetic(nums) || (nums == KeyEvent.VK_BACK_SPACE) || (nums == KeyEvent.VK_DELETE) || (nums == KeyEvent.VK_SPACE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_pplNameTfKeyTyped
 
     /**
      * @param args the command line arguments

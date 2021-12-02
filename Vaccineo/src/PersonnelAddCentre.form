@@ -11,6 +11,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowOpened" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowOpened"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -60,25 +63,25 @@
                       <Component id="centreNameLbl" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
-                      <Component id="pplNameTf" min="-2" pref="465" max="-2" attributes="0"/>
-                      <Component id="pplNameTf1" alignment="0" min="-2" pref="850" max="-2" attributes="0"/>
+                      <Component id="cNameTf" min="-2" pref="465" max="-2" attributes="0"/>
+                      <Component id="cStreetTf" alignment="0" min="-2" pref="850" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="pplNameTf2" alignment="0" min="-2" pref="380" max="-2" attributes="0"/>
+                              <Component id="cStateTf" alignment="0" min="-2" pref="380" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel20" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="pplNameTf3" alignment="0" min="-2" pref="380" max="-2" attributes="0"/>
+                              <Component id="cPostcodeTf" alignment="0" min="-2" pref="380" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Component id="jLabel21" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
+                      <Component id="cCountry" min="-2" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Component id="savePeopleInfo" min="-2" pref="91" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-                          <Component id="savePeopleInfo1" min="-2" pref="91" max="-2" attributes="0"/>
+                          <Component id="cancelBtn" min="-2" pref="91" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="240" max="32767" attributes="0"/>
@@ -96,32 +99,32 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="pplNameTf" min="-2" pref="54" max="-2" attributes="0"/>
+                  <Component id="cNameTf" min="-2" pref="54" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                          <Component id="pplNameTf1" min="-2" pref="54" max="-2" attributes="0"/>
+                          <Component id="cStreetTf" min="-2" pref="54" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="pplNameTf2" min="-2" pref="54" max="-2" attributes="0"/>
+                          <Component id="cStateTf" min="-2" pref="54" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="pplNameTf3" min="-2" pref="54" max="-2" attributes="0"/>
+                          <Component id="cPostcodeTf" min="-2" pref="54" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                  <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
+                  <Component id="cCountry" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="savePeopleInfo" alignment="0" min="-2" pref="41" max="-2" attributes="0"/>
-                      <Component id="savePeopleInfo1" alignment="0" min="-2" pref="41" max="-2" attributes="0"/>
+                      <Component id="cancelBtn" alignment="0" min="-2" pref="41" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -587,14 +590,14 @@
             <Property name="text" type="java.lang.String" value="Street"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="pplNameTf">
+        <Component class="javax.swing.JTextField" name="cNameTf">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="pplNameTf1">
+        <Component class="javax.swing.JTextField" name="cStreetTf">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>
@@ -612,12 +615,15 @@
             <Property name="text" type="java.lang.String" value="State"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="pplNameTf2">
+        <Component class="javax.swing.JTextField" name="cStateTf">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cStateTfKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel20">
           <Properties>
@@ -630,12 +636,15 @@
             <Property name="text" type="java.lang.String" value="Postcode"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="pplNameTf3">
+        <Component class="javax.swing.JTextField" name="cPostcodeTf">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cPostcodeTfKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel21">
           <Properties>
@@ -648,7 +657,7 @@
             <Property name="text" type="java.lang.String" value="Country"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel22">
+        <Component class="javax.swing.JLabel" name="cCountry">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>
@@ -712,7 +721,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="savePeopleInfo1">
+        <Container class="javax.swing.JPanel" name="cancelBtn">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="f9" green="f6" red="ed" type="rgb"/>
@@ -725,7 +734,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="savePeopleInfo1MouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cancelBtnMouseClicked"/>
           </Events>
 
           <Layout>

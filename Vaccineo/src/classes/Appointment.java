@@ -1,6 +1,7 @@
 package classes;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -86,7 +87,14 @@ public class Appointment {
         return appDate;
     }
 
-    /*time setter and getter*/
+    public void setAppointmentTime(String time) {
+        this.appTime = time;
+    }
+    
+    public String getAppointmentTime() {
+        return appTime;
+    }
+    
     public void setVenue(String venue) {
         this.venue = venue;
     }
@@ -151,6 +159,7 @@ public class Appointment {
                     // ic/passport;date;time;centre;status;vaccine;dose;complete;serial_number
                     setPeopleId(appointmentList.get(i).get(0));
                     setAppointmentDate(appointmentList.get(i).get(1));
+                    setAppointmentTime(appointmentList.get(i).get(2));
                     setVenue(appointmentList.get(i).get(3));
                     setAppointmentStatus(appointmentList.get(i).get(4));
                     setVaccine(appointmentList.get(i).get(5));
@@ -175,6 +184,7 @@ public class Appointment {
                     // ic/passport;date;time;centre;status;vaccine;dose;complete;serial_number
                     setPeopleId(appointmentList.get(i).get(0));
                     setAppointmentDate(appointmentList.get(i).get(1));
+                    setAppointmentTime(appointmentList.get(i).get(2));
                     setVenue(appointmentList.get(i).get(3));
                     setAppointmentStatus(appointmentList.get(i).get(4));
                     setVaccine(appointmentList.get(i).get(5));
@@ -196,6 +206,7 @@ public class Appointment {
                 for (int j = 0; j < appointmentList.get(i).size(); j++) {
                     setPeopleId(appointmentList.get(i).get(0));
                     setAppointmentDate(appointmentList.get(i).get(1));
+                    setAppointmentTime(appointmentList.get(i).get(2));
                     setVenue(appointmentList.get(i).get(3));
                     setAppointmentStatus(appointmentList.get(i).get(4));
                     setVaccine(appointmentList.get(i).get(5));
@@ -227,6 +238,7 @@ public class Appointment {
                     if (targetId.equals(peopleId)) {
                         setPeopleId(appointmentList.get(i).get(0));
                         setAppointmentDate(appointmentList.get(i).get(1));
+                        setAppointmentTime(appointmentList.get(i).get(2));
                         setVenue(appointmentList.get(i).get(3));
                         setAppointmentStatus(appointmentList.get(i).get(4));
                         setVaccine(appointmentList.get(i).get(5));
@@ -299,11 +311,28 @@ public class Appointment {
                 } else if ("pending".equals(status)) {
                     reschedule = -1;
                 } else {
-                    reschedule = 0;
+                    reschedule = 1;
                 }
             }
         }
 
         return reschedule;
+    }
+    
+    public void writeIntoAppointmentFile(ArrayList<ArrayList<String>> list) throws IOException {
+        GeneralFunction gf = new GeneralFunction();
+        gf.writeIntoFile(list, data);
+    }
+    
+    public int getRecordIndex(String pplId, String doseNum) throws FileNotFoundException {
+        generateAppointmentList();
+        
+        int targetIndex = -1;
+        for(int i = 0; i < appointmentList.size(); i++) {
+            if (appointmentList.get(i).get(0).equals(pplId) && appointmentList.get(i).get(6).equals(doseNum)){
+                targetIndex = i;
+            }
+        }
+        return targetIndex;
     }
 }

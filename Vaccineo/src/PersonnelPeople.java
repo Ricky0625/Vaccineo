@@ -10,6 +10,8 @@ import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,10 +44,25 @@ public class PersonnelPeople extends javax.swing.JFrame {
     People ppl = new People();
     Centre c = new Centre();
     ArrayList<ArrayList<String>> appointmentList, centreList, peopleList;
+    JFrame PersonnelPeople = this;
 
     public PersonnelPeople() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
+        
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                String ObjButtons[] = {"Yes", "No"};
+                int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Vaccineo", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+                if (PromptResult == JOptionPane.YES_OPTION) {
+                    Login log = new Login();
+                    log.setVisible(true);
+                    PersonnelPeople.setVisible(false);
+                }
+            }
+        });
     }
 
     public PersonnelPeople(String id) {
@@ -53,6 +70,20 @@ public class PersonnelPeople extends javax.swing.JFrame {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
         pplId.setText(id);
         ppl.setId(id);
+        
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                String ObjButtons[] = {"Yes", "No"};
+                int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Vaccineo", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+                if (PromptResult == JOptionPane.YES_OPTION) {
+                    Login log = new Login();
+                    log.setVisible(true);
+                    PersonnelPeople.setVisible(false);
+                }
+            }
+        });
 
     }
 
@@ -907,7 +938,11 @@ public class PersonnelPeople extends javax.swing.JFrame {
             pplGender.setText(ppl.getGender());
             pplDOB.setText(ppl.getDOB());
             pplAge.setText(Integer.toString(ppl.getAge()));
-            pplAddress.setText(ppl.getAddress());
+            if("Citizen".equals(ppl.getCategory())) {
+                pplAddress.setText(ppl.getAddress());
+            } else {
+                pplAddress.setText(ppl.getCountry());
+            }
             vacStatus.setText(ppl.getVaccinationStatus());
 
             if ("Not Registered".equals(ppl.getVaccinationStatus())) {
@@ -935,7 +970,7 @@ public class PersonnelPeople extends javax.swing.JFrame {
                         firstDoseDate.setText("-");
                         scheduleAppointment.setVisible(true);
                     } else {
-                        firstDoseDate.setText(ap1.getAppointmentDate());
+                        firstDoseDate.setText(ap1.getAppointmentDate() + " " + ap1.getAppointmentTime());
                     }
 
                     String vacName = ap1.getVaccine();
@@ -967,7 +1002,7 @@ public class PersonnelPeople extends javax.swing.JFrame {
                     if (ap2.getAppointmentDate() == null) {
                         secDoseDate.setText("-");
                     } else {
-                        secDoseDate.setText(ap2.getAppointmentDate());
+                        secDoseDate.setText(ap2.getAppointmentDate() + " " + ap2.getAppointmentTime());
                     }
 
                     String vacName = ap2.getVaccine();
