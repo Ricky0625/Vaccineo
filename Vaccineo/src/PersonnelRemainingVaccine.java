@@ -1,59 +1,52 @@
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import classes.Centre;
 import classes.GeneralFunction;
-import classes.People;
+import classes.Vaccine;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.LayoutManager;
+import java.awt.RenderingHints;
 import java.awt.Toolkit;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
-import javax.swing.JTable;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Asus
  */
-public class PersonnelPeopleList extends javax.swing.JFrame {
+public class PersonnelRemainingVaccine extends javax.swing.JFrame {
 
+    Color priColor = new Color(0, 109, 119);
+    Color secColor = new Color(131, 197, 190);
+    Color bgColor = new Color(237, 246, 249);
+
+    String centreId;
     GeneralFunction gf = new GeneralFunction();
-    People ppl = new People();
-    ArrayList<ArrayList<String>> peopleList;
-    JFrame PersonnelPeopleList = this;
+    Vaccine vac = new Vaccine();
+    Centre c = new Centre();
+    ArrayList<ArrayList<String>> remainingVaccine;
+    ArrayList<ArrayList<String>> vaccineList;
+    JFrame PersonnelRemainingVaccine = this;
 
-    public PersonnelPeopleList() {
+    public PersonnelRemainingVaccine() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
-
-        peopleTable.addMouseListener(new MouseAdapter() {
-            String value;
-
-            @Override
-            public void mouseClicked(MouseEvent me) {
-
-                if (me.getClickCount() == 2) {     // to detect doble click events
-                    JTable target = (JTable) me.getSource();
-                    int row = target.getSelectedRow(); // select a row
-                    // int column = target.getSelectedColumn(); // select a column                
-                    value = (String) peopleTable.getValueAt(row, 0);
-                    // System.out.println(ppl.getId());
-                    PersonnelPeople pp = new PersonnelPeople(value);
-                    pp.setVisible(true);
-                    PersonnelPeopleList.setVisible(false);
-                }
-            }
-        });
         
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
@@ -64,7 +57,27 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
                 if (PromptResult == JOptionPane.YES_OPTION) {
                     Login log = new Login();
                     log.setVisible(true);
-                    PersonnelPeopleList.setVisible(false);
+                    PersonnelRemainingVaccine.setVisible(false);
+                }
+            }
+        });
+    }
+
+    public PersonnelRemainingVaccine(String centreId) {
+        initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
+        this.centreId = centreId;
+        
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                String ObjButtons[] = {"Yes", "No"};
+                int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Vaccineo", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+                if (PromptResult == JOptionPane.YES_OPTION) {
+                    Login log = new Login();
+                    log.setVisible(true);
+                    PersonnelRemainingVaccine.setVisible(false);
                 }
             }
         });
@@ -98,21 +111,20 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        centreFullName = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel34 = new javax.swing.JLabel();
-        searchUser = new javax.swing.JTextField();
+        searchBatch = new javax.swing.JTextField();
         jLabel35 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        peopleTable = new javax.swing.JTable();
+        remainingVacTable = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        vacStatusCB = new javax.swing.JComboBox<>();
-        editPeopleInfo = new javax.swing.JPanel();
-        jLabel36 = new javax.swing.JLabel();
+        selectVac = new javax.swing.JComboBox<>();
+        backBtn = new RoundedPanel(10, priColor);
+        jLabel33 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1440, 800));
@@ -210,13 +222,19 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        ppPanel.setBackground(new java.awt.Color(131, 197, 190));
+        ppPanel.setBackground(new java.awt.Color(0, 109, 119));
         ppPanel.setToolTipText("People");
         ppPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ppPanel.setPreferredSize(new java.awt.Dimension(300, 65));
         ppPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ppPanelMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ppPanelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ppPanelMouseExited(evt);
             }
         });
 
@@ -290,20 +308,9 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        vaPanel.setBackground(new java.awt.Color(0, 109, 119));
+        vaPanel.setBackground(new java.awt.Color(131, 197, 190));
         vaPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         vaPanel.setPreferredSize(new java.awt.Dimension(300, 65));
-        vaPanel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                vaPanelMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                vaPanelMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                vaPanelMouseExited(evt);
-            }
-        });
 
         jLabel37.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel37.setForeground(new java.awt.Color(255, 255, 255));
@@ -365,7 +372,11 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel4.setText("People");
+        jLabel4.setText("Vaccine Warehouse");
+
+        centreFullName.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        centreFullName.setForeground(new java.awt.Color(226, 149, 120));
+        centreFullName.setText("Bukit Jalil");
 
         jPanel8.setBackground(new java.awt.Color(0, 109, 119));
         jPanel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -389,20 +400,20 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        searchUser.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        searchUser.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 109, 119)));
-        searchUser.addKeyListener(new java.awt.event.KeyAdapter() {
+        searchBatch.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        searchBatch.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 109, 119)));
+        searchBatch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                searchUserKeyReleased(evt);
+                searchBatchKeyReleased(evt);
             }
         });
 
         jLabel35.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel35.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel35.setText("IC/Passport No.");
+        jLabel35.setText("Batch Id");
 
-        peopleTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        peopleTable.setModel(new javax.swing.table.DefaultTableModel(
+        remainingVacTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        remainingVacTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -412,12 +423,12 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
         )
         {public boolean isCellEditable(int row, int column){return false;}}
     );
-    peopleTable.setGridColor(new java.awt.Color(0, 109, 119));
-    peopleTable.setRowHeight(25);
-    peopleTable.setSelectionBackground(new java.awt.Color(131, 197, 190));
-    peopleTable.setSelectionForeground(new java.awt.Color(255, 255, 255));
-    peopleTable.getTableHeader().setReorderingAllowed(false);
-    jScrollPane1.setViewportView(peopleTable);
+    remainingVacTable.setGridColor(new java.awt.Color(0, 109, 119));
+    remainingVacTable.setRowHeight(25);
+    remainingVacTable.setSelectionBackground(new java.awt.Color(131, 197, 190));
+    remainingVacTable.setSelectionForeground(new java.awt.Color(255, 255, 255));
+    remainingVacTable.getTableHeader().setReorderingAllowed(false);
+    jScrollPane1.setViewportView(remainingVacTable);
 
     jPanel4.setBackground(new java.awt.Color(0, 109, 119));
 
@@ -458,48 +469,44 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
         .addGap(0, 0, Short.MAX_VALUE)
     );
 
-    jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-    jLabel2.setForeground(new java.awt.Color(0, 109, 119));
-    jLabel2.setText("Double click on a row to view the details.");
-
-    jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-    jLabel8.setForeground(new java.awt.Color(0, 109, 119));
-    jLabel8.setText("Vaccination Status:");
-
-    vacStatusCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Not Registered", "Pending 1st Dose", "Done 1st Dose", "Pending 2nd Dose", "Done 2nd Dose" }));
-    vacStatusCB.addActionListener(new java.awt.event.ActionListener() {
+    selectVac.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+    selectVac.setForeground(new java.awt.Color(0, 109, 119));
+    selectVac.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All" }));
+    selectVac.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            vacStatusCBActionPerformed(evt);
+            selectVacActionPerformed(evt);
         }
     });
 
-    editPeopleInfo.setBackground(new java.awt.Color(0, 109, 119));
-    editPeopleInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-    editPeopleInfo.addMouseListener(new java.awt.event.MouseAdapter() {
+    backBtn.setBackground(new java.awt.Color(237, 246, 249));
+    backBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    backBtn.setPreferredSize(new java.awt.Dimension(58, 22));
+    backBtn.addMouseListener(new java.awt.event.MouseAdapter() {
         public void mouseClicked(java.awt.event.MouseEvent evt) {
-            editPeopleInfoMouseClicked(evt);
+            backBtnMouseClicked(evt);
         }
     });
 
-    jLabel36.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-    jLabel36.setForeground(new java.awt.Color(255, 255, 255));
-    jLabel36.setText("Add New User");
+    jLabel33.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+    jLabel33.setForeground(new java.awt.Color(255, 255, 255));
+    jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/back-btn.png"))); // NOI18N
+    jLabel33.setText("Back");
 
-    javax.swing.GroupLayout editPeopleInfoLayout = new javax.swing.GroupLayout(editPeopleInfo);
-    editPeopleInfo.setLayout(editPeopleInfoLayout);
-    editPeopleInfoLayout.setHorizontalGroup(
-        editPeopleInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(editPeopleInfoLayout.createSequentialGroup()
-            .addGap(26, 26, 26)
-            .addComponent(jLabel36)
-            .addContainerGap(26, Short.MAX_VALUE))
+    javax.swing.GroupLayout backBtnLayout = new javax.swing.GroupLayout(backBtn);
+    backBtn.setLayout(backBtnLayout);
+    backBtnLayout.setHorizontalGroup(
+        backBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(backBtnLayout.createSequentialGroup()
+            .addGap(20, 20, 20)
+            .addComponent(jLabel33)
+            .addGap(20, 20, 20))
     );
-    editPeopleInfoLayout.setVerticalGroup(
-        editPeopleInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(editPeopleInfoLayout.createSequentialGroup()
+    backBtnLayout.setVerticalGroup(
+        backBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(backBtnLayout.createSequentialGroup()
             .addGap(12, 12, 12)
-            .addComponent(jLabel36)
-            .addContainerGap(12, Short.MAX_VALUE))
+            .addComponent(jLabel33)
+            .addGap(12, 12, 12))
     );
 
     javax.swing.GroupLayout formBackgroundLayout = new javax.swing.GroupLayout(formBackground);
@@ -508,40 +515,40 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
         formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(formBackgroundLayout.createSequentialGroup()
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(40, 40, 40)
+            .addGap(80, 80, 80)
             .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(formBackgroundLayout.createSequentialGroup()
                     .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jScrollPane1)
                         .addGroup(formBackgroundLayout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(editPeopleInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
                             .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel35)
+                                .addComponent(selectVac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(formBackgroundLayout.createSequentialGroup()
-                                    .addComponent(searchUser, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, 0)
-                                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGap(40, 40, 40))
+                                    .addComponent(jLabel4)
+                                    .addGap(58, 58, 58)
+                                    .addComponent(jLabel7))
+                                .addComponent(centreFullName))
+                            .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(formBackgroundLayout.createSequentialGroup()
+                                    .addGap(54, 54, 54)
+                                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formBackgroundLayout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel35)
+                                        .addGroup(formBackgroundLayout.createSequentialGroup()
+                                            .addComponent(searchBatch, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(0, 0, 0)
+                                            .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                    .addGap(80, 80, 80))
                 .addGroup(formBackgroundLayout.createSequentialGroup()
-                    .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(formBackgroundLayout.createSequentialGroup()
-                            .addComponent(jLabel4)
-                            .addGap(58, 58, 58)
-                            .addComponent(jLabel7)
-                            .addGap(440, 440, 440)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(formBackgroundLayout.createSequentialGroup()
-                            .addComponent(jLabel8)
-                            .addGap(18, 18, 18)
-                            .addComponent(vacStatusCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap(75, Short.MAX_VALUE))))
+                    .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
     );
     formBackgroundLayout.setVerticalGroup(
         formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -549,35 +556,30 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
             .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(formBackgroundLayout.createSequentialGroup()
-                    .addGap(34, 34, 34)
-                    .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(editPeopleInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(45, 45, 45)
+                    .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(formBackgroundLayout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addGap(10, 10, 10)
+                            .addComponent(centreFullName)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(selectVac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel7)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formBackgroundLayout.createSequentialGroup()
                             .addComponent(jLabel35)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(searchUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(formBackgroundLayout.createSequentialGroup()
-                            .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formBackgroundLayout.createSequentialGroup()
-                                    .addComponent(jLabel7)
-                                    .addGap(36, 36, 36))
-                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addGap(18, 18, 18)
-                            .addComponent(jLabel2)
-                            .addGap(17, 17, 17)
-                            .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel8)
-                                .addComponent(vacStatusCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(searchBatch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGap(0, 0, 0))
+                    .addGap(12, 12, 12)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGap(4, 4, 4))
     );
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -588,7 +590,7 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
     );
     layout.setVerticalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addComponent(formBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addComponent(formBackground, javax.swing.GroupLayout.DEFAULT_SIZE, 804, Short.MAX_VALUE)
     );
 
     pack();
@@ -612,6 +614,14 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
         ppl.setVisible(true);
     }//GEN-LAST:event_ppPanelMouseClicked
 
+    private void ppPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ppPanelMouseEntered
+        ppPanel.setBackground(gf.secColor);
+    }//GEN-LAST:event_ppPanelMouseEntered
+
+    private void ppPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ppPanelMouseExited
+        ppPanel.setBackground(gf.priColor);
+    }//GEN-LAST:event_ppPanelMouseExited
+
     private void cnPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cnPanelMouseClicked
         PersonnelCentre pc = new PersonnelCentre();
         this.setVisible(false);
@@ -626,37 +636,59 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
         cnPanel.setBackground(gf.priColor);
     }//GEN-LAST:event_cnPanelMouseExited
 
-    private void vaPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vaPanelMouseClicked
-        PersonnelVaccine pv = new PersonnelVaccine();
+    private void searchBatchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBatchKeyReleased
+        String searchTerm = searchBatch.getText();
+        selectVac.setSelectedIndex(0);
+        gf.refreshTable(remainingVacTable);
+        gf.tableLoaderStartsWith(remainingVacTable, remainingVaccine, 0, searchTerm, 3, centreId);
+    }//GEN-LAST:event_searchBatchKeyReleased
+
+    private void selectVacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectVacActionPerformed
+        JComboBox selectVac = (JComboBox) evt.getSource();
+
+        int index = selectVac.getSelectedIndex();
+        System.out.println(index);
+
+        if (index != 0) {
+            String selectedVac = (String) selectVac.getSelectedItem();
+            vac.searchVaccineByName(vaccineList, selectedVac);
+            String vacId = vac.getVacId();
+
+            gf.refreshTable(remainingVacTable);
+            //gf.tableLoader(appointmentTable, appointmentList);
+            /*Need extra attention*/
+            gf.tableLoaderEqualsMore(remainingVacTable, remainingVaccine, 3, centreId, 1, vacId);
+        } else {
+            gf.refreshTable(remainingVacTable);
+            gf.tableLoaderEquals(remainingVacTable, remainingVaccine, 3, centreId);
+        }
+    }//GEN-LAST:event_selectVacActionPerformed
+
+    private void backBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseClicked
+        PersonnelCentreDetail pcd = new PersonnelCentreDetail(centreFullName.getText());
+        pcd.setVisible(true);
         this.setVisible(false);
-        pv.setVisible(true);
-    }//GEN-LAST:event_vaPanelMouseClicked
-
-    private void vaPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vaPanelMouseEntered
-        vaPanel.setBackground(gf.secColor);
-    }//GEN-LAST:event_vaPanelMouseEntered
-
-    private void vaPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vaPanelMouseExited
-        vaPanel.setBackground(gf.priColor);
-    }//GEN-LAST:event_vaPanelMouseExited
-
-    private void searchUserKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchUserKeyReleased
-        String searchTerm = searchUser.getText();
-        gf.refreshTable(peopleTable);
-        gf.tableLoaderStartsWithOmitted(peopleTable, peopleList, searchTerm, 2, 2);
-    }//GEN-LAST:event_searchUserKeyReleased
+    }//GEN-LAST:event_backBtnMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         try {
-            ppl.generatePeopleList();
-            peopleList = ppl.getPeopleList();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(PersonnelPeopleList.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            vac.generateRemainingVaccineList();
+            remainingVaccine = vac.getRemainingVaccineList();
+            vac.generateVaccineList();
+            vaccineList = vac.getVaccineList();
+            gf.tableLoaderEquals(remainingVacTable, remainingVaccine, 3, centreId);
+            c.generateCentreList();
 
-        gf.tableLoaderOmittedColumn(peopleTable, peopleList, 2);
-        gf.tableRowClicked(peopleTable);
-        // System.out.println(peopleList);
+            c.searchCentreById(centreId);
+            centreFullName.setText(c.getCentreName());
+
+            Object[] vaccineName = vac.getAllVaccineName();
+            for (Object vaccine : vaccineName) {
+                selectVac.addItem((String) vaccine);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(PersonnelRemainingVaccine.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_formWindowOpened
 
     private void dbPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dbPanelMouseClicked
@@ -666,32 +698,12 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
     }//GEN-LAST:event_dbPanelMouseClicked
 
     private void dbPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dbPanelMouseEntered
-        dbPanel.setBackground(gf.secColor);
+        dbPanel.setBackground(secColor);
     }//GEN-LAST:event_dbPanelMouseEntered
 
     private void dbPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dbPanelMouseExited
-        dbPanel.setBackground(gf.priColor);
+        dbPanel.setBackground(priColor);
     }//GEN-LAST:event_dbPanelMouseExited
-
-    private void editPeopleInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editPeopleInfoMouseClicked
-        PersonnelAddCentre pac = new PersonnelAddCentre();
-        pac.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_editPeopleInfoMouseClicked
-
-    private void vacStatusCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vacStatusCBActionPerformed
-        JComboBox vacStatusCB = (JComboBox) evt.getSource();
-
-        String selectedStatus = (String) vacStatusCB.getSelectedItem();
-
-        if ("All".equals(selectedStatus)) {
-            gf.refreshTable(peopleTable);
-            gf.tableLoaderOmittedColumn(peopleTable, peopleList, 2);
-        } else {
-            gf.refreshTable(peopleTable);
-            gf.tableLoaderEqualsOmmited(peopleTable, peopleList, 11, selectedStatus, 2);
-        }
-    }//GEN-LAST:event_vacStatusCBActionPerformed
 
     /**
      * @param args the command line arguments
@@ -710,46 +722,45 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PersonnelPeopleList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PersonnelRemainingVaccine.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PersonnelPeopleList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PersonnelRemainingVaccine.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PersonnelPeopleList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PersonnelRemainingVaccine.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PersonnelPeopleList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PersonnelRemainingVaccine.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PersonnelPeopleList().setVisible(true);
+                new PersonnelRemainingVaccine().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel backBtn;
+    private javax.swing.JLabel centreFullName;
     private javax.swing.JPanel cnPanel;
     private javax.swing.JPanel dbPanel;
-    private javax.swing.JPanel editPeopleInfo;
     private javax.swing.JPanel formBackground;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
@@ -758,10 +769,65 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel logoutPanel;
-    private javax.swing.JTable peopleTable;
     private javax.swing.JPanel ppPanel;
-    private javax.swing.JTextField searchUser;
+    private javax.swing.JTable remainingVacTable;
+    private javax.swing.JTextField searchBatch;
+    private javax.swing.JComboBox<String> selectVac;
     private javax.swing.JPanel vaPanel;
-    private javax.swing.JComboBox<String> vacStatusCB;
     // End of variables declaration//GEN-END:variables
+
+    class RoundedPanel extends JPanel {
+
+        private Color backgroundColor;
+        private int cornerRadius = 15;
+
+        public RoundedPanel(LayoutManager layout, int radius) {
+            super(layout);
+            cornerRadius = radius;
+        }
+
+        public RoundedPanel(LayoutManager layout, int radius, Color bgColor) {
+            super(layout);
+            cornerRadius = radius;
+            backgroundColor = bgColor;
+        }
+
+        public RoundedPanel(int radius) {
+            super();
+            cornerRadius = radius;
+
+        }
+
+        public RoundedPanel(int radius, Color bgColor) {
+            super();
+            cornerRadius = radius;
+            backgroundColor = bgColor;
+        }
+
+        public RoundedPanel(Color bgColor) {
+            super();
+            backgroundColor = bgColor;
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            Dimension arcs = new Dimension(cornerRadius, cornerRadius);
+            int width = getWidth();
+            int height = getHeight();
+            Graphics2D graphics = (Graphics2D) g;
+            graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            //Draws the rounded panel with borders.
+            if (backgroundColor != null) {
+                graphics.setColor(backgroundColor);
+            } else {
+                graphics.setColor(getBackground());
+            }
+            graphics.fillRoundRect(0, 0, width - 1, height - 1, arcs.width, arcs.height); //paint background
+            graphics.setColor(getForeground());
+//            graphics.drawRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height); //paint border
+//             
+        }
+    }
+
 }

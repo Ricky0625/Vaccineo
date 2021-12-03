@@ -18,7 +18,7 @@ import javax.swing.JPanel;
  *
  * @author dexte
  */
-public class Appointment extends javax.swing.JFrame {
+public class PeopleAppointment extends javax.swing.JFrame {
 
     /**
      * Creates new form Appointment
@@ -29,7 +29,7 @@ public class Appointment extends javax.swing.JFrame {
     Color empColor = new Color(255,221,210);
     Color whiteColor = new Color(255,255,255);
     
-    public Appointment() {
+    public PeopleAppointment() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
         String dose1lbl = "<html><u>1st Dose Appointment</u></html>";
@@ -405,20 +405,21 @@ public class Appointment extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Appointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PeopleAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Appointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PeopleAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Appointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PeopleAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Appointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PeopleAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Appointment().setVisible(true);
+                new PeopleAppointment().setVisible(true);
             }
         });
     }

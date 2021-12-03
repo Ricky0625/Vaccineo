@@ -4,6 +4,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.table.DefaultTableModel;
+import classes.GeneralFunction;
+import classes.People;
+import classes.Vaccine;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,43 +24,20 @@ import javax.swing.table.DefaultTableModel;
  */
 public class test extends javax.swing.JFrame {
 
-    /**
-     * Creates new form test
-     */
-    public test() {
+    GeneralFunction gf = new GeneralFunction();
+    People p = new People();
+    Vaccine vac = new Vaccine();
+    
+    ArrayList<ArrayList<String>> peopleList, vaccineList;
+    
+    public test() throws FileNotFoundException, IOException {
         initComponents();
+        //p.generatePeopleList();
+        vac.generateVaccineList();
+        //peopleList = p.getPeopleList();
+        vaccineList = vac.getVaccineList();
+        gf.writeIntoFile(vaccineList, "test.txt");
         
-        String path = "appointment.txt";
-        File file = new File(path);
-        
-        try {
-            
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            
-            // get the first line
-            // get the columns name to the jtable model
-            // set columns name to the jtable model
-            String firstLine = br.readLine().trim();
-            String[] columnsName = firstLine.split(",");
-            DefaultTableModel model = (DefaultTableModel)testTable.getModel();
-            model.setColumnIdentifiers(columnsName);
-            
-            // get lines from txt file
-            Object[] tableLines = br.lines().toArray();
-            
-            // extract the data from lines
-            // set data to jtable model
-            for(int i = 0; i < tableLines.length; i++)
-            {
-                String line = tableLines[i].toString().trim();
-                String[] dataRow = line.split(",");
-                model.addRow(dataRow);
-            }
-            
-            //setTableHeaderStyle(dataTable);
-            
-        } catch (IOException ex) {
-        }
     }
 
     /**
@@ -65,40 +49,32 @@ public class test extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        testTable = new javax.swing.JTable();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        testTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
-        ));
-        jScrollPane1.setViewportView(testTable);
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(246, 246, 246)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(187, Short.MAX_VALUE))
+            .addGap(0, 885, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(54, Short.MAX_VALUE))
+            .addGap(0, 489, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -130,13 +106,16 @@ public class test extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new test().setVisible(true);
+                try {
+                    new test().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable testTable;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     // End of variables declaration//GEN-END:variables
 }

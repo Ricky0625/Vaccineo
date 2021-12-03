@@ -1,4 +1,5 @@
 
+import classes.People;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -6,9 +7,20 @@ import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -26,9 +38,50 @@ public class PersonnelEditPeople extends javax.swing.JFrame {
     Color bgColor = new Color(237, 246, 249);
     Color errColor = new Color(238, 118, 116);
 
+    String id;
+    String category;
+    People ppl = new People();
+    ArrayList<ArrayList<String>> peopleList;
+    
+    JFrame PersonnelEditPeople = this;
+
     public PersonnelEditPeople() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
+        
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                String ObjButtons[] = {"Yes", "No"};
+                int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Vaccineo", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+                if (PromptResult == JOptionPane.YES_OPTION) {
+                    Login log = new Login();
+                    log.setVisible(true);
+                    PersonnelEditPeople.setVisible(false);
+                }
+            }
+        });
+    }
+
+    public PersonnelEditPeople(String pplId) {
+        initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
+        this.id = pplId;
+        
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                String ObjButtons[] = {"Yes", "No"};
+                int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Vaccineo", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+                if (PromptResult == JOptionPane.YES_OPTION) {
+                    Login log = new Login();
+                    log.setVisible(true);
+                    PersonnelEditPeople.setVisible(false);
+                }
+            }
+        });
     }
 
     /**
@@ -41,18 +94,17 @@ public class PersonnelEditPeople extends javax.swing.JFrame {
     private void initComponents() {
 
         jTextField3 = new javax.swing.JTextField();
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        buttonGroup2 = new javax.swing.ButtonGroup();
+        genderBtnGroup = new javax.swing.ButtonGroup();
         formBackground = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
+        streetLbl = new javax.swing.JLabel();
+        postcodeLbl = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jPanel7 = new RoundedPanel(10, priColor);
+        citizenCountryLbl = new javax.swing.JLabel();
+        stateLbl = new javax.swing.JLabel();
+        btnBtn = new RoundedPanel(10, priColor);
         jLabel33 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -71,16 +123,19 @@ public class PersonnelEditPeople extends javax.swing.JFrame {
         vaPanel = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jLabel19 = new javax.swing.JLabel();
-        jPanel8 = new RoundedPanel(10, priColor);
+        pplNameTf = new javax.swing.JTextField();
+        pplStreetTf = new javax.swing.JTextField();
+        pplStateTf = new javax.swing.JTextField();
+        pplPostcodeTf = new javax.swing.JTextField();
+        pplDOB = new com.toedter.calendar.JDateChooser();
+        maleBtn = new javax.swing.JRadioButton();
+        femaleBtn = new javax.swing.JRadioButton();
+        citizenCountryTf = new javax.swing.JLabel();
+        savePeopleInfo = new RoundedPanel(10, priColor);
         jLabel34 = new javax.swing.JLabel();
+        nonCitizenCountryLbl = new javax.swing.JLabel();
+        nonCitizenCountryTf = new javax.swing.JTextField();
+        savePeopleInfo1 = new javax.swing.JPanel();
         jLabel35 = new javax.swing.JLabel();
 
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
@@ -91,6 +146,11 @@ public class PersonnelEditPeople extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(0, 0));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         formBackground.setBackground(new java.awt.Color(237, 246, 249));
         formBackground.setMaximumSize(new java.awt.Dimension(1440, 800));
@@ -108,47 +168,52 @@ public class PersonnelEditPeople extends javax.swing.JFrame {
         jLabel15.setForeground(new java.awt.Color(0, 109, 119));
         jLabel15.setText("DOB");
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel16.setText("Address");
+        streetLbl.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        streetLbl.setForeground(new java.awt.Color(0, 109, 119));
+        streetLbl.setText("Street");
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel17.setText("Postcode");
+        postcodeLbl.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        postcodeLbl.setForeground(new java.awt.Color(0, 109, 119));
+        postcodeLbl.setText("Postcode");
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(0, 109, 119));
         jLabel18.setText("Gender");
 
-        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel20.setText("Country");
+        citizenCountryLbl.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        citizenCountryLbl.setForeground(new java.awt.Color(0, 109, 119));
+        citizenCountryLbl.setText("Country");
 
-        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel22.setText("State");
+        stateLbl.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        stateLbl.setForeground(new java.awt.Color(0, 109, 119));
+        stateLbl.setText("State");
 
-        jPanel7.setBackground(new java.awt.Color(237, 246, 249));
-        jPanel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel7.setPreferredSize(new java.awt.Dimension(58, 22));
+        btnBtn.setBackground(new java.awt.Color(237, 246, 249));
+        btnBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBtn.setPreferredSize(new java.awt.Dimension(58, 22));
+        btnBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBtnMouseClicked(evt);
+            }
+        });
 
         jLabel33.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel33.setForeground(new java.awt.Color(255, 255, 255));
         jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/back-btn.png"))); // NOI18N
         jLabel33.setText("Back");
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        javax.swing.GroupLayout btnBtnLayout = new javax.swing.GroupLayout(btnBtn);
+        btnBtn.setLayout(btnBtnLayout);
+        btnBtnLayout.setHorizontalGroup(
+            btnBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnBtnLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel33)
                 .addGap(20, 20, 20))
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        btnBtnLayout.setVerticalGroup(
+            btnBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnBtnLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jLabel33)
                 .addGap(12, 12, 12))
@@ -386,85 +451,122 @@ public class PersonnelEditPeople extends javax.swing.JFrame {
                 .addComponent(logoutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+        pplNameTf.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplNameTf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                pplNameTfKeyTyped(evt);
             }
         });
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+        pplStreetTf.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        pplStateTf.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplStateTf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                pplStateTfKeyTyped(evt);
             }
         });
 
-        jTextField4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+        pplPostcodeTf.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplPostcodeTf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                pplPostcodeTfKeyTyped(evt);
             }
         });
 
-        jTextField5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        pplDOB.setDateFormatString("dd/MM/yyyy");
+        pplDOB.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        genderBtnGroup.add(maleBtn);
+        maleBtn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        maleBtn.setForeground(new java.awt.Color(0, 109, 119));
+        maleBtn.setText("Male");
+        maleBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+                maleBtnActionPerformed(evt);
             }
         });
 
-        jDateChooser1.setDateFormatString("dd-MM-yyyy");
-        jDateChooser1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        genderBtnGroup.add(femaleBtn);
+        femaleBtn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        femaleBtn.setForeground(new java.awt.Color(0, 109, 119));
+        femaleBtn.setText("Female");
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jRadioButton1.setForeground(new java.awt.Color(0, 109, 119));
-        jRadioButton1.setText("Male");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+        citizenCountryTf.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        citizenCountryTf.setForeground(new java.awt.Color(0, 109, 119));
+        citizenCountryTf.setText("Malaysia");
+
+        savePeopleInfo.setBackground(new java.awt.Color(237, 246, 249));
+        savePeopleInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        savePeopleInfo.setPreferredSize(new java.awt.Dimension(58, 22));
+        savePeopleInfo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                savePeopleInfoMouseClicked(evt);
             }
         });
-
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jRadioButton2.setForeground(new java.awt.Color(0, 109, 119));
-        jRadioButton2.setText("Female");
-
-        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel19.setText("Malaysia");
-
-        jPanel8.setBackground(new java.awt.Color(237, 246, 249));
-        jPanel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel8.setPreferredSize(new java.awt.Dimension(58, 22));
 
         jLabel34.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel34.setForeground(new java.awt.Color(255, 255, 255));
         jLabel34.setText("Save");
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+        javax.swing.GroupLayout savePeopleInfoLayout = new javax.swing.GroupLayout(savePeopleInfo);
+        savePeopleInfo.setLayout(savePeopleInfoLayout);
+        savePeopleInfoLayout.setHorizontalGroup(
+            savePeopleInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, savePeopleInfoLayout.createSequentialGroup()
                 .addContainerGap(29, Short.MAX_VALUE)
                 .addComponent(jLabel34)
                 .addGap(29, 29, 29))
         );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
+        savePeopleInfoLayout.setVerticalGroup(
+            savePeopleInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(savePeopleInfoLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jLabel34)
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
+        nonCitizenCountryLbl.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        nonCitizenCountryLbl.setForeground(new java.awt.Color(0, 109, 119));
+        nonCitizenCountryLbl.setText("Country");
+
+        nonCitizenCountryTf.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        nonCitizenCountryTf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nonCitizenCountryTfKeyTyped(evt);
+            }
+        });
+
+        savePeopleInfo1.setBackground(new java.awt.Color(237, 246, 249));
+        savePeopleInfo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        savePeopleInfo1.setPreferredSize(new java.awt.Dimension(58, 22));
+        savePeopleInfo1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                savePeopleInfo1MouseClicked(evt);
+            }
+        });
+
         jLabel35.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel35.setForeground(new java.awt.Color(226, 149, 120));
         jLabel35.setText("Cancel");
         jLabel35.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        javax.swing.GroupLayout savePeopleInfo1Layout = new javax.swing.GroupLayout(savePeopleInfo1);
+        savePeopleInfo1.setLayout(savePeopleInfo1Layout);
+        savePeopleInfo1Layout.setHorizontalGroup(
+            savePeopleInfo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, savePeopleInfo1Layout.createSequentialGroup()
+                .addContainerGap(23, Short.MAX_VALUE)
+                .addComponent(jLabel35)
+                .addGap(23, 23, 23))
+        );
+        savePeopleInfo1Layout.setVerticalGroup(
+            savePeopleInfo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(savePeopleInfo1Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(jLabel35)
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout formBackgroundLayout = new javax.swing.GroupLayout(formBackground);
         formBackground.setLayout(formBackgroundLayout);
@@ -476,42 +578,44 @@ public class PersonnelEditPeople extends javax.swing.JFrame {
                 .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(formBackgroundLayout.createSequentialGroup()
                         .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel16)
+                            .addComponent(streetLbl)
                             .addComponent(jLabel15)
                             .addComponent(jLabel8))
                         .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(formBackgroundLayout.createSequentialGroup()
                                 .addGap(575, 575, 575)
                                 .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel22)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(stateLbl)
+                                    .addComponent(pplStateTf, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(formBackgroundLayout.createSequentialGroup()
                                 .addGap(339, 339, 339)
                                 .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(formBackgroundLayout.createSequentialGroup()
-                                        .addComponent(jRadioButton1)
+                                        .addComponent(maleBtn)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jRadioButton2))
-                                    .addComponent(jLabel18)))))
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(femaleBtn))
+                                    .addComponent(jLabel18)
+                                    .addComponent(nonCitizenCountryLbl)
+                                    .addComponent(nonCitizenCountryTf, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addComponent(btnBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 585, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pplStreetTf, javax.swing.GroupLayout.PREFERRED_SIZE, 585, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addComponent(pplDOB, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                        .addComponent(pplNameTf, javax.swing.GroupLayout.Alignment.LEADING))
                     .addGroup(formBackgroundLayout.createSequentialGroup()
                         .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel17)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(postcodeLbl)
+                            .addComponent(pplPostcodeTf, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(44, 44, 44)
                         .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel19)
-                            .addComponent(jLabel20)))
+                            .addComponent(citizenCountryTf)
+                            .addComponent(citizenCountryLbl)))
                     .addGroup(formBackgroundLayout.createSequentialGroup()
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(64, 64, 64)
-                        .addComponent(jLabel35)))
-                .addContainerGap(95, Short.MAX_VALUE))
+                        .addComponent(savePeopleInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(savePeopleInfo1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
         formBackgroundLayout.setVerticalGroup(
             formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -519,45 +623,47 @@ public class PersonnelEditPeople extends javax.swing.JFrame {
                 .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(formBackgroundLayout.createSequentialGroup()
                         .addGap(61, 61, 61)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34)
                         .addComponent(jLabel4)
                         .addGap(20, 20, 20)
-                        .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel18))
-                        .addGap(8, 8, 8)
-                        .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton2))
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel15)
-                        .addGap(8, 8, 8)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel16)
-                            .addComponent(jLabel22))
-                        .addGap(8, 8, 8)
-                        .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
-                            .addComponent(jTextField2))
-                        .addGap(21, 21, 21)
-                        .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel17)
-                            .addComponent(jLabel20))
-                        .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(formBackgroundLayout.createSequentialGroup()
+                                .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel18))
                                 .addGap(8, 8, 8)
                                 .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel19))
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(formBackgroundLayout.createSequentialGroup()
-                                .addGap(94, 94, 94)
-                                .addComponent(jLabel35))))
+                                    .addComponent(pplNameTf, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(maleBtn)
+                                    .addComponent(femaleBtn))
+                                .addGap(27, 27, 27)
+                                .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel15)
+                                    .addComponent(nonCitizenCountryLbl))
+                                .addGap(8, 8, 8)
+                                .addComponent(pplDOB, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(nonCitizenCountryTf, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(streetLbl)
+                            .addComponent(stateLbl))
+                        .addGap(8, 8, 8)
+                        .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(pplStateTf, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                            .addComponent(pplStreetTf))
+                        .addGap(21, 21, 21)
+                        .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(postcodeLbl)
+                            .addComponent(citizenCountryLbl))
+                        .addGap(8, 8, 8)
+                        .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(pplPostcodeTf, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(citizenCountryTf))
+                        .addGap(18, 18, 18)
+                        .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(savePeopleInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(savePeopleInfo1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0))
         );
@@ -566,7 +672,7 @@ public class PersonnelEditPeople extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(formBackground, javax.swing.GroupLayout.DEFAULT_SIZE, 1401, Short.MAX_VALUE)
+            .addComponent(formBackground, javax.swing.GroupLayout.DEFAULT_SIZE, 1402, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -594,29 +700,13 @@ public class PersonnelEditPeople extends javax.swing.JFrame {
         ppPanel.setBackground(priColor);
     }//GEN-LAST:event_ppPanelMouseExited
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void maleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maleBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
-
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
-
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_maleBtnActionPerformed
 
     private void vaPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vaPanelMouseEntered
         vaPanel.setBackground(secColor);
@@ -656,6 +746,210 @@ public class PersonnelEditPeople extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_logoutPanelMouseClicked
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+
+        String gender;
+        nonCitizenCountryLbl.setVisible(false);
+        nonCitizenCountryTf.setVisible(false);
+        citizenCountryLbl.setVisible(false);
+        citizenCountryTf.setVisible(false);
+
+        try {
+            ppl.generatePeopleList();
+            peopleList = ppl.getPeopleList();
+            // System.out.println(peopleList);
+            ppl.searchUser(peopleList, id);
+            pplNameTf.setText(ppl.getName());
+            pplDOB.setDate(ppl.getDOBinDate());
+            pplStreetTf.setText(ppl.getStreet());
+            pplStateTf.setText(ppl.getState());
+            pplPostcodeTf.setText(ppl.getPostcode());
+            category = ppl.getCategory();
+            gender = ppl.getGender();
+
+            switch (category) {
+                case "Citizen":
+                    citizenCountryLbl.setVisible(true);
+                    citizenCountryTf.setVisible(true);
+                    citizenCountryTf.setText(ppl.getCountry());
+                    break;
+                case "Non-citizen":
+                    nonCitizenCountryLbl.setVisible(true);
+                    nonCitizenCountryTf.setVisible(true);
+                    nonCitizenCountryTf.setText(ppl.getCountry());
+                    streetLbl.setVisible(false);
+                    pplStreetTf.setVisible(false);
+                    stateLbl.setVisible(false);
+                    pplStateTf.setVisible(false);
+                    postcodeLbl.setVisible(false);
+                    pplPostcodeTf.setVisible(false);
+                    break;
+            }
+
+            switch (gender) {
+                case "Male":
+                    maleBtn.setSelected(true);
+                    break;
+                case "Female":
+                    femaleBtn.setSelected(true);
+                    break;
+            }
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(PersonnelPeopleList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //ppl.searchUser(peopleList, id);
+
+    }//GEN-LAST:event_formWindowOpened
+
+    private void savePeopleInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_savePeopleInfoMouseClicked
+        String name = pplNameTf.getText();
+        String gender;
+        if (femaleBtn.isSelected()) {
+            gender = "Female";
+        } else {
+            gender = "Male";
+        }
+        Date dob = pplDOB.getDate();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String dobDate = formatter.format(dob);
+        String street = pplStreetTf.getText();
+        String state = pplStateTf.getText();
+        String postcode = pplPostcodeTf.getText();
+        String citiCountry = citizenCountryTf.getText();
+        String noncitiCountry = nonCitizenCountryTf.getText();
+
+        // check if the current user if citizen or non-citizen
+        switch (category) {
+            case ("Citizen"):
+
+                // check if the textfields are empty or not
+                if (name.isEmpty() || gender.isEmpty() || dobDate.isEmpty() || street.isEmpty() || state.isEmpty() || postcode.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Please fill in all the fields!", "Empty fields", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    try {
+                        // get the index of the current record in the arraylist
+                        int targetIndex = ppl.getRecordIndex(id);
+
+                        // create a copy of the arraylist
+                        ArrayList<ArrayList<String>> tempPeople = peopleList;
+
+                        // modify the record in the arraylist
+                        // Username;Password;IC/Passport;Name;DOB;Address;State;Country;Postcode;Gender;Category;Vaccination Status
+                        tempPeople.get(targetIndex).set(3, name);
+                        tempPeople.get(targetIndex).set(4, dobDate);
+                        tempPeople.get(targetIndex).set(5, street);
+                        tempPeople.get(targetIndex).set(6, state);
+                        tempPeople.get(targetIndex).set(7, citiCountry);
+                        tempPeople.get(targetIndex).set(8, postcode);
+                        tempPeople.get(targetIndex).set(9, gender);
+                        tempPeople.get(targetIndex).set(10, category);
+
+                        // write into file
+                        ppl.writeIntoPeopleFile(tempPeople);
+
+                        JOptionPane.showMessageDialog(this, "Successfully edited.", "People info edited", JOptionPane.INFORMATION_MESSAGE);
+
+                        // return back to people profile
+                        PersonnelPeople pp = new PersonnelPeople(id);
+                        pp.setVisible(true);
+                        this.setVisible(false);
+
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(PersonnelEditPeople.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(PersonnelEditPeople.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }
+
+                break;
+            case ("Non-citizen"):
+
+                // check if the textfields are empty or not
+                if (name.isEmpty() || gender.isEmpty() || dobDate.isEmpty() || noncitiCountry.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Please fill in all the fields!", "Empty fields", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    try {
+                        // get the index of the current record in the arraylist
+                        int targetIndex = ppl.getRecordIndex(id);
+
+                        // create a copy of the arraylist
+                        ArrayList<ArrayList<String>> tempPeople = peopleList;
+
+                        // modify the record in the arraylist
+                        // Username;Password;IC/Passport;Name;DOB;Address;State;Country;Postcode;Gender;Category;Vaccination Status
+                        tempPeople.get(targetIndex).set(3, name);
+                        tempPeople.get(targetIndex).set(4, dobDate);
+                        tempPeople.get(targetIndex).set(5, "-");
+                        tempPeople.get(targetIndex).set(6, "-");
+                        tempPeople.get(targetIndex).set(7, noncitiCountry);
+                        tempPeople.get(targetIndex).set(8, "-");
+                        tempPeople.get(targetIndex).set(9, gender);
+                        tempPeople.get(targetIndex).set(10, category);
+
+                        // write into file
+                        ppl.writeIntoPeopleFile(tempPeople);
+
+                        JOptionPane.showMessageDialog(this, "Successfully edited.", "People info edited", JOptionPane.INFORMATION_MESSAGE);
+
+                        // return back to people profile
+                        PersonnelPeople pp = new PersonnelPeople(id);
+                        pp.setVisible(true);
+                        this.setVisible(false);
+
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(PersonnelEditPeople.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(PersonnelEditPeople.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }
+
+                break;
+        }
+
+    }//GEN-LAST:event_savePeopleInfoMouseClicked
+
+    private void savePeopleInfo1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_savePeopleInfo1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_savePeopleInfo1MouseClicked
+
+    private void btnBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBtnMouseClicked
+        PersonnelPeople pp = new PersonnelPeople(id);
+        pp.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnBtnMouseClicked
+
+    private void pplPostcodeTfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pplPostcodeTfKeyTyped
+        char nums = evt.getKeyChar();
+        if (!(Character.isDigit(nums) || (nums == KeyEvent.VK_BACK_SPACE) || (nums == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_pplPostcodeTfKeyTyped
+
+    private void pplStateTfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pplStateTfKeyTyped
+        char nums = evt.getKeyChar();
+        if (!(Character.isAlphabetic(nums) || (nums == KeyEvent.VK_BACK_SPACE) || (nums == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_pplStateTfKeyTyped
+
+    private void nonCitizenCountryTfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nonCitizenCountryTfKeyTyped
+        char nums = evt.getKeyChar();
+        if (!(Character.isAlphabetic(nums) || (nums == KeyEvent.VK_BACK_SPACE) || (nums == KeyEvent.VK_DELETE) || (nums == KeyEvent.VK_SPACE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_nonCitizenCountryTfKeyTyped
+
+    private void pplNameTfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pplNameTfKeyTyped
+        char nums = evt.getKeyChar();
+        if (!(Character.isAlphabetic(nums) || (nums == KeyEvent.VK_BACK_SPACE) || (nums == KeyEvent.VK_DELETE) || (nums == KeyEvent.VK_SPACE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_pplNameTfKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -692,12 +986,14 @@ public class PersonnelEditPeople extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.JPanel btnBtn;
+    private javax.swing.JLabel citizenCountryLbl;
+    private javax.swing.JLabel citizenCountryTf;
     private javax.swing.JPanel cnPanel;
     private javax.swing.JPanel dbPanel;
+    private javax.swing.JRadioButton femaleBtn;
     private javax.swing.JPanel formBackground;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private javax.swing.ButtonGroup genderBtnGroup;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -705,13 +1001,8 @@ public class PersonnelEditPeople extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
@@ -722,17 +1013,22 @@ public class PersonnelEditPeople extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JPanel logoutPanel;
+    private javax.swing.JRadioButton maleBtn;
+    private javax.swing.JLabel nonCitizenCountryLbl;
+    private javax.swing.JTextField nonCitizenCountryTf;
+    private javax.swing.JLabel postcodeLbl;
     private javax.swing.JPanel ppPanel;
+    private com.toedter.calendar.JDateChooser pplDOB;
+    private javax.swing.JTextField pplNameTf;
+    private javax.swing.JTextField pplPostcodeTf;
+    private javax.swing.JTextField pplStateTf;
+    private javax.swing.JTextField pplStreetTf;
+    private javax.swing.JPanel savePeopleInfo;
+    private javax.swing.JPanel savePeopleInfo1;
+    private javax.swing.JLabel stateLbl;
+    private javax.swing.JLabel streetLbl;
     private javax.swing.JPanel vaPanel;
     // End of variables declaration//GEN-END:variables
 
