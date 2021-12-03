@@ -10,3 +10,10 @@ AMB112233;Ohaiyo;no;null;null;null;no;yes;yes;yes
 Test;Test;null;null;null;null;null;null;no;yes
 Test;Test;yes;no;yes;yes;yes;yes;no;no
 AMB1122;123;no;no;no;no;no;no;no;no
+000625131313;Test;yes;yes;yes;yes;no;no;no;no
+000625131313;Test;yes;no;yes;yes;yes;yes;yes;no
+000625131614;Friday Holiday;no;no;no;no;no;no;no;no
+000625131614;Friday Holiday;no;no;no;no;no;no;no;no
+000625131614;Friday Holiday;yes;yes;yes;yes;yes;yes;yes;yes
+000625131614;Friday Holiday;no;no;no;no;no;no;no;no
+000625131614;Friday Holiday;no;no;no;no;no;no;no;no

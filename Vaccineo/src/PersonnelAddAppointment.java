@@ -860,7 +860,9 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
             try {
                 p.searchUser(peopleList, id);
                 appointmentExist = ap.checkNoDate(1, p.getId());
-                if (appointmentExist) {
+                System.out.println(ap.getAppointmentDate());
+                
+                if (ap.getAppointmentDate() == null) {
                     // set the labels value
                     peopleName.setText(p.getName());
                     peopleGender.setText(p.getGender());

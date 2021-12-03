@@ -1,5 +1,6 @@
 
 import classes.Appointment;
+import classes.Centre;
 import classes.GeneralFunction;
 import classes.People;
 import java.awt.Color;
@@ -9,6 +10,7 @@ import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,7 +23,6 @@ import javax.swing.JPanel;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author dexte
@@ -31,24 +32,41 @@ public class RegisterVaccine extends javax.swing.JFrame {
     /**
      * Creates new form RegisterVaccine
      */
-    Color priColor = new Color(0,109,119);
+    Color priColor = new Color(0, 109, 119);
     Color secColor = new Color(131, 197, 190);
-    Color bgColor = new Color(237,246,249);
-    Color empColor = new Color(255,221,210);
-    Color whiteColor = new Color(255,255,255);
-            
+    Color bgColor = new Color(237, 246, 249);
+    Color empColor = new Color(255, 221, 210);
+    Color whiteColor = new Color(255, 255, 255);
+
+    String role;
     People ppl = new People();
     GeneralFunction gf = new GeneralFunction();
     Appointment app = new Appointment();
+    Centre c = new Centre();
     ArrayList<ArrayList<String>> peopleList;
-    
+
     public RegisterVaccine() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
     }
-    
+
     public void peopleInfo(String value) {
         String id = value;
+        try {
+            ppl.generatePeopleList();
+            peopleList = ppl.getPeopleList();
+            ppl.searchUser(peopleList, id);
+            ppl.setId(value);
+            nameLabelView.setText(ppl.getName());
+            idLabelView.setText(ppl.getId());
+        } catch (Exception e) {
+            Logger.getLogger(PersonnelPeople.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+    
+    public void peopleInfo(String value, String role) {
+        String id = value;
+        this.role = role;
         try {
             ppl.generatePeopleList();
             peopleList = ppl.getPeopleList();
@@ -135,6 +153,11 @@ public class RegisterVaccine extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Register Vaccine");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jScrollPane1.setBorder(null);
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -280,7 +303,7 @@ public class RegisterVaccine extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(237, 246, 249));
@@ -315,7 +338,6 @@ public class RegisterVaccine extends javax.swing.JFrame {
         jLabel10.setText("Choose your preferred vaccination centre.");
 
         chooseCentre.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        chooseCentre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bukit Jalil", "UM", "KLCC" }));
         chooseCentre.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         chooseCentre.setPreferredSize(new java.awt.Dimension(289, 54));
 
@@ -353,7 +375,7 @@ public class RegisterVaccine extends javax.swing.JFrame {
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(chooseCentre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(237, 246, 249));
@@ -823,7 +845,7 @@ public class RegisterVaccine extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addComponent(cancelButton)
                         .addGap(12, 12, 12)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout basepanel1Layout = new javax.swing.GroupLayout(basepanel1);
@@ -934,104 +956,105 @@ public class RegisterVaccine extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelButtonMouseClicked
 
     private void submitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitButtonMouseClicked
-        // TODO add your handling code here:
+        
+        /*if role == "admin"*/
+// TODO add your handling code here:
         String name = nameLabelView.getText();
         String id = idLabelView.getText();
         String centre = chooseCentre.getSelectedItem().toString();
-        String q1 = null, q2 = null , q3 = null , q4 = null , q5 = null , q6 = null , q7 = null ,q8 = null;
-        
-        if(yes1.isSelected()){
+        String q1 = null, q2 = null, q3 = null, q4 = null, q5 = null, q6 = null, q7 = null, q8 = null;
+
+        if (yes1.isSelected()) {
             q1 = "yes";
-        } else if(no1.isSelected()){
+        } else if (no1.isSelected()) {
             q1 = "no";
         } else {
             JOptionPane.showMessageDialog(null, "Please answer question 1!");
         }
-        
-        if(yes2.isSelected()){
+
+        if (yes2.isSelected()) {
             q2 = "yes";
-        } else if(no2.isSelected()){
+        } else if (no2.isSelected()) {
             q2 = "no";
         } else {
             JOptionPane.showMessageDialog(null, "Please answer question 2!");
         }
-        
-        if(yes3.isSelected()){
+
+        if (yes3.isSelected()) {
             q3 = "yes";
-        } else if(no3.isSelected()){
+        } else if (no3.isSelected()) {
             q3 = "no";
         } else {
             JOptionPane.showMessageDialog(null, "Please answer question 3!");
         }
-        
-        if(yes4.isSelected()){
+
+        if (yes4.isSelected()) {
             q4 = "yes";
-        } else if(no4.isSelected()){
+        } else if (no4.isSelected()) {
             q4 = "no";
         } else {
             JOptionPane.showMessageDialog(null, "Please answer question 4!");
         }
-        
-        if(yes5.isSelected()){
+
+        if (yes5.isSelected()) {
             q5 = "yes";
-        } else if(no5.isSelected()){
+        } else if (no5.isSelected()) {
             q5 = "no";
         } else {
             JOptionPane.showMessageDialog(null, "Please answer question 5!");
         }
-        
-        if(yes6.isSelected()){
+
+        if (yes6.isSelected()) {
             q6 = "yes";
-        } else if(no6.isSelected()){
+        } else if (no6.isSelected()) {
             q6 = "no";
         } else {
             JOptionPane.showMessageDialog(null, "Please answer question 6!");
         }
-        
-        if(yes7.isSelected()){
+
+        if (yes7.isSelected()) {
             q7 = "yes";
-        } else if(no7.isSelected()){
+        } else if (no7.isSelected()) {
             q7 = "no";
         } else {
             JOptionPane.showMessageDialog(null, "Please answer question 7!");
         }
-        
-        if(yes8.isSelected()){
+
+        if (yes8.isSelected()) {
             q8 = "yes";
-        } else if(no8.isSelected()){
+        } else if (no8.isSelected()) {
             q8 = "no";
         } else {
             JOptionPane.showMessageDialog(null, "Please answer question 8!");
         }
 
-        if(yes1.isSelected() || no1.isSelected()){
-            if(yes2.isSelected() || no2.isSelected()){
-                if(yes3.isSelected() || no3.isSelected()){
-                    if(yes4.isSelected() || no4.isSelected()){
-                        if(yes5.isSelected() || no5.isSelected()){
-                            if(yes6.isSelected() || no6.isSelected()){
-                                if(yes7.isSelected() || no7.isSelected()){
-                                    if(yes8.isSelected() || no8.isSelected()){
+        if (yes1.isSelected() || no1.isSelected()) {
+            if (yes2.isSelected() || no2.isSelected()) {
+                if (yes3.isSelected() || no3.isSelected()) {
+                    if (yes4.isSelected() || no4.isSelected()) {
+                        if (yes5.isSelected() || no5.isSelected()) {
+                            if (yes6.isSelected() || no6.isSelected()) {
+                                if (yes7.isSelected() || no7.isSelected()) {
+                                    if (yes8.isSelected() || no8.isSelected()) {
                                         try {
                                             String newVacStatus = "Pending 1st Dose";
-                                            ppl.peopleDeclaration(name,id,q1,q2,q3,q4,q5,q6,q7,q8);
-                                            app.registerForVaccination(id,centre);
-                                            ppl.updateNewStatus(id,newVacStatus);
+                                            ppl.peopleDeclaration(name, id, q1, q2, q3, q4, q5, q6, q7, q8);
+                                            app.registerForVaccination(id, centre);
+                                            ppl.updateNewStatus(id, newVacStatus);
                                             this.setVisible(false);
                                             String value = ppl.getId();
                                             PeopleDashboard ppldash = new PeopleDashboard();
                                             ppldash.peopleInfo(value);
                                             ppldash.setVisible(true);
-                                            this.setVisible(false);  
-                                        }
-                                        catch(Exception e){
+                                            this.setVisible(false);
+                                        } catch (Exception e) {
                                             JOptionPane.showMessageDialog(null, "Failed to register for vaccination.");
-                                        } 
+                                        }
                                     }
                                 }
                             }
                         }
-                        
+
                     }
                 }
             }
@@ -1040,115 +1063,127 @@ public class RegisterVaccine extends javax.swing.JFrame {
 
     private void yes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yes1ActionPerformed
         // TODO add your handling code here:
-        if(yes1.isSelected()){
+        if (yes1.isSelected()) {
             no1.setSelected(false);
         }
     }//GEN-LAST:event_yes1ActionPerformed
 
     private void no1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_no1ActionPerformed
         // TODO add your handling code here:
-        if(no1.isSelected()){
+        if (no1.isSelected()) {
             yes1.setSelected(false);
         }
     }//GEN-LAST:event_no1ActionPerformed
 
     private void yes2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yes2ActionPerformed
         // TODO add your handling code here:
-        if(yes2.isSelected()){
+        if (yes2.isSelected()) {
             no2.setSelected(false);
         }
     }//GEN-LAST:event_yes2ActionPerformed
 
     private void no2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_no2ActionPerformed
         // TODO add your handling code here:
-        if(no2.isSelected()){
+        if (no2.isSelected()) {
             yes2.setSelected(false);
         }
     }//GEN-LAST:event_no2ActionPerformed
 
     private void yes3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yes3ActionPerformed
         // TODO add your handling code here:
-        if(yes3.isSelected()){
+        if (yes3.isSelected()) {
             no3.setSelected(false);
         }
     }//GEN-LAST:event_yes3ActionPerformed
 
     private void no3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_no3ActionPerformed
         // TODO add your handling code here:
-        if(no3.isSelected()){
+        if (no3.isSelected()) {
             yes3.setSelected(false);
         }
     }//GEN-LAST:event_no3ActionPerformed
 
     private void yes4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yes4ActionPerformed
         // TODO add your handling code here:
-        if(yes4.isSelected()){
+        if (yes4.isSelected()) {
             no4.setSelected(false);
         }
     }//GEN-LAST:event_yes4ActionPerformed
 
     private void no4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_no4ActionPerformed
         // TODO add your handling code here:
-        if(no4.isSelected()){
+        if (no4.isSelected()) {
             yes4.setSelected(false);
         }
     }//GEN-LAST:event_no4ActionPerformed
 
     private void yes5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yes5ActionPerformed
         // TODO add your handling code here:
-        if(yes5.isSelected()){
+        if (yes5.isSelected()) {
             no5.setSelected(false);
         }
     }//GEN-LAST:event_yes5ActionPerformed
 
     private void no5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_no5ActionPerformed
         // TODO add your handling code here:
-        if(no5.isSelected()){
+        if (no5.isSelected()) {
             yes5.setSelected(false);
         }
     }//GEN-LAST:event_no5ActionPerformed
 
     private void yes6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yes6ActionPerformed
         // TODO add your handling code here:
-        if(yes6.isSelected()){
+        if (yes6.isSelected()) {
             no6.setSelected(false);
         }
     }//GEN-LAST:event_yes6ActionPerformed
 
     private void no6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_no6ActionPerformed
         // TODO add your handling code here:
-        if(no6.isSelected()){
+        if (no6.isSelected()) {
             yes6.setSelected(false);
         }
     }//GEN-LAST:event_no6ActionPerformed
 
     private void yes7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yes7ActionPerformed
         // TODO add your handling code here:
-        if(yes7.isSelected()){
+        if (yes7.isSelected()) {
             no7.setSelected(false);
         }
     }//GEN-LAST:event_yes7ActionPerformed
 
     private void no7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_no7ActionPerformed
         // TODO add your handling code here:
-        if(no7.isSelected()){
+        if (no7.isSelected()) {
             yes7.setSelected(false);
         }
     }//GEN-LAST:event_no7ActionPerformed
 
     private void yes8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yes8ActionPerformed
         // TODO add your handling code here:
-        if(yes8.isSelected()){
+        if (yes8.isSelected()) {
             no8.setSelected(false);
         }
     }//GEN-LAST:event_yes8ActionPerformed
 
     private void no8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_no8ActionPerformed
         // TODO add your handling code here:
-        if(no8.isSelected()){
+        if (no8.isSelected()) {
             yes8.setSelected(false);
         }
     }//GEN-LAST:event_no8ActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        try {
+            Object[] centreName = c.getAllCentreName();
+            for (Object centre : centreName) {
+                chooseCentre.addItem((String) centre);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(RegisterVaccine.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -1248,30 +1283,35 @@ public class RegisterVaccine extends javax.swing.JFrame {
     private javax.swing.JRadioButton yes7;
     private javax.swing.JRadioButton yes8;
     // End of variables declaration//GEN-END:variables
-    
-    class RoundedPanel extends JPanel
-    {
+
+    class RoundedPanel extends JPanel {
+
         private Color backgroundColor;
         private int cornerRadius = 15;
+
         public RoundedPanel(LayoutManager layout, int radius) {
             super(layout);
             cornerRadius = radius;
         }
+
         public RoundedPanel(LayoutManager layout, int radius, Color bgColor) {
             super(layout);
             cornerRadius = radius;
             backgroundColor = bgColor;
         }
+
         public RoundedPanel(int radius) {
             super();
             cornerRadius = radius;
-            
+
         }
+
         public RoundedPanel(int radius, Color bgColor) {
             super();
             cornerRadius = radius;
             backgroundColor = bgColor;
         }
+
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -1286,7 +1326,7 @@ public class RegisterVaccine extends javax.swing.JFrame {
             } else {
                 graphics.setColor(getBackground());
             }
-            graphics.fillRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height); //paint background
+            graphics.fillRoundRect(0, 0, width - 1, height - 1, arcs.width, arcs.height); //paint background
             graphics.setColor(getForeground());
 //            graphics.drawRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height); //paint border
 //             

@@ -132,7 +132,6 @@ public class PeopleDashboard extends javax.swing.JFrame {
         column2panel = new RoundedPanel(10, secColor);
         vaccineLibrary1 = new javax.swing.JLabel();
         vaccineLibrary2 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         timelbl = new javax.swing.JLabel();
         column3panel = new RoundedPanel(10, secColor);
@@ -253,7 +252,7 @@ public class PeopleDashboard extends javax.swing.JFrame {
         );
 
         jPanel1.add(column1panel);
-        column1panel.setBounds(350, 60, 200, 150);
+        column1panel.setBounds(350, 210, 200, 150);
 
         welcomelabel.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         welcomelabel.setForeground(new java.awt.Color(0, 109, 119));
@@ -306,13 +305,7 @@ public class PeopleDashboard extends javax.swing.JFrame {
         );
 
         jPanel1.add(column2panel);
-        column2panel.setBounds(570, 60, 200, 150);
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel6.setText("Task to Do..");
-        jPanel1.add(jLabel6);
-        jLabel6.setBounds(348, 231, 107, 22);
+        column2panel.setBounds(570, 210, 200, 150);
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/people-dashboard.png"))); // NOI18N
         jPanel1.add(jLabel4);
@@ -363,7 +356,7 @@ public class PeopleDashboard extends javax.swing.JFrame {
         );
 
         jPanel1.add(column3panel);
-        column3panel.setBounds(790, 60, 200, 150);
+        column3panel.setBounds(790, 210, 200, 150);
 
         javax.swing.GroupLayout basepanelLayout = new javax.swing.GroupLayout(basepanel);
         basepanel.setLayout(basepanelLayout);
@@ -519,7 +512,6 @@ public class PeopleDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel column2panel;
     private javax.swing.JPanel column3panel;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel logolabel;
     private javax.swing.JPanel logopanel;

@@ -54,7 +54,7 @@ public class PeopleAppointment extends javax.swing.JFrame {
         String id = value;
         String dose = "1";
         String doses = "2";
-        String complete = "yes";
+        String complete = "Yes";
         try {
             ppl.generatePeopleList();
             peopleList = ppl.getPeopleList();
@@ -73,19 +73,23 @@ public class PeopleAppointment extends javax.swing.JFrame {
                 pplTime.setText(appoint.getAppointmentTime());
                 pplVenue.setText(appoint.getVenue());
                 pplVaccine.setText(appoint.getVaccine());
-                if (appoint.getCompleted().equals(complete)) {
-                    submitButtonPanel.setVisible(false);
-                    cancelButton.setVisible(false);
-                    statusLabel.setText("Completed 1st Dose");
-                } else if (appoint.getAppointmentStatus().equals("accepted")) {
-                    submitButtonPanel.setVisible(false);
-                } else if (appoint.getAppointmentStatus().equals("declined")) {
-                    submitButtonPanel.setVisible(false);
-                    cancelButton.setVisible(false);
-                    statusLabel.setText("Waiting New Appointment");
-                } else {
+                 if (!appoint.getAppointmentTime().equals("-")) {
                     submitButtonPanel.setVisible(true);
                     cancelButton.setVisible(true);
+                    if (appoint.getCompleted().equals(complete)) {
+                        submitButtonPanel.setVisible(false);
+                        cancelButton.setVisible(false);
+                        statusLabel.setText("Completed 1st Dose");
+                    } else if (appoint.getAppointmentStatus().equals("accepted")) {
+                        submitButtonPanel.setVisible(false);
+                    } else if (appoint.getAppointmentStatus().equals("cancelled")) {
+                        submitButtonPanel.setVisible(false);
+                        cancelButton.setVisible(false);
+                        statusLabel.setText("Waiting New Appointment");
+                    }
+                } else {
+                    submitButtonPanel.setVisible(false);
+                    cancelButton.setVisible(false);
                 }
             }
         } catch (Exception e) {
@@ -101,19 +105,23 @@ public class PeopleAppointment extends javax.swing.JFrame {
                 pplTime1.setText(appoint.getAppointmentTime());
                 pplVenue1.setText(appoint.getVenue());
                 pplVaccine1.setText(appoint.getVaccine());
-                if (appoint.getCompleted().equals(complete)) {
-                    submitButtonPanel2.setVisible(false);
-                    cancelButton2.setVisible(false);
-                    statusLabel1.setText("Completed 2nd Dose");
-                } else if (appoint.getAppointmentStatus().equals("accepted")) {
-                    submitButtonPanel2.setVisible(false);
-                } else if (appoint.getAppointmentStatus().equals("declined")) {
-                    submitButtonPanel2.setVisible(false);
-                    cancelButton2.setVisible(false);
-                    statusLabel1.setText("Waiting New Appointment");
-                } else {
+                if (!appoint.getAppointmentTime().equals("-")) {
                     submitButtonPanel2.setVisible(true);
                     cancelButton2.setVisible(true);
+                    if (appoint.getCompleted().equals(complete)) {
+                        submitButtonPanel2.setVisible(false);
+                        cancelButton2.setVisible(false);
+                        statusLabel2.setText("Completed 2nd Dose");
+                    } else if (appoint.getAppointmentStatus().equals("accepted")) {
+                        submitButtonPanel2.setVisible(false);
+                    } else if (appoint.getAppointmentStatus().equals("cancelled")) {
+                        submitButtonPanel2.setVisible(false);
+                        cancelButton2.setVisible(false);
+                        statusLabel2.setText("Waiting New Appointment");
+                    }
+                } else {
+                    submitButtonPanel2.setVisible(false);
+                    cancelButton2.setVisible(false);
                 }
             }
         } catch (Exception e) {
@@ -127,7 +135,7 @@ public class PeopleAppointment extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         basepanel = new javax.swing.JPanel();
@@ -212,28 +220,28 @@ public class PeopleAppointment extends javax.swing.JFrame {
         javax.swing.GroupLayout navpanelLayout = new javax.swing.GroupLayout(navpanel);
         navpanel.setLayout(navpanelLayout);
         navpanelLayout.setHorizontalGroup(
-                navpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(navpanelLayout.createSequentialGroup()
-                                .addGap(84, 84, 84)
-                                .addComponent(logolabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 982,
-                                        Short.MAX_VALUE)
-                                .addComponent(ppllabel)
-                                .addGap(34, 34, 34)
-                                .addComponent(logoutlabel)
-                                .addGap(117, 117, 117)));
+            navpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(navpanelLayout.createSequentialGroup()
+                .addGap(84, 84, 84)
+                .addComponent(logolabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 982, Short.MAX_VALUE)
+                .addComponent(ppllabel)
+                .addGap(34, 34, 34)
+                .addComponent(logoutlabel)
+                .addGap(117, 117, 117))
+        );
         navpanelLayout.setVerticalGroup(
-                navpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, navpanelLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(logolabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(navpanelLayout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addGroup(navpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(ppllabel)
-                                        .addComponent(logoutlabel))
-                                .addContainerGap(27, Short.MAX_VALUE)));
+            navpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, navpanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(logolabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(navpanelLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(navpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ppllabel)
+                    .addComponent(logoutlabel))
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
 
         logopanel.setBackground(new java.awt.Color(237, 246, 249));
         logopanel.setPreferredSize(new java.awt.Dimension(228, 86));
@@ -241,11 +249,13 @@ public class PeopleAppointment extends javax.swing.JFrame {
         javax.swing.GroupLayout logopanelLayout = new javax.swing.GroupLayout(logopanel);
         logopanel.setLayout(logopanelLayout);
         logopanelLayout.setHorizontalGroup(
-                logopanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 228, Short.MAX_VALUE));
+            logopanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 228, Short.MAX_VALUE)
+        );
         logopanelLayout.setVerticalGroup(
-                logopanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 86, Short.MAX_VALUE));
+            logopanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 86, Short.MAX_VALUE)
+        );
 
         backbutton.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         backbutton.setForeground(new java.awt.Color(0, 109, 119));
@@ -349,19 +359,17 @@ public class PeopleAppointment extends javax.swing.JFrame {
         javax.swing.GroupLayout submitButtonPanelLayout = new javax.swing.GroupLayout(submitButtonPanel);
         submitButtonPanel.setLayout(submitButtonPanelLayout);
         submitButtonPanelLayout.setHorizontalGroup(
-                submitButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-                                submitButtonPanelLayout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 138,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)));
+            submitButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, submitButtonPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
         submitButtonPanelLayout.setVerticalGroup(
-                submitButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-                                submitButtonPanelLayout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)));
+            submitButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, submitButtonPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         cancelButton.setBackground(new java.awt.Color(0, 109, 119));
         cancelButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -383,125 +391,108 @@ public class PeopleAppointment extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
-                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                .addContainerGap(20, Short.MAX_VALUE)
-                                .addComponent(statusLabel)
-                                .addGap(20, 20, 20)));
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addComponent(statusLabel)
+                .addGap(20, 20, 20))
+        );
         jPanel4Layout.setVerticalGroup(
-                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(statusLabel)
-                                .addContainerGap(16, Short.MAX_VALUE)));
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(statusLabel)
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout appoint1Layout = new javax.swing.GroupLayout(appoint1);
         appoint1.setLayout(appoint1Layout);
         appoint1Layout.setHorizontalGroup(
-                appoint1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(appoint1Layout.createSequentialGroup()
-                                .addGap(23, 23, 23)
+            appoint1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(appoint1Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(appoint1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(appoint1Layout.createSequentialGroup()
+                        .addGroup(appoint1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(appoint1Layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(pplVenue))
+                            .addGroup(appoint1Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(pplTime))
+                            .addGroup(appoint1Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(pplDate))
+                            .addGroup(appoint1Layout.createSequentialGroup()
+                                .addComponent(jLabel23)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pplId))
+                            .addGroup(appoint1Layout.createSequentialGroup()
                                 .addGroup(appoint1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(appoint1Layout.createSequentialGroup()
-                                                .addGroup(appoint1Layout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(appoint1Layout.createSequentialGroup()
-                                                                .addComponent(jLabel11)
-                                                                .addPreferredGap(
-                                                                        javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                .addComponent(pplVenue))
-                                                        .addGroup(appoint1Layout.createSequentialGroup()
-                                                                .addComponent(jLabel9)
-                                                                .addPreferredGap(
-                                                                        javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                .addComponent(pplTime))
-                                                        .addGroup(appoint1Layout.createSequentialGroup()
-                                                                .addComponent(jLabel6)
-                                                                .addPreferredGap(
-                                                                        javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                .addComponent(pplDate))
-                                                        .addGroup(appoint1Layout.createSequentialGroup()
-                                                                .addComponent(jLabel23)
-                                                                .addPreferredGap(
-                                                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(pplId))
-                                                        .addGroup(appoint1Layout.createSequentialGroup()
-                                                                .addGroup(appoint1Layout.createParallelGroup(
-                                                                        javax.swing.GroupLayout.Alignment.TRAILING)
-                                                                        .addComponent(cancelButton)
-                                                                        .addComponent(jLabel14))
-                                                                .addPreferredGap(
-                                                                        javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                .addGroup(appoint1Layout.createParallelGroup(
-                                                                        javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addGroup(appoint1Layout.createSequentialGroup()
-                                                                                .addGap(10, 10, 10)
-                                                                                .addComponent(submitButtonPanel,
-                                                                                        javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                        .addComponent(pplVaccine))))
-                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGroup(appoint1Layout.createSequentialGroup()
-                                                .addGroup(appoint1Layout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(appoint1Layout.createSequentialGroup()
-                                                                .addComponent(jLabel24)
-                                                                .addPreferredGap(
-                                                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(pplName))
-                                                        .addComponent(dose1label))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(35, 35, 35)))));
-        appoint1Layout.setVerticalGroup(
-                appoint1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(appoint1Layout.createSequentialGroup()
-                                .addGap(22, 22, 22)
-                                .addGroup(appoint1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(appoint1Layout.createSequentialGroup()
-                                                .addComponent(dose1label)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addGroup(appoint1Layout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(jLabel24)
-                                                        .addComponent(pplName)))
-                                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(appoint1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel23)
-                                        .addComponent(pplId))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(appoint1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel6)
-                                        .addComponent(pplDate))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(appoint1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel9)
-                                        .addComponent(pplTime))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(appoint1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel11)
-                                        .addComponent(pplVenue))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(appoint1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel14)
-                                        .addComponent(pplVaccine))
+                                    .addComponent(jLabel14)
+                                    .addComponent(cancelButton, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(appoint1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(submitButtonPanel, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(appoint1Layout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(cancelButton)))
-                                .addContainerGap(35, Short.MAX_VALUE)));
+                                    .addGroup(appoint1Layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(submitButtonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(pplVaccine))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(appoint1Layout.createSequentialGroup()
+                        .addGroup(appoint1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(appoint1Layout.createSequentialGroup()
+                                .addComponent(jLabel24)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pplName))
+                            .addComponent(dose1label, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35))))
+        );
+        appoint1Layout.setVerticalGroup(
+            appoint1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(appoint1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(appoint1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(appoint1Layout.createSequentialGroup()
+                        .addComponent(dose1label)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(appoint1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel24)
+                            .addComponent(pplName)))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(appoint1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel23)
+                    .addComponent(pplId))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(appoint1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(pplDate))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(appoint1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(pplTime))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(appoint1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(pplVenue))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(appoint1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(pplVaccine))
+                .addGroup(appoint1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(appoint1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(submitButtonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(appoint1Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(cancelButton)))
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
 
         appoint2.setBackground(new java.awt.Color(237, 246, 249));
         appoint2.setPreferredSize(new java.awt.Dimension(566, 250));
@@ -589,19 +580,17 @@ public class PeopleAppointment extends javax.swing.JFrame {
         javax.swing.GroupLayout submitButtonPanel2Layout = new javax.swing.GroupLayout(submitButtonPanel2);
         submitButtonPanel2.setLayout(submitButtonPanel2Layout);
         submitButtonPanel2Layout.setHorizontalGroup(
-                submitButtonPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-                                submitButtonPanel2Layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(submitButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 138,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)));
+            submitButtonPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, submitButtonPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(submitButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
         submitButtonPanel2Layout.setVerticalGroup(
-                submitButtonPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-                                submitButtonPanel2Layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(submitButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)));
+            submitButtonPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, submitButtonPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(submitButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         cancelButton2.setBackground(new java.awt.Color(0, 109, 119));
         cancelButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -623,194 +612,155 @@ public class PeopleAppointment extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
-                jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                                .addContainerGap(20, Short.MAX_VALUE)
-                                .addComponent(statusLabel2)
-                                .addGap(20, 20, 20)));
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addComponent(statusLabel2)
+                .addGap(20, 20, 20))
+        );
         jPanel6Layout.setVerticalGroup(
-                jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(statusLabel2)
-                                .addContainerGap(16, Short.MAX_VALUE)));
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(statusLabel2)
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout appoint2Layout = new javax.swing.GroupLayout(appoint2);
         appoint2.setLayout(appoint2Layout);
         appoint2Layout.setHorizontalGroup(
-                appoint2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(appoint2Layout.createSequentialGroup()
-                                .addGap(23, 23, 23)
-                                .addGroup(appoint2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(appoint2Layout.createSequentialGroup()
-                                                .addGroup(appoint2Layout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(cancelButton2)
-                                                        .addComponent(jLabel47))
-                                                .addGap(18, 18, 18)
-                                                .addGroup(appoint2Layout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(appoint2Layout.createSequentialGroup()
-                                                                .addComponent(pplVaccine1)
-                                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                        Short.MAX_VALUE))
-                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-                                                                appoint2Layout.createSequentialGroup()
-                                                                        .addComponent(submitButtonPanel2,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addContainerGap(
-                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                Short.MAX_VALUE))))
-                                        .addGroup(appoint2Layout.createSequentialGroup()
-                                                .addGroup(appoint2Layout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(appoint2Layout.createSequentialGroup()
-                                                                .addComponent(jLabel42)
-                                                                .addPreferredGap(
-                                                                        javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                .addComponent(pplVenue1))
-                                                        .addGroup(appoint2Layout.createSequentialGroup()
-                                                                .addComponent(jLabel40)
-                                                                .addPreferredGap(
-                                                                        javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                .addComponent(pplTime1))
-                                                        .addGroup(appoint2Layout.createSequentialGroup()
-                                                                .addComponent(jLabel38)
-                                                                .addPreferredGap(
-                                                                        javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                .addComponent(pplDate1))
-                                                        .addGroup(appoint2Layout.createSequentialGroup()
-                                                                .addComponent(jLabel36)
-                                                                .addPreferredGap(
-                                                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(pplId1)))
-                                                .addContainerGap())
-                                        .addGroup(appoint2Layout.createSequentialGroup()
-                                                .addGroup(appoint2Layout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(appoint2Layout.createSequentialGroup()
-                                                                .addComponent(jLabel34)
-                                                                .addPreferredGap(
-                                                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(pplName1))
-                                                        .addComponent(dose2label,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 366,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                                        363, Short.MAX_VALUE)
-                                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(36, 36, 36)))));
-        appoint2Layout.setVerticalGroup(
-                appoint2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(appoint2Layout.createSequentialGroup()
-                                .addGap(22, 22, 22)
+            appoint2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(appoint2Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(appoint2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(appoint2Layout.createSequentialGroup()
+                        .addGroup(appoint2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(appoint2Layout.createSequentialGroup()
+                                .addComponent(jLabel34)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pplName1))
+                            .addComponent(dose2label, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 232, Short.MAX_VALUE)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36))
+                    .addGroup(appoint2Layout.createSequentialGroup()
+                        .addGroup(appoint2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(appoint2Layout.createSequentialGroup()
                                 .addGroup(appoint2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(appoint2Layout.createSequentialGroup()
-                                                .addComponent(dose2label)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addGroup(appoint2Layout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(jLabel34)
-                                                        .addComponent(pplName1)))
-                                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(appoint2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel36)
-                                        .addComponent(pplId1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(appoint2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel38)
-                                        .addComponent(pplDate1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(appoint2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel40)
-                                        .addComponent(pplTime1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(appoint2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel42)
-                                        .addComponent(pplVenue1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(appoint2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel47)
-                                        .addComponent(pplVaccine1))
+                                    .addComponent(cancelButton2)
+                                    .addComponent(jLabel47))
+                                .addGap(18, 18, 18)
                                 .addGroup(appoint2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(appoint2Layout.createSequentialGroup()
-                                                .addGap(18, 18, 18)
-                                                .addComponent(cancelButton2))
-                                        .addGroup(appoint2Layout.createSequentialGroup()
-                                                .addGap(8, 8, 8)
-                                                .addComponent(submitButtonPanel2,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(38, 38, 38)));
+                                    .addComponent(pplVaccine1)
+                                    .addComponent(submitButtonPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(appoint2Layout.createSequentialGroup()
+                                .addComponent(jLabel42)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(pplVenue1))
+                            .addGroup(appoint2Layout.createSequentialGroup()
+                                .addComponent(jLabel40)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(pplTime1))
+                            .addGroup(appoint2Layout.createSequentialGroup()
+                                .addComponent(jLabel38)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(pplDate1))
+                            .addGroup(appoint2Layout.createSequentialGroup()
+                                .addComponent(jLabel36)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pplId1)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
+        appoint2Layout.setVerticalGroup(
+            appoint2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(appoint2Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(appoint2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(appoint2Layout.createSequentialGroup()
+                        .addComponent(dose2label)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(appoint2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel34)
+                            .addComponent(pplName1)))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(appoint2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel36)
+                    .addComponent(pplId1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(appoint2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel38)
+                    .addComponent(pplDate1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(appoint2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel40)
+                    .addComponent(pplTime1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(appoint2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel42)
+                    .addComponent(pplVenue1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(appoint2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel47)
+                    .addComponent(pplVaccine1))
+                .addGroup(appoint2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(appoint2Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(cancelButton2))
+                    .addGroup(appoint2Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(submitButtonPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(38, 38, 38))
+        );
 
         javax.swing.GroupLayout basepanelLayout = new javax.swing.GroupLayout(basepanel);
         basepanel.setLayout(basepanelLayout);
         basepanelLayout.setHorizontalGroup(
-                basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(basepanelLayout.createSequentialGroup()
-                                .addGap(100, 100, 100)
-                                .addComponent(backbutton)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(basepanelLayout.createSequentialGroup()
-                                .addGroup(basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(navpanel, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(basepanelLayout.createSequentialGroup()
-                                                .addGap(50, 50, 50)
-                                                .addComponent(logopanel, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(basepanelLayout.createSequentialGroup()
-                                                .addGap(139, 139, 139)
-                                                .addGroup(basepanelLayout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
-                                                                false)
-                                                        .addComponent(appoint1, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(appoint2, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                972, Short.MAX_VALUE))))
-                                .addGap(0, 0, Short.MAX_VALUE)));
+            basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(basepanelLayout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addComponent(backbutton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(basepanelLayout.createSequentialGroup()
+                .addGroup(basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(navpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(basepanelLayout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(logopanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(basepanelLayout.createSequentialGroup()
+                        .addGap(139, 139, 139)
+                        .addGroup(basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(appoint1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(appoint2, javax.swing.GroupLayout.DEFAULT_SIZE, 972, Short.MAX_VALUE))))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
         basepanelLayout.setVerticalGroup(
-                basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(basepanelLayout.createSequentialGroup()
-                                .addGroup(basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(navpanel, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(basepanelLayout.createSequentialGroup()
-                                                .addGap(20, 20, 20)
-                                                .addComponent(logopanel, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(34, 34, 34)
-                                .addComponent(backbutton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(appoint1, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(appoint2, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(40, Short.MAX_VALUE)));
+            basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(basepanelLayout.createSequentialGroup()
+                .addGroup(basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(navpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(basepanelLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(logopanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(34, 34, 34)
+                .addComponent(backbutton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(appoint1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(appoint2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(basepanel, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(basepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(basepanel, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(basepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -872,7 +822,7 @@ public class PeopleAppointment extends javax.swing.JFrame {
     private void cancelButtonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_cancelButtonMouseClicked
         // TODO add your handling code here:
         String appPeopleId = appoint.getPeopleId();
-        String appStatus = "declined";
+        String appStatus = "cancelled";
         String appdose = "1";
 
         try {
@@ -898,7 +848,7 @@ public class PeopleAppointment extends javax.swing.JFrame {
     private void cancelButton2MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_cancelButton2MouseClicked
         // TODO add your handling code here:
         String appPeopleId = appoint.getPeopleId();
-        String appStatus = "declined";
+        String appStatus = "cancelled";
         String appdose = "2";
 
         try {
@@ -974,7 +924,6 @@ public class PeopleAppointment extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JLabel logolabel;
     private javax.swing.JPanel logopanel;
@@ -994,7 +943,6 @@ public class PeopleAppointment extends javax.swing.JFrame {
     private javax.swing.JLabel pplVenue1;
     private javax.swing.JLabel ppllabel;
     private javax.swing.JLabel statusLabel;
-    private javax.swing.JLabel statusLabel1;
     private javax.swing.JLabel statusLabel2;
     private javax.swing.JLabel submitButton;
     private javax.swing.JLabel submitButton2;

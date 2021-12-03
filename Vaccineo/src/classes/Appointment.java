@@ -29,15 +29,15 @@ public class Appointment {
     private ArrayList<ArrayList<String>> appointmentList;
 
     public Appointment() {
-        id = "";
+        id = "-";
         appDate = null;
-        appTime = "";
-        venue = "";
-        appStatus = "";
-        vacName = "";
-        dose = "";
-        completed = "";
-        vacSerialNo = "";
+        appTime = "-";
+        venue = "-";
+        appStatus = "-";
+        vacName = "-";
+        dose = "-";
+        completed = "-";
+        vacSerialNo = "-";
         data = "appointment.txt";
     }
 
@@ -45,8 +45,8 @@ public class Appointment {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(data, true));
             PrintWriter pw = new PrintWriter(bw);
-            pw.println("" + id + ";" + appDate + ";" + appTime + ";" + centre + ";" + appStatus + ";" + vacName + ";"
-                    + dose + ";" + completed + ";" + vacSerialNo);
+            pw.println("" + id + ";" + "-" + ";" + "-" + ";" + centre + ";" + "pending" + ";" + "-" + ";"
+                    + "1" + ";" + "No" + ";" + "-");
             pw.flush();
             pw.close();
             bw.close();
@@ -352,7 +352,7 @@ public class Appointment {
         for (int i = 1; i < appointmentList.size(); i++) {
             if (appointmentList.get(i).get(0).equals(id)
                     && appointmentList.get(i).get(6).equals(Integer.toString(doseNum))
-                    && appointmentList.get(i).get(1) != "-") {
+                    ) {
                 noDate = false;
                 for (int j = 0; j < appointmentList.get(i).size(); j++) {
                     // ic/passport;date;time;centre;status;vaccine;dose;complete;serial_number
