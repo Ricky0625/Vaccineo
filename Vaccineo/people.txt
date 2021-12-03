@@ -1,3 +1,3 @@
 Username;Password;IC/Passport;Name;DOB;Address;State;Country;Postcode;Gender;Category;Vaccination Status
 Test;Test;1234556;Amy Cuddy;12/12/1990;-;-;United State;-;Female;Non-citizen;Pending 1st Dose;
-Ricky0625;Ricky0625;000625131095;Ricky Wong Tiong Song;25/06/2000;560G,Jalan Durian Belanda;Sarawak;Malaysia;97000;Male;Citizen;Pending 2nd Dose
+Ricky0625;Ricky065;000625131095;Ricky Wong Tiong Song;25/06/2000;560G,Jalan Durian Belanda;Sarawak;Malaysia;97000;Male;Citizen;Pending 2nd Dose
