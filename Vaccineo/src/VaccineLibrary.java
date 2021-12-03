@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.RenderingHints;
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -39,6 +40,7 @@ public class VaccineLibrary extends javax.swing.JFrame {
     
     public VaccineLibrary() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
     }
     
     public void peopleInfo(String value){
@@ -76,6 +78,7 @@ public class VaccineLibrary extends javax.swing.JFrame {
 
         basepanel.setBackground(new java.awt.Color(237, 246, 249));
         basepanel.setMinimumSize(new java.awt.Dimension(1440, 800));
+        basepanel.setPreferredSize(new java.awt.Dimension(1440, 800));
 
         navpanel.setBackground(new java.awt.Color(0, 109, 119));
 

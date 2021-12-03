@@ -61,7 +61,7 @@ public class PeopleDashboard extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Time in 12Hrs Format
                 Date date1 = new Date();
-                DateFormat timeFormat = new SimpleDateFormat("hh:mm:ss aa");
+                DateFormat timeFormat = new SimpleDateFormat("HH:mm");
                 String time = timeFormat.format(date1);
                 timelbl.setText(time);
             }
@@ -323,7 +323,7 @@ public class PeopleDashboard extends javax.swing.JFrame {
         timelbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         timelbl.setText("Real Time");
         jPanel1.add(timelbl);
-        timelbl.setBounds(760, 0, 240, 44);
+        timelbl.setBounds(800, 0, 200, 44);
 
         column3panel.setBackground(new java.awt.Color(237, 246, 249));
         column3panel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
