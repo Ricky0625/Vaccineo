@@ -1,4 +1,6 @@
 
+import classes.GeneralFunction;
+import classes.People;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -6,6 +8,11 @@ import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /*
@@ -29,11 +36,40 @@ public class EditProfile extends javax.swing.JFrame {
     Color empColor = new Color(255,221,210);
     Color whiteColor = new Color(255,255,255);
     
+    People ppl = new People();
+    GeneralFunction gf = new GeneralFunction();
+    ArrayList<ArrayList<String>> peopleList;
+    
     public EditProfile() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
     }
 
+    public void peopleInfo(String value){
+        String id = value;
+        try {
+            ppl.generatePeopleList();
+            peopleList = ppl.getPeopleList();
+            ppl.searchUser(peopleList, id);
+            pplUsername.setText(ppl.getUsername());
+            if(ppl.getCategory().equals("Citizen")){
+                pplAddress.setText(ppl.getStreet());
+                pplCountry.setText(ppl.getCountry());
+                pplState.setText(ppl.getState());
+                pplPostcode.setText(ppl.getPostcode());
+            } else {
+                pplCountry.setText(ppl.getCountry());
+                pplAddress.setVisible(false);
+                pplState.setVisible(false);
+                pplPostcode.setVisible(false);
+                addresslabel.setVisible(false);
+                statelabel.setVisible(false);
+                postcodelabel.setVisible(false);
+            }
+        } catch (Exception e) {
+            Logger.getLogger(PersonnelPeople.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,19 +82,19 @@ public class EditProfile extends javax.swing.JFrame {
         basepanel = new javax.swing.JPanel();
         backbutton = new javax.swing.JButton();
         javax.swing.JPanel formpanel = new RoundedPanel(20, whiteColor);
-        jTextField4 = new javax.swing.JTextField();
+        pplUsername = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
+        pplAddress = new javax.swing.JTextField();
+        addresslabel = new javax.swing.JLabel();
+        pplState = new javax.swing.JTextField();
+        statelabel = new javax.swing.JLabel();
         jPanel2 = new RoundedPanel(5, priColor);
-        jLabel12 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
+        submitButton = new javax.swing.JLabel();
+        cancenlButton = new javax.swing.JLabel();
+        pplCountry = new javax.swing.JTextField();
+        countrylabel = new javax.swing.JLabel();
+        pplPostcode = new javax.swing.JTextField();
+        postcodelabel = new javax.swing.JLabel();
         navpanel = new javax.swing.JPanel();
         logolabel = new javax.swing.JLabel();
         ppllabel = new javax.swing.JLabel();
@@ -78,63 +114,78 @@ public class EditProfile extends javax.swing.JFrame {
         backbutton.setText("Back ");
         backbutton.setBorderPainted(false);
         backbutton.setContentAreaFilled(false);
+        backbutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        backbutton.setFocusPainted(false);
         backbutton.setIconTextGap(15);
         backbutton.setMargin(new java.awt.Insets(2, 0, 2, 0));
+        backbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backbuttonActionPerformed(evt);
+            }
+        });
 
         formpanel.setBackground(new java.awt.Color(237, 246, 249));
         formpanel.setPreferredSize(new java.awt.Dimension(1055, 495));
+        formpanel.setLayout(null);
 
-        jTextField4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextField4.setToolTipText("");
-        jTextField4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
-        jTextField4.setCaretColor(new java.awt.Color(0, 109, 119));
-        jTextField4.setPreferredSize(new java.awt.Dimension(337, 54));
+        pplUsername.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplUsername.setToolTipText("");
+        pplUsername.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
+        pplUsername.setCaretColor(new java.awt.Color(0, 109, 119));
+        pplUsername.setPreferredSize(new java.awt.Dimension(337, 54));
+        formpanel.add(pplUsername);
+        pplUsername.setBounds(39, 48, 337, 54);
 
         jLabel7.setBackground(new java.awt.Color(0, 109, 119));
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 109, 119));
         jLabel7.setText("Username");
+        formpanel.add(jLabel7);
+        jLabel7.setBounds(39, 21, 78, 22);
 
-        jTextField6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextField6.setToolTipText("");
-        jTextField6.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
-        jTextField6.setCaretColor(new java.awt.Color(0, 109, 119));
-        jTextField6.setPreferredSize(new java.awt.Dimension(618, 54));
+        pplAddress.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplAddress.setToolTipText("");
+        pplAddress.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
+        pplAddress.setCaretColor(new java.awt.Color(0, 109, 119));
+        pplAddress.setPreferredSize(new java.awt.Dimension(618, 54));
+        formpanel.add(pplAddress);
+        pplAddress.setBounds(39, 273, 466, 54);
 
-        jLabel9.setBackground(new java.awt.Color(0, 109, 119));
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel9.setText("Address");
+        addresslabel.setBackground(new java.awt.Color(0, 109, 119));
+        addresslabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        addresslabel.setForeground(new java.awt.Color(0, 109, 119));
+        addresslabel.setText("Address");
+        formpanel.add(addresslabel);
+        addresslabel.setBounds(39, 245, 62, 22);
 
-        jTextField7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextField7.setToolTipText("");
-        jTextField7.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
-        jTextField7.setCaretColor(new java.awt.Color(0, 109, 119));
-        jTextField7.setPreferredSize(new java.awt.Dimension(337, 54));
+        pplState.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplState.setToolTipText("");
+        pplState.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
+        pplState.setCaretColor(new java.awt.Color(0, 109, 119));
+        pplState.setPreferredSize(new java.awt.Dimension(337, 54));
+        formpanel.add(pplState);
+        pplState.setBounds(552, 273, 207, 54);
 
-        jLabel10.setBackground(new java.awt.Color(0, 109, 119));
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel10.setText("Postcode");
-
-        jTextField8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextField8.setToolTipText("");
-        jTextField8.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
-        jTextField8.setCaretColor(new java.awt.Color(0, 109, 119));
-        jTextField8.setPreferredSize(new java.awt.Dimension(337, 54));
-
-        jLabel14.setBackground(new java.awt.Color(0, 109, 119));
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel14.setText("State");
+        statelabel.setBackground(new java.awt.Color(0, 109, 119));
+        statelabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        statelabel.setForeground(new java.awt.Color(0, 109, 119));
+        statelabel.setText("State");
+        formpanel.add(statelabel);
+        statelabel.setBounds(552, 245, 40, 22);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setPreferredSize(new java.awt.Dimension(138, 40));
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("Save Changes");
+        submitButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        submitButton.setForeground(new java.awt.Color(255, 255, 255));
+        submitButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        submitButton.setText("Save Changes");
+        submitButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        submitButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                submitButtonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -142,112 +193,86 @@ public class EditProfile extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jLabel15.setBackground(new java.awt.Color(0, 109, 119));
-        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(226, 149, 120));
-        jLabel15.setText("Cancel");
+        formpanel.add(jPanel2);
+        jPanel2.setBounds(39, 421, 138, 40);
 
-        jTextField9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextField9.setToolTipText("");
-        jTextField9.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
-        jTextField9.setCaretColor(new java.awt.Color(0, 109, 119));
-        jTextField9.setPreferredSize(new java.awt.Dimension(337, 54));
+        cancenlButton.setBackground(new java.awt.Color(0, 109, 119));
+        cancenlButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        cancenlButton.setForeground(new java.awt.Color(226, 149, 120));
+        cancenlButton.setText("Cancel");
+        cancenlButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cancenlButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cancenlButtonMouseClicked(evt);
+            }
+        });
+        formpanel.add(cancenlButton);
+        cancenlButton.setBounds(209, 432, 45, 17);
 
-        jLabel13.setBackground(new java.awt.Color(0, 109, 119));
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel13.setText("Country");
+        pplCountry.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplCountry.setToolTipText("");
+        pplCountry.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
+        pplCountry.setCaretColor(new java.awt.Color(0, 109, 119));
+        pplCountry.setPreferredSize(new java.awt.Dimension(337, 54));
+        formpanel.add(pplCountry);
+        pplCountry.setBounds(39, 160, 337, 54);
 
-        javax.swing.GroupLayout formpanelLayout = new javax.swing.GroupLayout(formpanel);
-        formpanel.setLayout(formpanelLayout);
-        formpanelLayout.setHorizontalGroup(
-            formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(formpanelLayout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(formpanelLayout.createSequentialGroup()
-                        .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(formpanelLayout.createSequentialGroup()
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(32, 32, 32)
-                                .addComponent(jLabel15))
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(formpanelLayout.createSequentialGroup()
-                        .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(formpanelLayout.createSequentialGroup()
-                                .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel14)))
-                            .addGroup(formpanelLayout.createSequentialGroup()
-                                .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10))
-                                .addGap(46, 46, 46)
-                                .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel13))))
-                        .addGap(0, 271, Short.MAX_VALUE))))
-        );
-        formpanelLayout.setVerticalGroup(
-            formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(formpanelLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(formpanelLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(59, 59, 59))
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(formpanelLayout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(formpanelLayout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(30, 30, 30)
-                .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formpanelLayout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formpanelLayout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
-                .addGroup(formpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formpanelLayout.createSequentialGroup()
-                        .addComponent(jLabel15)
-                        .addGap(12, 12, 12)))
-                .addGap(34, 34, 34))
-        );
+        countrylabel.setBackground(new java.awt.Color(0, 109, 119));
+        countrylabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        countrylabel.setForeground(new java.awt.Color(0, 109, 119));
+        countrylabel.setText("Country");
+        formpanel.add(countrylabel);
+        countrylabel.setBounds(39, 132, 62, 22);
+
+        pplPostcode.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplPostcode.setToolTipText("");
+        pplPostcode.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
+        pplPostcode.setCaretColor(new java.awt.Color(0, 109, 119));
+        pplPostcode.setPreferredSize(new java.awt.Dimension(337, 54));
+        formpanel.add(pplPostcode);
+        pplPostcode.setBounds(422, 160, 337, 54);
+
+        postcodelabel.setBackground(new java.awt.Color(0, 109, 119));
+        postcodelabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        postcodelabel.setForeground(new java.awt.Color(0, 109, 119));
+        postcodelabel.setText("Postcode");
+        formpanel.add(postcodelabel);
+        postcodelabel.setBounds(422, 132, 71, 22);
 
         navpanel.setBackground(new java.awt.Color(0, 109, 119));
 
         logolabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/vaccineo-logo-big.png"))); // NOI18N
+        logolabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        logolabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logolabelMouseClicked(evt);
+            }
+        });
 
         ppllabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/profile-nav.png"))); // NOI18N
+        ppllabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ppllabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ppllabelMouseClicked(evt);
+            }
+        });
 
         logoutlabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout-nav.png"))); // NOI18N
+        logoutlabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        logoutlabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logoutlabelMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout navpanelLayout = new javax.swing.GroupLayout(navpanel);
         navpanel.setLayout(navpanelLayout);
@@ -311,12 +336,12 @@ public class EditProfile extends javax.swing.JFrame {
             basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(basepanelLayout.createSequentialGroup()
                 .addGroup(basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(navpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(basepanelLayout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(logopanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(34, 34, 34)
-                .addComponent(backbutton)
+                        .addComponent(logopanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(backbutton))
+                    .addComponent(navpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
                 .addComponent(formpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -334,6 +359,79 @@ public class EditProfile extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void ppllabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ppllabelMouseClicked
+        // TODO add your handling code here:
+        String value = ppl.getId();
+        Profile pro = new Profile();
+        pro.peopleInfo(value);
+        pro.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_ppllabelMouseClicked
+
+    private void logoutlabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutlabelMouseClicked
+        // TODO add your handling code here:
+        int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Exit program",
+                JOptionPane.ERROR_MESSAGE);
+        if (result == JOptionPane.YES_OPTION) {
+            Login log = new Login();
+
+            setVisible(false);
+            log.setVisible(true);
+        } else {
+            setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        }
+    }//GEN-LAST:event_logoutlabelMouseClicked
+
+    private void logolabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logolabelMouseClicked
+        // TODO add your handling code here:
+        String value = ppl.getId();
+        PeopleDashboard ppldash = new PeopleDashboard();
+        ppldash.peopleInfo(value);
+        ppldash.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_logolabelMouseClicked
+
+    private void backbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbuttonActionPerformed
+        // TODO add your handling code here:
+        String value = ppl.getId();
+        Profile pro = new Profile();
+        pro.peopleInfo(value);
+        pro.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_backbuttonActionPerformed
+
+    private void cancenlButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancenlButtonMouseClicked
+        // TODO add your handling code here:
+        String value = ppl.getId();
+        Profile pro = new Profile();
+        pro.peopleInfo(value);
+        pro.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_cancenlButtonMouseClicked
+
+    private void submitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitButtonMouseClicked
+        // TODO add your handling code here:
+        String value = ppl.getId();
+        String username = pplUsername.getText();
+        String address = pplAddress.getText();
+        String state = pplState.getText();
+        String postcode = pplPostcode.getText();
+        String country = pplCountry.getText();
+        
+        //check whether the id is Malaysian or foreigner, hide address field.
+        try {
+            People ppl = new People();
+            ppl.modifyInfo(value, username,address,state,country,postcode);
+            Profile pro = new Profile();
+            pro.peopleInfo(value);
+            pro.setVisible(true);
+            this.setVisible(false);
+        }
+        catch(Exception e){
+            System.out.println("Error");
+        }
+    }//GEN-LAST:event_submitButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -371,26 +469,26 @@ public class EditProfile extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel addresslabel;
     private javax.swing.JButton backbutton;
     private javax.swing.JPanel basepanel;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel cancenlButton;
+    private javax.swing.JLabel countrylabel;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JLabel logolabel;
     private javax.swing.JPanel logopanel;
     private javax.swing.JLabel logoutlabel;
     private javax.swing.JPanel navpanel;
+    private javax.swing.JLabel postcodelabel;
+    private javax.swing.JTextField pplAddress;
+    private javax.swing.JTextField pplCountry;
+    private javax.swing.JTextField pplPostcode;
+    private javax.swing.JTextField pplState;
+    private javax.swing.JTextField pplUsername;
     private javax.swing.JLabel ppllabel;
+    private javax.swing.JLabel statelabel;
+    private javax.swing.JLabel submitButton;
     // End of variables declaration//GEN-END:variables
 
      class RoundedPanel extends JPanel

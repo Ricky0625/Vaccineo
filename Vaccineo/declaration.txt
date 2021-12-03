@@ -1,1 +1,12 @@
 Ic/Passport;Name;Q1;Q2;Q3;Q4;Q5;Q6;Q7;Q8
+1234556;Testing;yes;no;yes;no;yes;yes;no;yes
+1234556;Testing;no;yes;no;yes;no;yes;no;no
+1234556;Testing;yes;no;yes;no;yes;no;yes;no
+1234556;Testing;no;yes;no;yes;no;yes;no;yes
+1234556;Testing;no;yes;no;yes;no;yes;no;yes
+1234556;Testing;no;yes;no;yes;no;yes;no;yes
+1234556;Testing;yes;yes;yes;yes;yes;yes;yes;no
+AMB112233;Ohaiyo;no;null;null;null;no;yes;yes;yes
+Test;Test;null;null;null;null;null;null;no;yes
+Test;Test;yes;no;yes;yes;yes;yes;no;no
+AMB1122;123;no;no;no;no;no;no;no;no

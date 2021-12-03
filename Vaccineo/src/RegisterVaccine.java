@@ -1,4 +1,7 @@
 
+import classes.Appointment;
+import classes.GeneralFunction;
+import classes.People;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -6,6 +9,11 @@ import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /*
@@ -29,9 +37,28 @@ public class RegisterVaccine extends javax.swing.JFrame {
     Color empColor = new Color(255,221,210);
     Color whiteColor = new Color(255,255,255);
             
+    People ppl = new People();
+    GeneralFunction gf = new GeneralFunction();
+    Appointment app = new Appointment();
+    ArrayList<ArrayList<String>> peopleList;
+    
     public RegisterVaccine() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
+    }
+    
+    public void peopleInfo(String value) {
+        String id = value;
+        try {
+            ppl.generatePeopleList();
+            peopleList = ppl.getPeopleList();
+            ppl.searchUser(peopleList, id);
+            ppl.setId(value);
+            nameLabelView.setText(ppl.getName());
+            idLabelView.setText(ppl.getId());
+        } catch (Exception e) {
+            Logger.getLogger(PersonnelPeople.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     /**
@@ -59,37 +86,37 @@ public class RegisterVaccine extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jPanel3 = new RoundedPanel(20, whiteColor);
         jLabel4 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        nameLabelView = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        idLabelView = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        chooseCentre = new javax.swing.JComboBox<>();
         jPanel4 = new RoundedPanel(20, whiteColor);
         jLabel11 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
+        yes1 = new javax.swing.JRadioButton();
+        no1 = new javax.swing.JRadioButton();
+        no2 = new javax.swing.JRadioButton();
+        yes2 = new javax.swing.JRadioButton();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jRadioButton5 = new javax.swing.JRadioButton();
-        jRadioButton6 = new javax.swing.JRadioButton();
-        jRadioButton7 = new javax.swing.JRadioButton();
-        jRadioButton8 = new javax.swing.JRadioButton();
+        yes3 = new javax.swing.JRadioButton();
+        no3 = new javax.swing.JRadioButton();
+        no4 = new javax.swing.JRadioButton();
+        yes4 = new javax.swing.JRadioButton();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jRadioButton9 = new javax.swing.JRadioButton();
-        jRadioButton10 = new javax.swing.JRadioButton();
+        no5 = new javax.swing.JRadioButton();
+        yes5 = new javax.swing.JRadioButton();
         jLabel16 = new javax.swing.JLabel();
-        jRadioButton11 = new javax.swing.JRadioButton();
-        jRadioButton12 = new javax.swing.JRadioButton();
+        no6 = new javax.swing.JRadioButton();
+        yes6 = new javax.swing.JRadioButton();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        jRadioButton13 = new javax.swing.JRadioButton();
-        jRadioButton14 = new javax.swing.JRadioButton();
-        jRadioButton15 = new javax.swing.JRadioButton();
-        jRadioButton16 = new javax.swing.JRadioButton();
+        yes7 = new javax.swing.JRadioButton();
+        no7 = new javax.swing.JRadioButton();
+        no8 = new javax.swing.JRadioButton();
+        yes8 = new javax.swing.JRadioButton();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
@@ -102,11 +129,12 @@ public class RegisterVaccine extends javax.swing.JFrame {
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         jPanel5 = new RoundedPanel(5, priColor);
-        jLabel31 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
+        submitButton = new javax.swing.JLabel();
+        cancelButton = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Register Vaccine");
+        setResizable(false);
 
         jScrollPane1.setBorder(null);
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -119,10 +147,28 @@ public class RegisterVaccine extends javax.swing.JFrame {
         navpanel4.setBackground(new java.awt.Color(0, 109, 119));
 
         logolabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/vaccineo-logo-big.png"))); // NOI18N
+        logolabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        logolabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logolabel4MouseClicked(evt);
+            }
+        });
 
         ppllabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/profile-nav.png"))); // NOI18N
+        ppllabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ppllabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ppllabel4MouseClicked(evt);
+            }
+        });
 
         logoutlabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout-nav.png"))); // NOI18N
+        logoutlabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        logoutlabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logoutlabel4MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout navpanel4Layout = new javax.swing.GroupLayout(navpanel4);
         navpanel4.setLayout(navpanel4Layout);
@@ -170,8 +216,15 @@ public class RegisterVaccine extends javax.swing.JFrame {
         backbutton.setText("Back ");
         backbutton.setBorderPainted(false);
         backbutton.setContentAreaFilled(false);
+        backbutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        backbutton.setFocusPainted(false);
         backbutton.setIconTextGap(15);
         backbutton.setMargin(new java.awt.Insets(2, 0, 2, 0));
+        backbutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backbuttonMouseClicked(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(237, 246, 249));
         jPanel2.setPreferredSize(new java.awt.Dimension(1240, 95));
@@ -239,10 +292,10 @@ public class RegisterVaccine extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel4.setText("Name");
 
-        jLabel7.setBackground(new java.awt.Color(0, 109, 119));
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel7.setText("Test");
+        nameLabelView.setBackground(new java.awt.Color(0, 109, 119));
+        nameLabelView.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        nameLabelView.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        nameLabelView.setText("Test");
 
         jLabel8.setBackground(new java.awt.Color(0, 109, 119));
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -250,10 +303,10 @@ public class RegisterVaccine extends javax.swing.JFrame {
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel8.setText("IC / Passport");
 
-        jLabel9.setBackground(new java.awt.Color(0, 109, 119));
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel9.setText("Test");
+        idLabelView.setBackground(new java.awt.Color(0, 109, 119));
+        idLabelView.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        idLabelView.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        idLabelView.setText("Test");
 
         jLabel10.setBackground(new java.awt.Color(0, 109, 119));
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -261,15 +314,10 @@ public class RegisterVaccine extends javax.swing.JFrame {
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel10.setText("Choose your preferred vaccination centre.");
 
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bukit Jalil", "UM", "KLCC" }));
-        jComboBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jComboBox1.setPreferredSize(new java.awt.Dimension(289, 54));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
+        chooseCentre.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        chooseCentre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bukit Jalil", "UM", "KLCC" }));
+        chooseCentre.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        chooseCentre.setPreferredSize(new java.awt.Dimension(289, 54));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -283,12 +331,12 @@ public class RegisterVaccine extends javax.swing.JFrame {
                         .addGap(706, 1141, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(chooseCentre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10)
-                            .addComponent(jLabel9)
+                            .addComponent(idLabelView)
                             .addComponent(jLabel8)
-                            .addComponent(jLabel7))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(nameLabelView))
+                        .addGap(0, 759, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,15 +344,15 @@ public class RegisterVaccine extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel7)
+                .addComponent(nameLabelView)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel9)
+                .addComponent(idLabelView)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(chooseCentre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
@@ -317,25 +365,45 @@ public class RegisterVaccine extends javax.swing.JFrame {
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel11.setText("1. Are you interested to take the COVID-19 vaccine?");
 
-        jRadioButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jRadioButton1.setForeground(new java.awt.Color(0, 109, 119));
-        jRadioButton1.setText("Yes");
-        jRadioButton1.setContentAreaFilled(false);
+        yes1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        yes1.setForeground(new java.awt.Color(0, 109, 119));
+        yes1.setText("Yes");
+        yes1.setContentAreaFilled(false);
+        yes1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                yes1ActionPerformed(evt);
+            }
+        });
 
-        jRadioButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jRadioButton2.setForeground(new java.awt.Color(0, 109, 119));
-        jRadioButton2.setText("No");
-        jRadioButton2.setContentAreaFilled(false);
+        no1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        no1.setForeground(new java.awt.Color(0, 109, 119));
+        no1.setText("No");
+        no1.setContentAreaFilled(false);
+        no1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                no1ActionPerformed(evt);
+            }
+        });
 
-        jRadioButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jRadioButton3.setForeground(new java.awt.Color(0, 109, 119));
-        jRadioButton3.setText("No");
-        jRadioButton3.setContentAreaFilled(false);
+        no2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        no2.setForeground(new java.awt.Color(0, 109, 119));
+        no2.setText("No");
+        no2.setContentAreaFilled(false);
+        no2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                no2ActionPerformed(evt);
+            }
+        });
 
-        jRadioButton4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jRadioButton4.setForeground(new java.awt.Color(0, 109, 119));
-        jRadioButton4.setText("Yes");
-        jRadioButton4.setContentAreaFilled(false);
+        yes2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        yes2.setForeground(new java.awt.Color(0, 109, 119));
+        yes2.setText("Yes");
+        yes2.setContentAreaFilled(false);
+        yes2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                yes2ActionPerformed(evt);
+            }
+        });
 
         jLabel12.setBackground(new java.awt.Color(0, 109, 119));
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -349,25 +417,45 @@ public class RegisterVaccine extends javax.swing.JFrame {
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel13.setText("3. Have you attended any event / areas associated with known COVID-19 cluster? ");
 
-        jRadioButton5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jRadioButton5.setForeground(new java.awt.Color(0, 109, 119));
-        jRadioButton5.setText("Yes");
-        jRadioButton5.setContentAreaFilled(false);
+        yes3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        yes3.setForeground(new java.awt.Color(0, 109, 119));
+        yes3.setText("Yes");
+        yes3.setContentAreaFilled(false);
+        yes3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                yes3ActionPerformed(evt);
+            }
+        });
 
-        jRadioButton6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jRadioButton6.setForeground(new java.awt.Color(0, 109, 119));
-        jRadioButton6.setText("No");
-        jRadioButton6.setContentAreaFilled(false);
+        no3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        no3.setForeground(new java.awt.Color(0, 109, 119));
+        no3.setText("No");
+        no3.setContentAreaFilled(false);
+        no3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                no3ActionPerformed(evt);
+            }
+        });
 
-        jRadioButton7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jRadioButton7.setForeground(new java.awt.Color(0, 109, 119));
-        jRadioButton7.setText("No");
-        jRadioButton7.setContentAreaFilled(false);
+        no4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        no4.setForeground(new java.awt.Color(0, 109, 119));
+        no4.setText("No");
+        no4.setContentAreaFilled(false);
+        no4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                no4ActionPerformed(evt);
+            }
+        });
 
-        jRadioButton8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jRadioButton8.setForeground(new java.awt.Color(0, 109, 119));
-        jRadioButton8.setText("Yes");
-        jRadioButton8.setContentAreaFilled(false);
+        yes4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        yes4.setForeground(new java.awt.Color(0, 109, 119));
+        yes4.setText("Yes");
+        yes4.setContentAreaFilled(false);
+        yes4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                yes4ActionPerformed(evt);
+            }
+        });
 
         jLabel14.setBackground(new java.awt.Color(0, 109, 119));
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -381,15 +469,25 @@ public class RegisterVaccine extends javax.swing.JFrame {
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel15.setText("5. Have you had close contact to confirmed or suspected case of COVID-19 within 14 days before");
 
-        jRadioButton9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jRadioButton9.setForeground(new java.awt.Color(0, 109, 119));
-        jRadioButton9.setText("No");
-        jRadioButton9.setContentAreaFilled(false);
+        no5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        no5.setForeground(new java.awt.Color(0, 109, 119));
+        no5.setText("No");
+        no5.setContentAreaFilled(false);
+        no5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                no5ActionPerformed(evt);
+            }
+        });
 
-        jRadioButton10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jRadioButton10.setForeground(new java.awt.Color(0, 109, 119));
-        jRadioButton10.setText("Yes");
-        jRadioButton10.setContentAreaFilled(false);
+        yes5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        yes5.setForeground(new java.awt.Color(0, 109, 119));
+        yes5.setText("Yes");
+        yes5.setContentAreaFilled(false);
+        yes5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                yes5ActionPerformed(evt);
+            }
+        });
 
         jLabel16.setBackground(new java.awt.Color(0, 109, 119));
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -397,14 +495,25 @@ public class RegisterVaccine extends javax.swing.JFrame {
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel16.setText("onset of illness? ");
 
-        jRadioButton11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jRadioButton11.setForeground(new java.awt.Color(0, 109, 119));
-        jRadioButton11.setText("No");
+        no6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        no6.setForeground(new java.awt.Color(0, 109, 119));
+        no6.setText("No");
+        no6.setContentAreaFilled(false);
+        no6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                no6ActionPerformed(evt);
+            }
+        });
 
-        jRadioButton12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jRadioButton12.setForeground(new java.awt.Color(0, 109, 119));
-        jRadioButton12.setText("Yes");
-        jRadioButton12.setContentAreaFilled(false);
+        yes6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        yes6.setForeground(new java.awt.Color(0, 109, 119));
+        yes6.setText("Yes");
+        yes6.setContentAreaFilled(false);
+        yes6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                yes6ActionPerformed(evt);
+            }
+        });
 
         jLabel17.setBackground(new java.awt.Color(0, 109, 119));
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -424,23 +533,45 @@ public class RegisterVaccine extends javax.swing.JFrame {
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel19.setText("7. Ever had a history of severe allergies? ");
 
-        jRadioButton13.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jRadioButton13.setForeground(new java.awt.Color(0, 109, 119));
-        jRadioButton13.setText("Yes");
-        jRadioButton13.setContentAreaFilled(false);
+        yes7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        yes7.setForeground(new java.awt.Color(0, 109, 119));
+        yes7.setText("Yes");
+        yes7.setContentAreaFilled(false);
+        yes7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                yes7ActionPerformed(evt);
+            }
+        });
 
-        jRadioButton14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jRadioButton14.setForeground(new java.awt.Color(0, 109, 119));
-        jRadioButton14.setText("No");
+        no7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        no7.setForeground(new java.awt.Color(0, 109, 119));
+        no7.setText("No");
+        no7.setContentAreaFilled(false);
+        no7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                no7ActionPerformed(evt);
+            }
+        });
 
-        jRadioButton15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jRadioButton15.setForeground(new java.awt.Color(0, 109, 119));
-        jRadioButton15.setText("No");
+        no8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        no8.setForeground(new java.awt.Color(0, 109, 119));
+        no8.setText("No");
+        no8.setContentAreaFilled(false);
+        no8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                no8ActionPerformed(evt);
+            }
+        });
 
-        jRadioButton16.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jRadioButton16.setForeground(new java.awt.Color(0, 109, 119));
-        jRadioButton16.setText("Yes");
-        jRadioButton16.setContentAreaFilled(false);
+        yes8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        yes8.setForeground(new java.awt.Color(0, 109, 119));
+        yes8.setText("Yes");
+        yes8.setContentAreaFilled(false);
+        yes8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                yes8ActionPerformed(evt);
+            }
+        });
 
         jLabel20.setBackground(new java.awt.Color(0, 109, 119));
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -511,10 +642,16 @@ public class RegisterVaccine extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setPreferredSize(new java.awt.Dimension(138, 40));
 
-        jLabel31.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel31.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel31.setText("Submit");
+        submitButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        submitButton.setForeground(new java.awt.Color(255, 255, 255));
+        submitButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        submitButton.setText("Submit");
+        submitButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        submitButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                submitButtonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -522,19 +659,25 @@ public class RegisterVaccine extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jLabel32.setBackground(new java.awt.Color(0, 109, 119));
-        jLabel32.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel32.setForeground(new java.awt.Color(226, 149, 120));
-        jLabel32.setText("Cancel");
+        cancelButton.setBackground(new java.awt.Color(0, 109, 119));
+        cancelButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        cancelButton.setForeground(new java.awt.Color(226, 149, 120));
+        cancelButton.setText("Cancel");
+        cancelButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cancelButtonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -551,29 +694,29 @@ public class RegisterVaccine extends javax.swing.JFrame {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(32, 32, 32)
-                                .addComponent(jLabel32))
-                            .addComponent(jRadioButton15)
-                            .addComponent(jRadioButton16)
+                                .addComponent(cancelButton))
+                            .addComponent(no8)
+                            .addComponent(yes8)
                             .addComponent(jLabel19)
-                            .addComponent(jRadioButton14)
-                            .addComponent(jRadioButton13)
+                            .addComponent(no7)
+                            .addComponent(yes7)
                             .addComponent(jLabel18)
-                            .addComponent(jRadioButton11)
-                            .addComponent(jRadioButton12)
+                            .addComponent(no6)
+                            .addComponent(yes6)
                             .addComponent(jLabel15)
-                            .addComponent(jRadioButton9)
-                            .addComponent(jRadioButton10)
+                            .addComponent(no5)
+                            .addComponent(yes5)
                             .addComponent(jLabel14)
-                            .addComponent(jRadioButton7)
-                            .addComponent(jRadioButton8)
+                            .addComponent(no4)
+                            .addComponent(yes4)
                             .addComponent(jLabel13)
-                            .addComponent(jRadioButton6)
-                            .addComponent(jRadioButton5)
+                            .addComponent(no3)
+                            .addComponent(yes3)
                             .addComponent(jLabel12)
-                            .addComponent(jRadioButton3)
-                            .addComponent(jRadioButton4)
-                            .addComponent(jRadioButton2)
-                            .addComponent(jRadioButton1)
+                            .addComponent(no2)
+                            .addComponent(yes2)
+                            .addComponent(no1)
+                            .addComponent(yes1)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGap(29, 29, 29)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -603,49 +746,49 @@ public class RegisterVaccine extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton1)
+                .addComponent(yes1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton2)
+                .addComponent(no1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton4)
+                .addComponent(yes2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton3)
+                .addComponent(no2)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton5)
+                .addComponent(yes3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton6)
+                .addComponent(no3)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton8)
+                .addComponent(yes4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton7)
+                .addComponent(no4)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel15)
                 .addGap(4, 4, 4)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton10)
+                .addComponent(yes5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton9)
+                .addComponent(no5)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel18)
                 .addGap(4, 4, 4)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton12)
+                .addComponent(yes6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton11)
+                .addComponent(no6)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel19)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton13)
+                .addComponent(yes7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton14)
+                .addComponent(no7)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel20)
                 .addGap(18, 18, 18)
@@ -671,14 +814,14 @@ public class RegisterVaccine extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel26)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton16)
+                .addComponent(yes8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton15)
+                .addComponent(no8)
                 .addGap(34, 34, 34)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel32)
+                        .addComponent(cancelButton)
                         .addGap(12, 12, 12)))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
@@ -740,9 +883,272 @@ public class RegisterVaccine extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void logolabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logolabel4MouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+        String value = ppl.getId();
+        PeopleDashboard ppldash = new PeopleDashboard();
+        ppldash.peopleInfo(value);
+        ppldash.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_logolabel4MouseClicked
+
+    private void ppllabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ppllabel4MouseClicked
+        // TODO add your handling code here:
+        String value = ppl.getId();
+        Profile pro = new Profile();
+        pro.peopleInfo(value);
+        pro.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_ppllabel4MouseClicked
+
+    private void logoutlabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutlabel4MouseClicked
+        // TODO add your handling code here:
+        int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Exit program",
+                JOptionPane.ERROR_MESSAGE);
+        if (result == JOptionPane.YES_OPTION) {
+            Login log = new Login();
+
+            setVisible(false);
+            log.setVisible(true);
+        } else {
+            setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        }
+    }//GEN-LAST:event_logoutlabel4MouseClicked
+
+    private void backbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backbuttonMouseClicked
+        // TODO add your handling code here:
+        String value = ppl.getId();
+        PeopleDashboard ppldash = new PeopleDashboard();
+        ppldash.peopleInfo(value);
+        ppldash.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_backbuttonMouseClicked
+
+    private void cancelButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelButtonMouseClicked
+        // TODO add your handling code here:
+        String value = ppl.getId();
+        PeopleDashboard ppldash = new PeopleDashboard();
+        ppldash.peopleInfo(value);
+        ppldash.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_cancelButtonMouseClicked
+
+    private void submitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitButtonMouseClicked
+        // TODO add your handling code here:
+        String name = nameLabelView.getText();
+        String id = idLabelView.getText();
+        String centre = chooseCentre.getSelectedItem().toString();
+        String q1 = null, q2 = null , q3 = null , q4 = null , q5 = null , q6 = null , q7 = null ,q8 = null;
+        
+        if(yes1.isSelected()){
+            q1 = "yes";
+        } else if(no1.isSelected()){
+            q1 = "no";
+        } else {
+            JOptionPane.showMessageDialog(null, "Please answer question 1!");
+        }
+        
+        if(yes2.isSelected()){
+            q2 = "yes";
+        } else if(no2.isSelected()){
+            q2 = "no";
+        } else {
+            JOptionPane.showMessageDialog(null, "Please answer question 2!");
+        }
+        
+        if(yes3.isSelected()){
+            q3 = "yes";
+        } else if(no3.isSelected()){
+            q3 = "no";
+        } else {
+            JOptionPane.showMessageDialog(null, "Please answer question 3!");
+        }
+        
+        if(yes4.isSelected()){
+            q4 = "yes";
+        } else if(no4.isSelected()){
+            q4 = "no";
+        } else {
+            JOptionPane.showMessageDialog(null, "Please answer question 4!");
+        }
+        
+        if(yes5.isSelected()){
+            q5 = "yes";
+        } else if(no5.isSelected()){
+            q5 = "no";
+        } else {
+            JOptionPane.showMessageDialog(null, "Please answer question 5!");
+        }
+        
+        if(yes6.isSelected()){
+            q6 = "yes";
+        } else if(no6.isSelected()){
+            q6 = "no";
+        } else {
+            JOptionPane.showMessageDialog(null, "Please answer question 6!");
+        }
+        
+        if(yes7.isSelected()){
+            q7 = "yes";
+        } else if(no7.isSelected()){
+            q7 = "no";
+        } else {
+            JOptionPane.showMessageDialog(null, "Please answer question 7!");
+        }
+        
+        if(yes8.isSelected()){
+            q8 = "yes";
+        } else if(no8.isSelected()){
+            q8 = "no";
+        } else {
+            JOptionPane.showMessageDialog(null, "Please answer question 8!");
+        }
+
+        if(yes1.isSelected() || no1.isSelected()){
+            if(yes2.isSelected() || no2.isSelected()){
+                if(yes3.isSelected() || no3.isSelected()){
+                    if(yes4.isSelected() || no4.isSelected()){
+                        if(yes5.isSelected() || no5.isSelected()){
+                            if(yes6.isSelected() || no6.isSelected()){
+                                if(yes7.isSelected() || no7.isSelected()){
+                                    if(yes8.isSelected() || no8.isSelected()){
+                                        try {
+                                            String newVacStatus = "Pending 1st Dose";
+                                            ppl.peopleDeclaration(name,id,q1,q2,q3,q4,q5,q6,q7,q8);
+                                            app.registerForVaccination(id,centre);
+                                            ppl.updateNewStatus(id,newVacStatus);
+                                            this.setVisible(false);
+                                            String value = ppl.getId();
+                                            PeopleDashboard ppldash = new PeopleDashboard();
+                                            ppldash.peopleInfo(value);
+                                            ppldash.setVisible(true);
+                                            this.setVisible(false);  
+                                        }
+                                        catch(Exception e){
+                                            JOptionPane.showMessageDialog(null, "Failed to register for vaccination.");
+                                        } 
+                                    }
+                                }
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_submitButtonMouseClicked
+
+    private void yes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yes1ActionPerformed
+        // TODO add your handling code here:
+        if(yes1.isSelected()){
+            no1.setSelected(false);
+        }
+    }//GEN-LAST:event_yes1ActionPerformed
+
+    private void no1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_no1ActionPerformed
+        // TODO add your handling code here:
+        if(no1.isSelected()){
+            yes1.setSelected(false);
+        }
+    }//GEN-LAST:event_no1ActionPerformed
+
+    private void yes2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yes2ActionPerformed
+        // TODO add your handling code here:
+        if(yes2.isSelected()){
+            no2.setSelected(false);
+        }
+    }//GEN-LAST:event_yes2ActionPerformed
+
+    private void no2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_no2ActionPerformed
+        // TODO add your handling code here:
+        if(no2.isSelected()){
+            yes2.setSelected(false);
+        }
+    }//GEN-LAST:event_no2ActionPerformed
+
+    private void yes3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yes3ActionPerformed
+        // TODO add your handling code here:
+        if(yes3.isSelected()){
+            no3.setSelected(false);
+        }
+    }//GEN-LAST:event_yes3ActionPerformed
+
+    private void no3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_no3ActionPerformed
+        // TODO add your handling code here:
+        if(no3.isSelected()){
+            yes3.setSelected(false);
+        }
+    }//GEN-LAST:event_no3ActionPerformed
+
+    private void yes4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yes4ActionPerformed
+        // TODO add your handling code here:
+        if(yes4.isSelected()){
+            no4.setSelected(false);
+        }
+    }//GEN-LAST:event_yes4ActionPerformed
+
+    private void no4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_no4ActionPerformed
+        // TODO add your handling code here:
+        if(no4.isSelected()){
+            yes4.setSelected(false);
+        }
+    }//GEN-LAST:event_no4ActionPerformed
+
+    private void yes5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yes5ActionPerformed
+        // TODO add your handling code here:
+        if(yes5.isSelected()){
+            no5.setSelected(false);
+        }
+    }//GEN-LAST:event_yes5ActionPerformed
+
+    private void no5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_no5ActionPerformed
+        // TODO add your handling code here:
+        if(no5.isSelected()){
+            yes5.setSelected(false);
+        }
+    }//GEN-LAST:event_no5ActionPerformed
+
+    private void yes6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yes6ActionPerformed
+        // TODO add your handling code here:
+        if(yes6.isSelected()){
+            no6.setSelected(false);
+        }
+    }//GEN-LAST:event_yes6ActionPerformed
+
+    private void no6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_no6ActionPerformed
+        // TODO add your handling code here:
+        if(no6.isSelected()){
+            yes6.setSelected(false);
+        }
+    }//GEN-LAST:event_no6ActionPerformed
+
+    private void yes7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yes7ActionPerformed
+        // TODO add your handling code here:
+        if(yes7.isSelected()){
+            no7.setSelected(false);
+        }
+    }//GEN-LAST:event_yes7ActionPerformed
+
+    private void no7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_no7ActionPerformed
+        // TODO add your handling code here:
+        if(no7.isSelected()){
+            yes7.setSelected(false);
+        }
+    }//GEN-LAST:event_no7ActionPerformed
+
+    private void yes8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yes8ActionPerformed
+        // TODO add your handling code here:
+        if(yes8.isSelected()){
+            no8.setSelected(false);
+        }
+    }//GEN-LAST:event_yes8ActionPerformed
+
+    private void no8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_no8ActionPerformed
+        // TODO add your handling code here:
+        if(no8.isSelected()){
+            yes8.setSelected(false);
+        }
+    }//GEN-LAST:event_no8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -782,7 +1188,9 @@ public class RegisterVaccine extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backbutton;
     private javax.swing.JPanel basepanel1;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel cancelButton;
+    private javax.swing.JComboBox<String> chooseCentre;
+    private javax.swing.JLabel idLabelView;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -807,40 +1215,38 @@ public class RegisterVaccine extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton10;
-    private javax.swing.JRadioButton jRadioButton11;
-    private javax.swing.JRadioButton jRadioButton12;
-    private javax.swing.JRadioButton jRadioButton13;
-    private javax.swing.JRadioButton jRadioButton14;
-    private javax.swing.JRadioButton jRadioButton15;
-    private javax.swing.JRadioButton jRadioButton16;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
-    private javax.swing.JRadioButton jRadioButton6;
-    private javax.swing.JRadioButton jRadioButton7;
-    private javax.swing.JRadioButton jRadioButton8;
-    private javax.swing.JRadioButton jRadioButton9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel logolabel4;
     private javax.swing.JPanel logopanel;
     private javax.swing.JLabel logoutlabel4;
+    private javax.swing.JLabel nameLabelView;
     private javax.swing.JPanel navpanel4;
+    private javax.swing.JRadioButton no1;
+    private javax.swing.JRadioButton no2;
+    private javax.swing.JRadioButton no3;
+    private javax.swing.JRadioButton no4;
+    private javax.swing.JRadioButton no5;
+    private javax.swing.JRadioButton no6;
+    private javax.swing.JRadioButton no7;
+    private javax.swing.JRadioButton no8;
     private javax.swing.JLabel ppllabel4;
+    private javax.swing.JLabel submitButton;
+    private javax.swing.JRadioButton yes1;
+    private javax.swing.JRadioButton yes2;
+    private javax.swing.JRadioButton yes3;
+    private javax.swing.JRadioButton yes4;
+    private javax.swing.JRadioButton yes5;
+    private javax.swing.JRadioButton yes6;
+    private javax.swing.JRadioButton yes7;
+    private javax.swing.JRadioButton yes8;
     // End of variables declaration//GEN-END:variables
     
     class RoundedPanel extends JPanel

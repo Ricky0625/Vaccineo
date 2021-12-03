@@ -1,3 +1,4 @@
+import classes.Citizen;
 import classes.People;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -6,10 +7,17 @@ import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
+import javax.swing.JTextField;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -31,6 +39,9 @@ public class RegisterAccount extends javax.swing.JFrame {
     Color empColor = new Color(255,221,210);
     Color whiteColor = new Color(255,255,255);
     
+    People ppl = new People();
+    Citizen citi = new Citizen();
+ 
     public RegisterAccount() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
@@ -38,6 +49,8 @@ public class RegisterAccount extends javax.swing.JFrame {
         goLoginForm.setText(signin);
         String tnc = "<html><u>Terms & Conditions</u></html>";
         viewTnc.setText(tnc);
+        hidepassword1.setVisible(false);
+        hidepassword2.setVisible(false);
     }
 
     /**
@@ -55,34 +68,38 @@ public class RegisterAccount extends javax.swing.JFrame {
         formPanel = new javax.swing.JPanel();
         youarelabel = new javax.swing.JLabel();
         userlabel = new javax.swing.JLabel();
-        userPassword = new javax.swing.JTextField();
         passlabel = new javax.swing.JLabel();
-        userConPass = new javax.swing.JTextField();
         conpasslabel = new javax.swing.JLabel();
         viewTnc = new javax.swing.JLabel();
-        userUsername = new javax.swing.JTextField();
+        pplName = new javax.swing.JTextField();
         TncCheckButton = new javax.swing.JCheckBox();
-        malaysianRadioButton = new javax.swing.JRadioButton();
-        foreignerRadioButton = new javax.swing.JRadioButton();
-        userFullname = new javax.swing.JTextField();
+        pplMalaysian = new javax.swing.JRadioButton();
+        pplForeigner = new javax.swing.JRadioButton();
+        pplFname = new javax.swing.JTextField();
         fnamelabel = new javax.swing.JLabel();
-        userIcpass = new javax.swing.JTextField();
+        pplIcpass = new javax.swing.JTextField();
         icpasslabel = new javax.swing.JLabel();
-        userAddress = new javax.swing.JTextField();
+        pplAddress = new javax.swing.JTextField();
         addresslabel = new javax.swing.JLabel();
         regisButtonPanel = new RoundedPanel(5, priColor);
         registerButton = new javax.swing.JLabel();
-        userPostcode = new javax.swing.JTextField();
+        pplPostcode = new javax.swing.JTextField();
         postclabel = new javax.swing.JLabel();
-        userCountry = new javax.swing.JTextField();
+        pplCountry = new javax.swing.JTextField();
         countlabel = new javax.swing.JLabel();
-        userState = new javax.swing.JTextField();
+        pplState = new javax.swing.JTextField();
         statelabel = new javax.swing.JLabel();
         genderlabel = new javax.swing.JLabel();
-        femaleRadioButton = new javax.swing.JRadioButton();
-        maleRadioButton = new javax.swing.JRadioButton();
-        dobDateChooser = new com.toedter.calendar.JDateChooser();
+        pplFemale = new javax.swing.JRadioButton();
+        pplMale = new javax.swing.JRadioButton();
         doblabel = new javax.swing.JLabel();
+        pplDOB = new com.toedter.calendar.JDateChooser();
+        pplConPass = new javax.swing.JPasswordField();
+        pplPassword = new javax.swing.JPasswordField();
+        showpassword2 = new javax.swing.JLabel();
+        showpassword1 = new javax.swing.JLabel();
+        hidepassword1 = new javax.swing.JLabel();
+        hidepassword2 = new javax.swing.JLabel();
         createacclabel = new javax.swing.JLabel();
         fstoplabel = new javax.swing.JLabel();
         havaacclabel = new javax.swing.JLabel();
@@ -120,39 +137,35 @@ public class RegisterAccount extends javax.swing.JFrame {
 
         formPanel.setBackground(new java.awt.Color(237, 246, 249));
         formPanel.setPreferredSize(new java.awt.Dimension(380, 562));
+        formPanel.setLayout(null);
 
         youarelabel.setBackground(new java.awt.Color(0, 109, 119));
         youarelabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         youarelabel.setForeground(new java.awt.Color(0, 109, 119));
         youarelabel.setText("You are? ");
+        formPanel.add(youarelabel);
+        youarelabel.setBounds(399, 4, 85, 22);
 
         userlabel.setBackground(new java.awt.Color(0, 109, 119));
         userlabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         userlabel.setForeground(new java.awt.Color(0, 109, 119));
         userlabel.setText("Username");
-
-        userPassword.setBackground(new java.awt.Color(237, 246, 249));
-        userPassword.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        userPassword.setToolTipText("");
-        userPassword.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
-        userPassword.setCaretColor(new java.awt.Color(0, 109, 119));
-        userPassword.setPreferredSize(new java.awt.Dimension(318, 54));
+        formPanel.add(userlabel);
+        userlabel.setBounds(0, 4, 78, 22);
 
         passlabel.setBackground(new java.awt.Color(0, 109, 119));
         passlabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         passlabel.setForeground(new java.awt.Color(0, 109, 119));
         passlabel.setText("Password");
-
-        userConPass.setBackground(new java.awt.Color(237, 246, 249));
-        userConPass.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        userConPass.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
-        userConPass.setCaretColor(new java.awt.Color(0, 109, 119));
-        userConPass.setPreferredSize(new java.awt.Dimension(318, 54));
+        formPanel.add(passlabel);
+        passlabel.setBounds(0, 113, 74, 22);
 
         conpasslabel.setBackground(new java.awt.Color(0, 109, 119));
         conpasslabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         conpasslabel.setForeground(new java.awt.Color(0, 109, 119));
         conpasslabel.setText("Confirm Password");
+        formPanel.add(conpasslabel);
+        conpasslabel.setBounds(0, 218, 142, 22);
 
         viewTnc.setBackground(new java.awt.Color(0, 109, 119));
         viewTnc.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -164,61 +177,102 @@ public class RegisterAccount extends javax.swing.JFrame {
                 viewTncMouseClicked(evt);
             }
         });
+        formPanel.add(viewTnc);
+        viewTnc.setBounds(21, 358, 119, 17);
 
-        userUsername.setBackground(new java.awt.Color(237, 246, 249));
-        userUsername.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        userUsername.setToolTipText("");
-        userUsername.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
-        userUsername.setCaretColor(new java.awt.Color(0, 109, 119));
-        userUsername.setPreferredSize(new java.awt.Dimension(318, 54));
+        pplName.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplName.setToolTipText("");
+        pplName.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
+        pplName.setCaretColor(new java.awt.Color(0, 109, 119));
+        pplName.setPreferredSize(new java.awt.Dimension(318, 54));
+        formPanel.add(pplName);
+        pplName.setBounds(0, 41, 338, 54);
 
+        TncCheckButton.setBackground(new java.awt.Color(237, 246, 249));
         TncCheckButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         TncCheckButton.setForeground(new java.awt.Color(0, 109, 119));
         TncCheckButton.setText("By creating an account, you are agree to our");
+        formPanel.add(TncCheckButton);
+        TncCheckButton.setBounds(0, 331, 303, 25);
 
-        malaysianRadioButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        malaysianRadioButton.setForeground(new java.awt.Color(0, 109, 119));
-        malaysianRadioButton.setText("Malaysian");
+        pplMalaysian.setBackground(new java.awt.Color(237, 246, 249));
+        pplMalaysian.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplMalaysian.setForeground(new java.awt.Color(0, 109, 119));
+        pplMalaysian.setSelected(true);
+        pplMalaysian.setText("Malaysian");
+        pplMalaysian.setContentAreaFilled(false);
+        pplMalaysian.setFocusPainted(false);
+        pplMalaysian.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pplMalaysianActionPerformed(evt);
+            }
+        });
+        formPanel.add(pplMalaysian);
+        pplMalaysian.setBounds(512, 0, 101, 30);
 
-        foreignerRadioButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        foreignerRadioButton.setForeground(new java.awt.Color(0, 109, 119));
-        foreignerRadioButton.setText("Foreigner");
+        pplForeigner.setBackground(new java.awt.Color(237, 246, 249));
+        pplForeigner.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplForeigner.setForeground(new java.awt.Color(0, 109, 119));
+        pplForeigner.setText("Foreigner");
+        pplForeigner.setContentAreaFilled(false);
+        pplForeigner.setFocusPainted(false);
+        pplForeigner.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pplForeignerActionPerformed(evt);
+            }
+        });
+        formPanel.add(pplForeigner);
+        pplForeigner.setBounds(631, 0, 98, 30);
 
-        userFullname.setBackground(new java.awt.Color(237, 246, 249));
-        userFullname.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        userFullname.setToolTipText("");
-        userFullname.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
-        userFullname.setCaretColor(new java.awt.Color(0, 109, 119));
-        userFullname.setPreferredSize(new java.awt.Dimension(352, 54));
+        pplFname.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplFname.setToolTipText("");
+        pplFname.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
+        pplFname.setCaretColor(new java.awt.Color(0, 109, 119));
+        pplFname.setPreferredSize(new java.awt.Dimension(352, 54));
+        formPanel.add(pplFname);
+        pplFname.setBounds(399, 84, 352, 54);
 
         fnamelabel.setBackground(new java.awt.Color(0, 109, 119));
         fnamelabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         fnamelabel.setForeground(new java.awt.Color(0, 109, 119));
         fnamelabel.setText("Full Name");
+        formPanel.add(fnamelabel);
+        fnamelabel.setBounds(399, 48, 78, 22);
 
-        userIcpass.setBackground(new java.awt.Color(237, 246, 249));
-        userIcpass.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        userIcpass.setToolTipText("");
-        userIcpass.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
-        userIcpass.setCaretColor(new java.awt.Color(0, 109, 119));
-        userIcpass.setPreferredSize(new java.awt.Dimension(318, 54));
+        pplIcpass.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplIcpass.setToolTipText("");
+        pplIcpass.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
+        pplIcpass.setCaretColor(new java.awt.Color(0, 109, 119));
+        pplIcpass.setPreferredSize(new java.awt.Dimension(318, 54));
+        pplIcpass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                pplIcpassKeyTyped(evt);
+            }
+        });
+        formPanel.add(pplIcpass);
+        pplIcpass.setBounds(399, 196, 318, 54);
 
         icpasslabel.setBackground(new java.awt.Color(0, 109, 119));
         icpasslabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         icpasslabel.setForeground(new java.awt.Color(0, 109, 119));
         icpasslabel.setText("IC / Passport");
+        formPanel.add(icpasslabel);
+        icpasslabel.setBounds(399, 163, 104, 22);
 
-        userAddress.setBackground(new java.awt.Color(237, 246, 249));
-        userAddress.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        userAddress.setToolTipText("");
-        userAddress.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
-        userAddress.setCaretColor(new java.awt.Color(0, 109, 119));
-        userAddress.setPreferredSize(new java.awt.Dimension(374, 54));
+        pplAddress.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplAddress.setToolTipText("");
+        pplAddress.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
+        pplAddress.setCaretColor(new java.awt.Color(0, 109, 119));
+        pplAddress.setPreferredSize(new java.awt.Dimension(374, 54));
+        formPanel.add(pplAddress);
+        pplAddress.setBounds(399, 301, 374, 54);
 
         addresslabel.setBackground(new java.awt.Color(0, 109, 119));
         addresslabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         addresslabel.setForeground(new java.awt.Color(0, 109, 119));
         addresslabel.setText("Address");
+        formPanel.add(addresslabel);
+        addresslabel.setBounds(399, 268, 62, 22);
 
         regisButtonPanel.setBackground(new java.awt.Color(237, 246, 249));
         regisButtonPanel.setPreferredSize(new java.awt.Dimension(318, 54));
@@ -250,204 +304,155 @@ public class RegisterAccount extends javax.swing.JFrame {
                 .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        userPostcode.setBackground(new java.awt.Color(237, 246, 249));
-        userPostcode.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        userPostcode.setToolTipText("");
-        userPostcode.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
-        userPostcode.setCaretColor(new java.awt.Color(0, 109, 119));
-        userPostcode.setPreferredSize(new java.awt.Dimension(280, 54));
+        formPanel.add(regisButtonPanel);
+        regisButtonPanel.setBounds(0, 406, 338, 54);
+
+        pplPostcode.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplPostcode.setToolTipText("");
+        pplPostcode.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
+        pplPostcode.setCaretColor(new java.awt.Color(0, 109, 119));
+        pplPostcode.setPreferredSize(new java.awt.Dimension(280, 54));
+        pplPostcode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                pplPostcodeKeyTyped(evt);
+            }
+        });
+        formPanel.add(pplPostcode);
+        pplPostcode.setBounds(399, 406, 280, 54);
 
         postclabel.setBackground(new java.awt.Color(0, 109, 119));
         postclabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         postclabel.setForeground(new java.awt.Color(0, 109, 119));
         postclabel.setText("Postcode");
+        formPanel.add(postclabel);
+        postclabel.setBounds(399, 373, 71, 22);
 
-        userCountry.setBackground(new java.awt.Color(237, 246, 249));
-        userCountry.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        userCountry.setToolTipText("");
-        userCountry.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
-        userCountry.setCaretColor(new java.awt.Color(0, 109, 119));
-        userCountry.setPreferredSize(new java.awt.Dimension(280, 54));
+        pplCountry.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplCountry.setToolTipText("");
+        pplCountry.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
+        pplCountry.setCaretColor(new java.awt.Color(0, 109, 119));
+        pplCountry.setPreferredSize(new java.awt.Dimension(280, 54));
+        formPanel.add(pplCountry);
+        pplCountry.setBounds(705, 406, 280, 54);
 
         countlabel.setBackground(new java.awt.Color(0, 109, 119));
         countlabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         countlabel.setForeground(new java.awt.Color(0, 109, 119));
         countlabel.setText("Country");
+        formPanel.add(countlabel);
+        countlabel.setBounds(705, 373, 62, 22);
 
-        userState.setBackground(new java.awt.Color(237, 246, 249));
-        userState.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        userState.setToolTipText("");
-        userState.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
-        userState.setCaretColor(new java.awt.Color(0, 109, 119));
-        userState.setPreferredSize(new java.awt.Dimension(374, 54));
+        pplState.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplState.setToolTipText("");
+        pplState.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
+        pplState.setCaretColor(new java.awt.Color(0, 109, 119));
+        pplState.setPreferredSize(new java.awt.Dimension(374, 54));
+        formPanel.add(pplState);
+        pplState.setBounds(799, 301, 186, 54);
 
         statelabel.setBackground(new java.awt.Color(0, 109, 119));
         statelabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         statelabel.setForeground(new java.awt.Color(0, 109, 119));
         statelabel.setText("State");
+        formPanel.add(statelabel);
+        statelabel.setBounds(799, 268, 40, 22);
 
         genderlabel.setBackground(new java.awt.Color(0, 109, 119));
         genderlabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         genderlabel.setForeground(new java.awt.Color(0, 109, 119));
         genderlabel.setText("Gender");
+        formPanel.add(genderlabel);
+        genderlabel.setBounds(800, 48, 56, 22);
 
-        femaleRadioButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        femaleRadioButton.setForeground(new java.awt.Color(0, 109, 119));
-        femaleRadioButton.setText("Female");
+        pplFemale.setBackground(new java.awt.Color(237, 246, 249));
+        pplFemale.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplFemale.setForeground(new java.awt.Color(0, 109, 119));
+        pplFemale.setText("Female");
+        pplFemale.setContentAreaFilled(false);
+        pplFemale.setFocusPainted(false);
+        pplFemale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pplFemaleActionPerformed(evt);
+            }
+        });
+        formPanel.add(pplFemale);
+        pplFemale.setBounds(879, 96, 80, 30);
 
-        maleRadioButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        maleRadioButton.setForeground(new java.awt.Color(0, 109, 119));
-        maleRadioButton.setText("Male");
-
-        dobDateChooser.setBackground(new java.awt.Color(237, 246, 249));
-        dobDateChooser.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
-        dobDateChooser.setForeground(new java.awt.Color(131, 197, 190));
+        pplMale.setBackground(new java.awt.Color(237, 246, 249));
+        pplMale.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplMale.setForeground(new java.awt.Color(0, 109, 119));
+        pplMale.setText("Male");
+        pplMale.setContentAreaFilled(false);
+        pplMale.setFocusPainted(false);
+        pplMale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pplMaleActionPerformed(evt);
+            }
+        });
+        formPanel.add(pplMale);
+        pplMale.setBounds(795, 96, 61, 30);
 
         doblabel.setBackground(new java.awt.Color(0, 109, 119));
         doblabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         doblabel.setForeground(new java.awt.Color(0, 109, 119));
         doblabel.setText("Date of Birth");
+        formPanel.add(doblabel);
+        doblabel.setBounds(743, 163, 101, 22);
 
-        javax.swing.GroupLayout formPanelLayout = new javax.swing.GroupLayout(formPanel);
-        formPanel.setLayout(formPanelLayout);
-        formPanelLayout.setHorizontalGroup(
-            formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(formPanelLayout.createSequentialGroup()
-                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(passlabel, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(userPassword, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
-                        .addComponent(conpasslabel, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(userConPass, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(userlabel, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(userUsername, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(regisButtonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(formPanelLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(viewTnc))
-                    .addComponent(TncCheckButton))
-                .addGap(61, 61, 61)
-                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(formPanelLayout.createSequentialGroup()
-                        .addComponent(youarelabel)
-                        .addGap(28, 28, 28)
-                        .addComponent(malaysianRadioButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(foreignerRadioButton)
-                        .addContainerGap())
-                    .addGroup(formPanelLayout.createSequentialGroup()
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(postclabel)
-                            .addComponent(userPostcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26)
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(formPanelLayout.createSequentialGroup()
-                                .addComponent(countlabel)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formPanelLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(userCountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(13, 13, 13))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formPanelLayout.createSequentialGroup()
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(userAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fnamelabel)
-                            .addComponent(addresslabel))
-                        .addGap(26, 26, 26)
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(formPanelLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(genderlabel)
-                                .addGap(142, 142, 142))
-                            .addGroup(formPanelLayout.createSequentialGroup()
-                                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(userState, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(statelabel))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(formPanelLayout.createSequentialGroup()
-                        .addComponent(userFullname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(femaleRadioButton)
-                        .addGap(38, 38, 38))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(maleRadioButton)
-                        .addGap(142, 142, 142))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formPanelLayout.createSequentialGroup()
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(userIcpass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(icpasslabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(doblabel)
-                            .addComponent(dobDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(13, 13, 13))))
-        );
-        formPanelLayout.setVerticalGroup(
-            formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(formPanelLayout.createSequentialGroup()
-                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(userlabel)
-                    .addComponent(youarelabel)
-                    .addComponent(malaysianRadioButton)
-                    .addComponent(foreignerRadioButton))
-                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(formPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(fnamelabel)
-                            .addComponent(genderlabel))
-                        .addGap(14, 14, 14)
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(userFullname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(maleRadioButton)
-                            .addComponent(femaleRadioButton))
-                        .addGap(25, 25, 25)
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(icpasslabel)
-                            .addComponent(doblabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(dobDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(userIcpass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(formPanelLayout.createSequentialGroup()
-                                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(addresslabel)
-                                    .addComponent(statelabel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(userAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(userState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addComponent(postclabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(userPostcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(userCountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(formPanelLayout.createSequentialGroup()
-                                .addComponent(countlabel)
-                                .addGap(65, 65, 65))))
-                    .addGroup(formPanelLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(userUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(passlabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(userPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(conpasslabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(userConPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(TncCheckButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(viewTnc)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(regisButtonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(90, 90, 90))
-        );
+        pplDOB.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
+        pplDOB.setDateFormatString("dd/MM/yyyy");
+        formPanel.add(pplDOB);
+        pplDOB.setBounds(743, 196, 242, 54);
+
+        pplConPass.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplConPass.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 109, 119), 2));
+        pplConPass.setEchoChar('*');
+        pplConPass.setPreferredSize(new java.awt.Dimension(318, 54));
+        formPanel.add(pplConPass);
+        pplConPass.setBounds(0, 250, 300, 54);
+
+        pplPassword.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pplPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 109, 119), 2));
+        pplPassword.setEchoChar('*');
+        pplPassword.setPreferredSize(new java.awt.Dimension(318, 54));
+        formPanel.add(pplPassword);
+        pplPassword.setBounds(0, 150, 300, 54);
+
+        showpassword2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/regis-showpass.png"))); // NOI18N
+        showpassword2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                showpassword2MouseClicked(evt);
+            }
+        });
+        formPanel.add(showpassword2);
+        showpassword2.setBounds(310, 250, 24, 50);
+
+        showpassword1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/regis-showpass.png"))); // NOI18N
+        showpassword1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                showpassword1MouseClicked(evt);
+            }
+        });
+        formPanel.add(showpassword1);
+        showpassword1.setBounds(310, 150, 24, 50);
+
+        hidepassword1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/regis-hidepass.png"))); // NOI18N
+        hidepassword1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                hidepassword1MouseClicked(evt);
+            }
+        });
+        formPanel.add(hidepassword1);
+        hidepassword1.setBounds(310, 150, 23, 50);
+
+        hidepassword2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/regis-hidepass.png"))); // NOI18N
+        hidepassword2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                hidepassword2MouseClicked(evt);
+            }
+        });
+        formPanel.add(hidepassword2);
+        hidepassword2.setBounds(310, 250, 23, 50);
 
         createacclabel.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         createacclabel.setForeground(new java.awt.Color(0, 109, 119));
@@ -549,28 +554,165 @@ public class RegisterAccount extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void registerButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerButtonMouseClicked
-        // TODO add your handling code here:
-        People ppl = new People();
+        String username = pplName.getText();
+        String name = pplFname.getText();
+        String id = pplIcpass.getText();
+        String address = pplAddress.getText();
+        String state = pplState.getText();
+        String country = pplCountry.getText();
+        String postcode = pplPostcode.getText();
+        String pass = pplPassword.getText();
+        String conpass = pplConPass.getText();
+        String dob = ((JTextField)pplDOB.getDateEditor().getUiComponent()).getText();
         
-        String id = userUsername.getText();
-        String fname = userFullname.getText();
-        String icpass = userIcpass.getText();
-        Date dob = dobDateChooser.getDate();
-        String male = maleRadioButton.getText();
-        String female = femaleRadioButton.getText();
-        String address = userAddress.getText();
-        String state = userState.getText();
-        String country = userCountry.getText();
-        int postcode = Integer.parseInt(userPostcode.getText());
-        String password = userPassword.getText();
-        String confirmpassword = userConPass.getText();
-        String citizen = malaysianRadioButton.getText();
-        String noncitizen = foreignerRadioButton.getText();
-        String tnc = TncCheckButton.getText();
-        
-        
+        if(dob.length() == 0){
+            JOptionPane.showMessageDialog(null, "Please fill in your Date of Birth.");
+        } else {
+            //User choose their category either Malaysian (citizen) or Foreigber (non-citizen)
+            String category = null;
+            if(pplMalaysian.isSelected()){
+                category = "Citizen";
+                if(postcode.length() == 0){
+                    JOptionPane.showMessageDialog(null, "Please fill in your Postcode.");
+                }
+                if(address.length() == 0){
+                    JOptionPane.showMessageDialog(null, "Please fill in your Address.");
+                }
+                if(state.length() == 0){
+                    JOptionPane.showMessageDialog(null, "Please fill in your State.");
+                } else {
+                    //User choose their gender
+                    String gender = null;
+                    if(pplMale.isSelected()){
+                        gender = "Male";
+                        String password = null;
+                        if(conpass.equals(pass)){
+                            password = conpass;
+                            //if checkbox not selected
+                            if(TncCheckButton.isSelected()){
+                                if(ppl.validatePass(pass) == false){
+                                    JOptionPane.showMessageDialog(null, "The password must at least 8 characters and consist of 1 UpperCase, 1 LowerCase and 1 Number");
+                                } else {
+                                    if(citi.checkFormat(id) == true){
+                                        try {
+                                            ppl.registerPeople(username,name,id,address,state,country,postcode,password,gender,category,dob);
+                                            this.setVisible(false);
+                                            Login login = new Login();
+                                            login.setVisible(true);
+                                        }
+                                        catch(Exception e){
+                                            System.out.println("Error");
+                                        }
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "Please key in the correct IC numbers");
+                                        } 
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Please agree to the Terms & Conditions.");
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Please key in the same Password.");
+                        }
+                    } else if(pplFemale.isSelected()){
+                        gender = "Female";
+                        String password = null;
+                        if(conpass.equals(pass)){
+                            password = conpass;
+                            //if checkbox not selected
+                            if(TncCheckButton.isSelected()){
+                                if(ppl.validatePass(pass) == false){
+                                    JOptionPane.showMessageDialog(null, "The password must at least 8 characters and consist of 1 UpperCase, 1 LowerCase and 1 Number");
+                                } else {
+                                    if(citi.checkFormat(id) == true){
+                                        try {
+                                            ppl.registerPeople(username,name,id,address,state,country,postcode,password,gender,category,dob);
+                                            this.setVisible(false);
+                                            Login login = new Login();
+                                            login.setVisible(true);
+                                        }
+                                        catch(Exception e){
+                                            System.out.println("Error");
+                                        }
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "Please key in the correct IC numbers");
+                                        } 
+                                }   
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Please agree to the Terms & Conditions.");
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Please key in the same Password.");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Please choose your Gender.");
+                    }
+                }
+            }
+            else if(pplForeigner.isSelected()){
+                category = "Non-citizen";
+                //User choose their gender
+                String gender = null;
+                if(pplMale.isSelected()){
+                    gender = "Male";
+                    String password = null;
+                    if(conpass.equals(pass)){
+                        password = conpass;
+                        //if checkbox not selected
+                        if(TncCheckButton.isSelected()){
+                            if(ppl.validatePass(pass) == false){
+                                JOptionPane.showMessageDialog(null, "The password must at least 8 characters and consist of 1 UpperCase, 1 LowerCase and 1 Number");
+                            } else {
+                                try {
+                                    ppl.registerPeopleNon(username,name,id,address,password,gender,category,dob);
+                                    this.setVisible(false);
+                                    Login login = new Login();
+                                    login.setVisible(true);
+                                }
+                                catch(Exception e){
+                                    System.out.println("Error");
+                                }
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Please agree to the Terms & Conditions.");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Please key in the same Password.");
+                    }
+                } else if(pplFemale.isSelected()){
+                    gender = "Female";
+                    String password = null;
+                    if(conpass.equals(pass)){
+                        password = conpass;
+                        //if checkbox not selected
+                        if(TncCheckButton.isSelected()){
+                            if(ppl.validatePass(pass) == false){
+                                JOptionPane.showMessageDialog(null, "The password must at least 8 characters and consist of 1 UpperCase, 1 LowerCase and 1 Number");
+                            } else {
+                                try {
+                                    ppl.registerPeopleNon(username,name,id,address,password,gender,category,dob);
+                                    this.setVisible(false);
+                                    Login login = new Login();
+                                    login.setVisible(true);
+                                }
+                                catch(Exception e){
+                                    System.out.println("Error");
+                                }
+                            }  
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Please agree to the Terms & Conditions.");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Please key in the same Password.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please choose your Gender.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Please choose you are Malaysian or Foreigner.");
+            }
+        }     
     }//GEN-LAST:event_registerButtonMouseClicked
-
+ 
     private void goLoginFormMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_goLoginFormMouseClicked
         // TODO add your handling code here:
         Login login = new Login();
@@ -584,6 +726,125 @@ public class RegisterAccount extends javax.swing.JFrame {
         this.setVisible(false);
         tnc.setVisible(true);
     }//GEN-LAST:event_viewTncMouseClicked
+
+    private void pplMaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pplMaleActionPerformed
+        // TODO add your handling code here:
+        if(pplMale.isSelected()){
+            pplFemale.setSelected(false);
+        }
+    }//GEN-LAST:event_pplMaleActionPerformed
+
+    private void pplFemaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pplFemaleActionPerformed
+        // TODO add your handling code here:
+        if(pplFemale.isSelected()){
+            pplMale.setSelected(false);
+        }
+    }//GEN-LAST:event_pplFemaleActionPerformed
+
+    private void pplMalaysianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pplMalaysianActionPerformed
+        // TODO add your handling code here:
+        if(pplMalaysian.isSelected()){
+            pplForeigner.setSelected(false);
+            pplState.setVisible(true);
+            pplCountry.setVisible(true);
+            pplPostcode.setVisible(true);
+            pplAddress.setSize(374, 54);
+            addresslabel.setText("Address");
+            statelabel.setVisible(true);
+            countlabel.setVisible(true);
+            postclabel.setVisible(true);
+        }
+    }//GEN-LAST:event_pplMalaysianActionPerformed
+
+    private void pplForeignerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pplForeignerActionPerformed
+        // TODO add your handling code here:
+        //if Foreigner radio button is selected, foreigner only required to fill in country field.
+        //Address, state and postcode field will be hidden.
+        if(pplForeigner.isSelected()){
+            pplMalaysian.setSelected(false);
+            pplState.setVisible(false);
+            pplCountry.setVisible(false);
+            pplPostcode.setVisible(false);
+            pplAddress.setSize(318, 54);
+            addresslabel.setText("Country");
+            statelabel.setVisible(false);
+            countlabel.setVisible(false);
+            postclabel.setVisible(false);
+            revalidate();
+        } else if(!pplForeigner.isSelected()) {
+            pplState.setVisible(true);
+            pplCountry.setVisible(true);
+            pplPostcode.setVisible(true);
+            pplAddress.setSize(374, 54);
+            addresslabel.setText("Address");
+            statelabel.setVisible(true);
+            countlabel.setVisible(true);
+            postclabel.setVisible(true);
+        }
+    }//GEN-LAST:event_pplForeignerActionPerformed
+
+    private void pplPostcodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pplPostcodeKeyTyped
+        // TODO add your handling code here:
+        //Only accept numbers and able to use the keyboard key "BACKSPACE" to remove numbers
+        int nums =evt.getKeyChar();
+        if(!(Character.isDigit(nums) || (nums==KeyEvent.VK_BACK_SPACE) || (nums==KeyEvent.VK_DELETE))){
+            evt.consume();
+        }
+        //Maximum 5 numbers can be entered in the textfield
+        if (pplPostcode.getText().length() >= 5 ) {// limit to 5 characters
+                evt.consume();
+        }
+    }//GEN-LAST:event_pplPostcodeKeyTyped
+
+    private void pplIcpassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pplIcpassKeyTyped
+        // TODO add your handling code here: 
+            if(pplMalaysian.isSelected()){
+                int icnums =evt.getKeyChar();
+                if(!(Character.isDigit(icnums) || (icnums==KeyEvent.VK_BACK_SPACE) || (icnums==KeyEvent.VK_DELETE))){
+                evt.consume();
+            }
+        }
+    }//GEN-LAST:event_pplIcpassKeyTyped
+
+    private void showpassword1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showpassword1MouseClicked
+        // TODO add your handling code here:
+            pplPassword.setEchoChar((char)0);
+            pplConPass.setEchoChar((char)0);
+            hidepassword1.setVisible(true);
+            hidepassword2.setVisible(true);
+            showpassword1.setVisible(false);
+            showpassword2.setVisible(false);
+    }//GEN-LAST:event_showpassword1MouseClicked
+
+    private void hidepassword1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hidepassword1MouseClicked
+        // TODO add your handling code here:
+            pplPassword.setEchoChar('*');
+            pplConPass.setEchoChar('*');
+            hidepassword1.setVisible(false);
+            hidepassword2.setVisible(false);
+            showpassword1.setVisible(true);
+            showpassword2.setVisible(true);
+    }//GEN-LAST:event_hidepassword1MouseClicked
+
+    private void showpassword2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showpassword2MouseClicked
+        // TODO add your handling code here:
+            pplPassword.setEchoChar((char)0);
+            pplConPass.setEchoChar((char)0);
+            hidepassword1.setVisible(true);
+            hidepassword2.setVisible(true);
+            showpassword1.setVisible(false);
+            showpassword2.setVisible(false);
+    }//GEN-LAST:event_showpassword2MouseClicked
+
+    private void hidepassword2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hidepassword2MouseClicked
+        // TODO add your handling code here:
+            pplPassword.setEchoChar('*');
+            pplConPass.setEchoChar('*');
+            hidepassword1.setVisible(false);
+            hidepassword2.setVisible(false);
+            showpassword1.setVisible(true);
+            showpassword2.setVisible(true);
+    }//GEN-LAST:event_hidepassword2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -627,64 +888,69 @@ public class RegisterAccount extends javax.swing.JFrame {
     private javax.swing.JLabel conpasslabel;
     private javax.swing.JLabel countlabel;
     private javax.swing.JLabel createacclabel;
-    private com.toedter.calendar.JDateChooser dobDateChooser;
     private javax.swing.JLabel doblabel;
-    private javax.swing.JRadioButton femaleRadioButton;
     private javax.swing.JLabel fnamelabel;
-    private javax.swing.JRadioButton foreignerRadioButton;
     private javax.swing.JPanel formPanel;
     private javax.swing.JLabel fstoplabel;
     private javax.swing.JLabel genderlabel;
     private javax.swing.JLabel goLoginForm;
     private javax.swing.JLabel havaacclabel;
+    private javax.swing.JLabel hidepassword1;
+    private javax.swing.JLabel hidepassword2;
     private javax.swing.JLabel icpasslabel;
     private javax.swing.JPanel logoPanel;
     private javax.swing.JLabel logolabel3;
-    private javax.swing.JRadioButton malaysianRadioButton;
-    private javax.swing.JRadioButton maleRadioButton;
     private javax.swing.JLabel passlabel;
     private javax.swing.JLabel postclabel;
+    private javax.swing.JTextField pplAddress;
+    private javax.swing.JPasswordField pplConPass;
+    private javax.swing.JTextField pplCountry;
+    private com.toedter.calendar.JDateChooser pplDOB;
+    private javax.swing.JRadioButton pplFemale;
+    private javax.swing.JTextField pplFname;
+    private javax.swing.JRadioButton pplForeigner;
+    private javax.swing.JTextField pplIcpass;
+    private javax.swing.JRadioButton pplMalaysian;
+    private javax.swing.JRadioButton pplMale;
+    private javax.swing.JTextField pplName;
+    private javax.swing.JPasswordField pplPassword;
+    private javax.swing.JTextField pplPostcode;
+    private javax.swing.JTextField pplState;
     private javax.swing.JPanel regisButtonPanel;
     private javax.swing.JLabel registerButton;
     private javax.swing.JPanel seperateline;
+    private javax.swing.JLabel showpassword1;
+    private javax.swing.JLabel showpassword2;
     private javax.swing.JLabel statelabel;
-    private javax.swing.JTextField userAddress;
-    private javax.swing.JTextField userConPass;
-    private javax.swing.JTextField userCountry;
-    private javax.swing.JTextField userFullname;
-    private javax.swing.JTextField userIcpass;
-    private javax.swing.JTextField userPassword;
-    private javax.swing.JTextField userPostcode;
-    private javax.swing.JTextField userState;
-    private javax.swing.JTextField userUsername;
     private javax.swing.JLabel userlabel;
     private javax.swing.JLabel viewTnc;
     private javax.swing.JLabel youarelabel;
     // End of variables declaration//GEN-END:variables
 
-      class RoundedPanel extends JPanel
-    {
+    class RoundedPanel extends JPanel{
         private Color backgroundColor;
         private int cornerRadius = 15;
         public RoundedPanel(LayoutManager layout, int radius) {
             super(layout);
             cornerRadius = radius;
         }
+        
         public RoundedPanel(LayoutManager layout, int radius, Color bgColor) {
             super(layout);
             cornerRadius = radius;
             backgroundColor = bgColor;
         }
+        
         public RoundedPanel(int radius) {
             super();
-            cornerRadius = radius;
-            
+            cornerRadius = radius;      
         }
         public RoundedPanel(int radius, Color bgColor) {
             super();
             cornerRadius = radius;
             backgroundColor = bgColor;
         }
+        
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -701,8 +967,7 @@ public class RegisterAccount extends javax.swing.JFrame {
             }
             graphics.fillRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height); //paint background
             graphics.setColor(getForeground());
-//            graphics.drawRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height); //paint border
-//             
+//            graphics.drawRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height); //paint border 
         }
     }
 }
