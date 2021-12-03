@@ -1,3 +1,15 @@
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.LayoutManager;
+import java.awt.RenderingHints;
+import java.awt.Toolkit;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -13,8 +25,15 @@ public class TermConditions extends javax.swing.JFrame {
     /**
      * Creates new form TermConditions
      */
+    Color priColor = new Color(0, 109, 119);
+    Color secColor = new Color(131, 197, 190);
+    Color bgColor = new Color(237, 246, 249);
+    Color empColor = new Color(255, 221, 210);
+    Color whiteColor = new Color(255, 255, 255);
+    
     public TermConditions() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
     }
 
     /**
@@ -26,21 +45,263 @@ public class TermConditions extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        basepanel = new javax.swing.JPanel();
+        navpanel = new javax.swing.JPanel();
+        logolabel = new javax.swing.JLabel();
+        logopanel = new RoundedPanel(20, priColor);
+        backbutton = new javax.swing.JButton();
+        jPanel3 = new RoundedPanel(20, whiteColor);
+        jLabel4 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Terms and Conditions");
+        setPreferredSize(new java.awt.Dimension(1440, 800));
+
+        basepanel.setBackground(new java.awt.Color(237, 246, 249));
+        basepanel.setMinimumSize(new java.awt.Dimension(1440, 800));
+        basepanel.setPreferredSize(new java.awt.Dimension(1440, 800));
+
+        navpanel.setBackground(new java.awt.Color(0, 109, 119));
+
+        logolabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/vaccineo-logo-big.png"))); // NOI18N
+        logolabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        javax.swing.GroupLayout navpanelLayout = new javax.swing.GroupLayout(navpanel);
+        navpanel.setLayout(navpanelLayout);
+        navpanelLayout.setHorizontalGroup(
+            navpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(navpanelLayout.createSequentialGroup()
+                .addGap(84, 84, 84)
+                .addComponent(logolabel)
+                .addContainerGap(1203, Short.MAX_VALUE))
+        );
+        navpanelLayout.setVerticalGroup(
+            navpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, navpanelLayout.createSequentialGroup()
+                .addGap(0, 55, Short.MAX_VALUE)
+                .addComponent(logolabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        logopanel.setBackground(new java.awt.Color(237, 246, 249));
+        logopanel.setPreferredSize(new java.awt.Dimension(228, 86));
+
+        javax.swing.GroupLayout logopanelLayout = new javax.swing.GroupLayout(logopanel);
+        logopanel.setLayout(logopanelLayout);
+        logopanelLayout.setHorizontalGroup(
+            logopanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 228, Short.MAX_VALUE)
+        );
+        logopanelLayout.setVerticalGroup(
+            logopanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 86, Short.MAX_VALUE)
+        );
+
+        backbutton.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        backbutton.setForeground(new java.awt.Color(0, 109, 119));
+        backbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/back-button.png"))); // NOI18N
+        backbutton.setText("Back ");
+        backbutton.setBorderPainted(false);
+        backbutton.setContentAreaFilled(false);
+        backbutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        backbutton.setIconTextGap(15);
+        backbutton.setMargin(new java.awt.Insets(2, 0, 2, 0));
+        backbutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backbuttonMouseClicked(evt);
+            }
+        });
+
+        jPanel3.setBackground(new java.awt.Color(237, 246, 249));
+        jPanel3.setPreferredSize(new java.awt.Dimension(1240, 390));
+
+        jLabel4.setBackground(new java.awt.Color(0, 109, 119));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 109, 119));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel4.setText("Personal Information");
+
+        jLabel7.setBackground(new java.awt.Color(0, 109, 119));
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel7.setText("The app will not record user's Personal Data except with the permission and voluntarily provided by the user. Information collected are used for ");
+
+        jLabel8.setBackground(new java.awt.Color(0, 109, 119));
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel8.setText("for monitoring and enforcement purposes by Government authorities in dealing with the COVID-19 pandemic. This information is not shared");
+
+        jLabel9.setBackground(new java.awt.Color(0, 109, 119));
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel9.setText("with other organizations for other purposes unless specifically stated.");
+
+        jLabel10.setBackground(new java.awt.Color(0, 109, 119));
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel10.setText("If the Personal Data provided is insufficient or unsatisfactory, then the User's application or request for any of the above purposes may not");
+
+        jLabel5.setBackground(new java.awt.Color(0, 109, 119));
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 109, 119));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel5.setText("Effect If Personal Data Is Not Sufficient");
+
+        jLabel11.setBackground(new java.awt.Color(0, 109, 119));
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel11.setText("be accepted; or action taken or use of the services offered by the App may be rejected or affected.");
+
+        jLabel6.setBackground(new java.awt.Color(0, 109, 119));
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 109, 119));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel6.setText("Data Confidentiality");
+
+        jLabel12.setBackground(new java.awt.Color(0, 109, 119));
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel12.setText("Personal Data collected by the App will be kept confidential in accordance with this Privacy Policy in accordance with any applicable laws which");
+
+        jLabel13.setBackground(new java.awt.Color(0, 109, 119));
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel13.setText("may take effect from time to time. For Check-In data, user’s data is only stored for a period of 90 days and would be purged thereafter.");
+
+        jLabel15.setBackground(new java.awt.Color(0, 109, 119));
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel15.setText("If this privacy policy changes in any way, it will be updated on this page.");
+
+        jLabel16.setBackground(new java.awt.Color(0, 109, 119));
+        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(0, 109, 119));
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel16.setText("Changes To The Privacy Policy");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(706, 981, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel7))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9)
+                .addGap(27, 27, 27)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel11)
+                .addGap(27, 27, 27)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(jLabel16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel15)
+                .addGap(47, 47, 47))
+        );
+
+        javax.swing.GroupLayout basepanelLayout = new javax.swing.GroupLayout(basepanel);
+        basepanel.setLayout(basepanelLayout);
+        basepanelLayout.setHorizontalGroup(
+            basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(basepanelLayout.createSequentialGroup()
+                .addGroup(basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(navpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(basepanelLayout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(logopanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(basepanelLayout.createSequentialGroup()
+                        .addGap(100, 100, 100)
+                        .addComponent(backbutton)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(basepanelLayout.createSequentialGroup()
+                    .addGap(105, 105, 105)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(105, Short.MAX_VALUE)))
+        );
+        basepanelLayout.setVerticalGroup(
+            basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(basepanelLayout.createSequentialGroup()
+                .addGroup(basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(navpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(basepanelLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(logopanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(34, 34, 34)
+                .addComponent(backbutton)
+                .addGap(621, 621, 621))
+            .addGroup(basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(basepanelLayout.createSequentialGroup()
+                    .addGap(218, 218, 218)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(69, Short.MAX_VALUE)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(basepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(basepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backbuttonMouseClicked
+        // TODO add your handling code here:
+        RegisterAccount regacc = new RegisterAccount();
+        regacc.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_backbuttonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -78,5 +339,72 @@ public class TermConditions extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backbutton;
+    private javax.swing.JPanel basepanel;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel logolabel;
+    private javax.swing.JPanel logopanel;
+    private javax.swing.JPanel navpanel;
     // End of variables declaration//GEN-END:variables
+
+    class RoundedPanel extends JPanel {
+        private Color backgroundColor;
+        private int cornerRadius = 15;
+
+        public RoundedPanel(LayoutManager layout, int radius) {
+            super(layout);
+            cornerRadius = radius;
+        }
+
+        public RoundedPanel(LayoutManager layout, int radius, Color bgColor) {
+            super(layout);
+            cornerRadius = radius;
+            backgroundColor = bgColor;
+        }
+
+        public RoundedPanel(int radius) {
+            super();
+            cornerRadius = radius;
+
+        }
+
+        public RoundedPanel(int radius, Color bgColor) {
+            super();
+            cornerRadius = radius;
+            backgroundColor = bgColor;
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            Dimension arcs = new Dimension(cornerRadius, cornerRadius);
+            int width = getWidth();
+            int height = getHeight();
+            Graphics2D graphics = (Graphics2D) g;
+            graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            // Draws the rounded panel with borders.
+            if (backgroundColor != null) {
+                graphics.setColor(backgroundColor);
+            } else {
+                graphics.setColor(getBackground());
+            }
+            graphics.fillRoundRect(0, 0, width - 1, height - 1, arcs.width, arcs.height); // paint background
+            graphics.setColor(getForeground());
+            // graphics.drawRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);
+            // //paint border
+            //
+        }
+    }
 }

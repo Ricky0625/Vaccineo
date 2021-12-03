@@ -47,7 +47,7 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
                     int row = target.getSelectedRow(); // select a row
                     // int column = target.getSelectedColumn(); // select a column                
                     value = (String) peopleTable.getValueAt(row, 0);
-                    // System.out.println(ppl.getId());
+                    //System.out.println(ppl.getId());
                     PersonnelPeople pp = new PersonnelPeople(value);
                     pp.setVisible(true);
                     PersonnelPeopleList.setVisible(false);
@@ -415,7 +415,6 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
     peopleTable.setGridColor(new java.awt.Color(0, 109, 119));
     peopleTable.setRowHeight(25);
     peopleTable.setSelectionBackground(new java.awt.Color(131, 197, 190));
-    peopleTable.setSelectionForeground(new java.awt.Color(255, 255, 255));
     peopleTable.getTableHeader().setReorderingAllowed(false);
     jScrollPane1.setViewportView(peopleTable);
 
