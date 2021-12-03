@@ -62,6 +62,10 @@ public class PersonnelDashboard extends javax.swing.JFrame {
         });
 
     }
+    
+    public void personnelInfo(String user){
+        personnelName.setText(user);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

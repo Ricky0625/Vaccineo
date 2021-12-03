@@ -140,7 +140,6 @@ public class PersonnelEditPeople extends javax.swing.JFrame {
         nonCitizenCountryTf = new javax.swing.JTextField();
         savePeopleInfo1 = new javax.swing.JPanel();
         jLabel35 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
 
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
