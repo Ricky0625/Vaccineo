@@ -1,4 +1,6 @@
-
+import classes.Certificate;
+import classes.GeneralFunction;
+import classes.People;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -6,6 +8,18 @@ import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /*
@@ -18,10 +32,10 @@ import javax.swing.JPanel;
  *
  * @author dexte
  */
-public class Certificate extends javax.swing.JFrame {
+public class PeopleCertificate extends javax.swing.JFrame {
 
     /**
-     * Creates new form Certificate
+     * Creates new form PeopleCertificate
      */
     Color priColor = new Color(0,109,119);
     Color secColor = new Color(131, 197, 190);
@@ -29,10 +43,67 @@ public class Certificate extends javax.swing.JFrame {
     Color empColor = new Color(255,221,210);
     Color whiteColor = new Color(255,255,255);
     
-    public Certificate() {
+    People ppl = new People();
+    GeneralFunction gf = new GeneralFunction();
+    Certificate cert = new Certificate();
+    ArrayList<ArrayList<String>> peopleList;
+    ArrayList<ArrayList<String>> certificate;
+    
+    public PeopleCertificate() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
+        dose2Panel.setVisible(false);
     }
+    
+    public void peopleInfo(String value) {
+        String id = value;
+        String dose = "1";
+        String doses = "2";
+        String complete = "yes";
+        
+        try {
+            ppl.generatePeopleList();
+            peopleList = ppl.getPeopleList();
+            ppl.searchUser(peopleList, id);
+            ppl.setId(value);
+            ppl.setVaccinationStatus(ppl.getVaccinationStatus());
+            cert.viewCertificate();
+            certificate = cert.getCertificate();
+        } catch (Exception e) {
+            Logger.getLogger(PersonnelPeople.class.getName()).log(Level.SEVERE, null, e);
+        }
+        
+        try {
+            cert.showCertificate(id,dose);
+            if(cert.getId().equals(id) && cert.getDose().equals(dose) && cert.getComplete().equals(complete)){
+                userLabel.setText(ppl.getName());
+                idLabel.setText(id);
+                dateLabel.setText(cert.getDate());
+                vaccineLabel.setText(cert.getVaccine());
+                centreLabel.setText(cert.getCentre());
+                serialLabel.setText(cert.getSerialNumber());
+                dose1.setText(cert.getDose());
+                dosetitle1.setText("Dose " +cert.getDose());
+            } 
+        } catch (Exception e) {
+        }
+
+        try {
+            cert.showCertificate1(id,doses);
+                if (cert.getId().equals(id) && cert.getDose().equals(doses) && cert.getComplete().equals(complete)){
+                    dose2Panel.setVisible(true);
+                    userLabel1.setText(ppl.getName());
+                    idLabel1.setText(id);
+                    dateLabel1.setText(cert.getDate());
+                    vaccineLabel1.setText(cert.getVaccine());
+                    centreLabel1.setText(cert.getCentre());
+                    serialLabel1.setText(cert.getSerialNumber());
+                    dose2.setText(cert.getDose());
+                    dosetitle2.setText("Dose " +cert.getDose());
+                }
+        } catch (Exception e){  
+        }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,50 +125,44 @@ public class Certificate extends javax.swing.JFrame {
         jPanel2 = new RoundedPanel(50, empColor);
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jPanel3 = new RoundedPanel(5, priColor);
-        jLabel12 = new javax.swing.JLabel();
-        jPanel4 = new RoundedPanel(30, whiteColor);
-        jPanel10 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
-        jLabel37 = new javax.swing.JLabel();
         jPanel5 = new RoundedPanel(30, whiteColor);
         jPanel11 = new javax.swing.JPanel();
-        jLabel20 = new javax.swing.JLabel();
+        dosetitle1 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
+        userLabel = new javax.swing.JLabel();
+        idLabel = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
+        dateLabel = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
+        vaccineLabel = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
-        jLabel33 = new javax.swing.JLabel();
+        centreLabel = new javax.swing.JLabel();
+        serialLabel = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
-        jLabel35 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
-        jLabel36 = new javax.swing.JLabel();
+        dose1 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        dose2Panel = new RoundedPanel(30, whiteColor);
+        jPanel12 = new javax.swing.JPanel();
+        dosetitle2 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel23 = new javax.swing.JLabel();
+        userLabel1 = new javax.swing.JLabel();
+        idLabel1 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        dateLabel1 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        vaccineLabel1 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        centreLabel1 = new javax.swing.JLabel();
+        serialLabel1 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        dose2 = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Certificate");
@@ -109,10 +174,28 @@ public class Certificate extends javax.swing.JFrame {
         navpanel.setBackground(new java.awt.Color(0, 109, 119));
 
         logolabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/vaccineo-logo-big.png"))); // NOI18N
+        logolabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        logolabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logolabelMouseClicked(evt);
+            }
+        });
 
         ppllabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/profile-nav.png"))); // NOI18N
+        ppllabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ppllabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ppllabelMouseClicked(evt);
+            }
+        });
 
         logoutlabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout-nav.png"))); // NOI18N
+        logoutlabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        logoutlabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logoutlabelMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout navpanelLayout = new javax.swing.GroupLayout(navpanel);
         navpanel.setLayout(navpanelLayout);
@@ -160,8 +243,15 @@ public class Certificate extends javax.swing.JFrame {
         backbutton.setText("Back ");
         backbutton.setBorderPainted(false);
         backbutton.setContentAreaFilled(false);
+        backbutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        backbutton.setFocusPainted(false);
         backbutton.setIconTextGap(15);
         backbutton.setMargin(new java.awt.Insets(2, 0, 2, 0));
+        backbutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backbuttonMouseClicked(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(237, 246, 249));
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
@@ -217,238 +307,14 @@ public class Certificate extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setPreferredSize(new java.awt.Dimension(157, 40));
-
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("Print Certificate");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel4.setBackground(new java.awt.Color(237, 246, 249));
-        jPanel4.setPreferredSize(new java.awt.Dimension(420, 340));
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel10.setBackground(new java.awt.Color(131, 197, 190));
-        jPanel10.setPreferredSize(new java.awt.Dimension(420, 55));
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Dose 2");
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(169, 169, 169)
-                .addComponent(jLabel3)
-                .addContainerGap(170, Short.MAX_VALUE))
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-        );
-
-        jPanel4.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 60));
-
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
-        jPanel6.setPreferredSize(new java.awt.Dimension(385, 300));
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel4.setText("Name:");
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel5.setText("Josh");
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel6.setText("000000-00-0000");
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel7.setText("IC/Passport");
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel8.setText("27 Oct 2021");
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel9.setText("Date:");
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel10.setText("CoronaVac Suspension for");
-
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel11.setText("Manufacturer:");
-
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel13.setText("Injection SARS-CoV-2-Vaccine");
-
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel14.setText("(Vero Cell), Inactivated 2doses");
-
-        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel15.setText("Facility:");
-
-        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel16.setText("Bukit Jalil Vaccincation Centre");
-
-        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel17.setText("20210602K");
-
-        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel18.setText("Batch");
-
-        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cert-dose-logo.png"))); // NOI18N
-
-        jPanel9.setBackground(new java.awt.Color(255, 221, 210));
-        jPanel9.setPreferredSize(new java.awt.Dimension(50, 40));
-
-        jLabel37.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel37.setForeground(new java.awt.Color(226, 149, 120));
-        jLabel37.setText("2");
-
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel37)
-                .addContainerGap(29, Short.MAX_VALUE))
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel37)
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jLabel18)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel17))
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jLabel15)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel16))
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel8))
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel13)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel14))))
-                        .addContainerGap(39, Short.MAX_VALUE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel6))
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel5)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel19)
-                .addContainerGap())
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel6)))
-                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel14)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel16))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel18)
-                    .addComponent(jLabel17))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel19)
-                .addContainerGap(12, Short.MAX_VALUE))
-        );
-
-        jPanel4.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 380, 290));
-
         jPanel5.setBackground(new java.awt.Color(237, 246, 249));
-        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel11.setBackground(new java.awt.Color(131, 197, 190));
         jPanel11.setPreferredSize(new java.awt.Dimension(420, 55));
 
-        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setText("Dose 1");
+        dosetitle1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        dosetitle1.setForeground(new java.awt.Color(255, 255, 255));
+        dosetitle1.setText("Dose");
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -456,15 +322,13 @@ public class Certificate extends javax.swing.JFrame {
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGap(169, 169, 169)
-                .addComponent(jLabel20)
-                .addContainerGap(170, Short.MAX_VALUE))
+                .addComponent(dosetitle1)
+                .addContainerGap(192, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+            .addComponent(dosetitle1, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
-
-        jPanel5.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 60));
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
@@ -474,66 +338,56 @@ public class Certificate extends javax.swing.JFrame {
         jLabel21.setForeground(new java.awt.Color(0, 109, 119));
         jLabel21.setText("Name:");
 
-        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel22.setText("Josh");
+        userLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        userLabel.setForeground(new java.awt.Color(0, 109, 119));
+        userLabel.setText("Josh");
 
-        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel23.setText("000000-00-0000");
+        idLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        idLabel.setForeground(new java.awt.Color(0, 109, 119));
+        idLabel.setText("000000-00-0000");
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(0, 109, 119));
         jLabel24.setText("IC/Passport");
 
-        jLabel25.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel25.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel25.setText("27 Oct 2021");
+        dateLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        dateLabel.setForeground(new java.awt.Color(0, 109, 119));
+        dateLabel.setText("27 Oct 2021");
 
         jLabel26.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(0, 109, 119));
         jLabel26.setText("Date:");
 
-        jLabel27.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel27.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel27.setText("CoronaVac Suspension for");
+        vaccineLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        vaccineLabel.setForeground(new java.awt.Color(0, 109, 119));
+        vaccineLabel.setText("CoronaVac Suspension for");
 
         jLabel28.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel28.setText("Manufacturer:");
-
-        jLabel29.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel29.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel29.setText("Injection SARS-CoV-2-Vaccine");
-
-        jLabel30.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel30.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel30.setText("(Vero Cell), Inactivated 2doses");
+        jLabel28.setText("Vaccine:");
 
         jLabel31.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel31.setText("Facility:");
+        jLabel31.setText("Venue:");
 
-        jLabel32.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel32.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel32.setText("Bukit Jalil Vaccincation Centre");
+        centreLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        centreLabel.setForeground(new java.awt.Color(0, 109, 119));
+        centreLabel.setText("Bukit Jalil");
 
-        jLabel33.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel33.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel33.setText("20210602K");
+        serialLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        serialLabel.setForeground(new java.awt.Color(0, 109, 119));
+        serialLabel.setText("20210602K");
 
         jLabel34.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel34.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel34.setText("Batch");
-
-        jLabel35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cert-dose-logo.png"))); // NOI18N
+        jLabel34.setText("Serial:");
 
         jPanel8.setBackground(new java.awt.Color(255, 221, 210));
         jPanel8.setPreferredSize(new java.awt.Dimension(50, 40));
 
-        jLabel36.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel36.setForeground(new java.awt.Color(226, 149, 120));
-        jLabel36.setText("1");
+        dose1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        dose1.setForeground(new java.awt.Color(226, 149, 120));
+        dose1.setText("0");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -541,16 +395,18 @@ public class Certificate extends javax.swing.JFrame {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel36)
+                .addComponent(dose1)
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel36)
+                .addComponent(dose1)
                 .addContainerGap())
         );
+
+        jLabel35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cert-dose-logo.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -564,39 +420,36 @@ public class Certificate extends javax.swing.JFrame {
                             .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addComponent(jLabel34)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel33))
+                                .addComponent(serialLabel))
                             .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addComponent(jLabel31)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel32))
+                                .addComponent(centreLabel))
                             .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addComponent(jLabel26)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel25))
+                                .addComponent(dateLabel))
                             .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addComponent(jLabel28)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel29)
-                                    .addComponent(jLabel27)
-                                    .addComponent(jLabel30))))
-                        .addContainerGap(39, Short.MAX_VALUE))
+                                .addComponent(vaccineLabel)))
+                        .addContainerGap(110, Short.MAX_VALUE))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addComponent(jLabel24)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel23))
+                                .addComponent(idLabel))
                             .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addComponent(jLabel21)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel22)))
+                                .addComponent(userLabel)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel35)
-                .addContainerGap())
+                .addGap(19, 19, 19))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -606,38 +459,251 @@ public class Certificate extends javax.swing.JFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel21)
-                            .addComponent(jLabel22))
+                            .addComponent(userLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel24)
-                            .addComponent(jLabel23)))
+                            .addComponent(idLabel)))
                     .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel26)
-                    .addComponent(jLabel25))
+                    .addComponent(dateLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel28)
-                    .addComponent(jLabel27))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel29)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel30)
+                    .addComponent(vaccineLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel31)
-                    .addComponent(jLabel32))
+                    .addComponent(centreLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel34)
-                    .addComponent(jLabel33))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(serialLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addComponent(jLabel35)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addGap(19, 19, 19))
         );
 
-        jPanel5.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 380, 290));
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        dose2Panel.setBackground(new java.awt.Color(237, 246, 249));
+
+        jPanel12.setBackground(new java.awt.Color(131, 197, 190));
+        jPanel12.setPreferredSize(new java.awt.Dimension(420, 55));
+
+        dosetitle2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        dosetitle2.setForeground(new java.awt.Color(255, 255, 255));
+        dosetitle2.setText("Dose");
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGap(169, 169, 169)
+                .addComponent(dosetitle2)
+                .addContainerGap(192, Short.MAX_VALUE))
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(dosetitle2, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        );
+
+        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel9.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 109, 119), 2, true));
+        jPanel9.setPreferredSize(new java.awt.Dimension(385, 300));
+
+        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(0, 109, 119));
+        jLabel23.setText("Name:");
+
+        userLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        userLabel1.setForeground(new java.awt.Color(0, 109, 119));
+        userLabel1.setText("Josh");
+
+        idLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        idLabel1.setForeground(new java.awt.Color(0, 109, 119));
+        idLabel1.setText("000000-00-0000");
+
+        jLabel25.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(0, 109, 119));
+        jLabel25.setText("IC/Passport");
+
+        dateLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        dateLabel1.setForeground(new java.awt.Color(0, 109, 119));
+        dateLabel1.setText("27 Oct 2021");
+
+        jLabel27.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(0, 109, 119));
+        jLabel27.setText("Date:");
+
+        vaccineLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        vaccineLabel1.setForeground(new java.awt.Color(0, 109, 119));
+        vaccineLabel1.setText("CoronaVac Suspension for");
+
+        jLabel29.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(0, 109, 119));
+        jLabel29.setText("Vaccine:");
+
+        jLabel32.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel32.setForeground(new java.awt.Color(0, 109, 119));
+        jLabel32.setText("Venue:");
+
+        centreLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        centreLabel1.setForeground(new java.awt.Color(0, 109, 119));
+        centreLabel1.setText("Bukit Jalil");
+
+        serialLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        serialLabel1.setForeground(new java.awt.Color(0, 109, 119));
+        serialLabel1.setText("20210602K");
+
+        jLabel37.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel37.setForeground(new java.awt.Color(0, 109, 119));
+        jLabel37.setText("Serial:");
+
+        jPanel10.setBackground(new java.awt.Color(255, 221, 210));
+        jPanel10.setPreferredSize(new java.awt.Dimension(50, 40));
+
+        dose2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        dose2.setForeground(new java.awt.Color(226, 149, 120));
+        dose2.setText("0");
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(dose2)
+                .addContainerGap(29, Short.MAX_VALUE))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(dose2)
+                .addContainerGap())
+        );
+
+        jLabel39.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cert-dose-logo.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(jLabel37)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(serialLabel1))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(jLabel32)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(centreLabel1))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(jLabel27)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dateLabel1))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(jLabel29)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(vaccineLabel1)))
+                        .addContainerGap(110, Short.MAX_VALUE))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(jLabel25)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(idLabel1))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(jLabel23)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(userLabel1)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel39)
+                .addGap(19, 19, 19))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel23)
+                            .addComponent(userLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel25)
+                            .addComponent(idLabel1)))
+                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel27)
+                    .addComponent(dateLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel29)
+                    .addComponent(vaccineLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel32)
+                    .addComponent(centreLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel37)
+                    .addComponent(serialLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addComponent(jLabel39)
+                .addGap(19, 19, 19))
+        );
+
+        javax.swing.GroupLayout dose2PanelLayout = new javax.swing.GroupLayout(dose2Panel);
+        dose2Panel.setLayout(dose2PanelLayout);
+        dose2PanelLayout.setHorizontalGroup(
+            dose2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(dose2PanelLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        dose2PanelLayout.setVerticalGroup(
+            dose2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dose2PanelLayout.createSequentialGroup()
+                .addGroup(dose2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(dose2PanelLayout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout basepanelLayout = new javax.swing.GroupLayout(basepanel);
         basepanel.setLayout(basepanelLayout);
@@ -652,14 +718,12 @@ public class Certificate extends javax.swing.JFrame {
                 .addComponent(backbutton))
             .addGroup(basepanelLayout.createSequentialGroup()
                 .addGap(100, 100, 100)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(144, 144, 144)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(basepanelLayout.createSequentialGroup()
                 .addGap(100, 100, 100)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(dose2Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         basepanelLayout.setVerticalGroup(
             basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -672,15 +736,12 @@ public class Certificate extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addComponent(backbutton)
                 .addGap(31, 31, 31)
-                .addGroup(basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(basepanelLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(60, 60, 60)
-                .addGroup(basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57)
+                .addGroup(basepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(dose2Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(33, 33, 33))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -697,6 +758,47 @@ public class Certificate extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void ppllabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ppllabelMouseClicked
+        // TODO add your handling code here:
+        String value = ppl.getId();
+        Profile pro = new Profile();
+        pro.peopleInfo(value);
+        pro.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_ppllabelMouseClicked
+
+    private void logoutlabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutlabelMouseClicked
+        // TODO add your handling code here:
+        int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Exit program",
+                JOptionPane.ERROR_MESSAGE);
+        if (result == JOptionPane.YES_OPTION) {
+            Login log = new Login();
+
+            setVisible(false);
+            log.setVisible(true);
+        } else {
+            setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        }
+    }//GEN-LAST:event_logoutlabelMouseClicked
+
+    private void logolabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logolabelMouseClicked
+        // TODO add your handling code here:
+        String value = ppl.getId();
+        PeopleDashboard ppldash = new PeopleDashboard();
+        ppldash.peopleInfo(value);
+        ppldash.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_logolabelMouseClicked
+
+    private void backbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backbuttonMouseClicked
+        // TODO add your handling code here:
+        String value = ppl.getId();
+        PeopleDashboard ppldash = new PeopleDashboard();
+        ppldash.peopleInfo(value);
+        ppldash.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_backbuttonMouseClicked
+    
     /**
      * @param args the command line arguments
      */
@@ -714,20 +816,21 @@ public class Certificate extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Certificate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PeopleCertificate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Certificate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PeopleCertificate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Certificate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PeopleCertificate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Certificate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PeopleCertificate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Certificate().setVisible(true);
+                new PeopleCertificate().setVisible(true);
             }
         });
     }
@@ -735,21 +838,20 @@ public class Certificate extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backbutton;
     private javax.swing.JPanel basepanel;
+    private javax.swing.JLabel centreLabel;
+    private javax.swing.JLabel centreLabel1;
+    private javax.swing.JLabel dateLabel;
+    private javax.swing.JLabel dateLabel1;
+    private javax.swing.JLabel dose1;
+    private javax.swing.JLabel dose2;
+    private javax.swing.JPanel dose2Panel;
+    private javax.swing.JLabel dosetitle1;
+    private javax.swing.JLabel dosetitle2;
+    private javax.swing.JLabel idLabel;
+    private javax.swing.JLabel idLabel1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
@@ -757,29 +859,18 @@ public class Certificate extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
@@ -788,9 +879,15 @@ public class Certificate extends javax.swing.JFrame {
     private javax.swing.JLabel logoutlabel;
     private javax.swing.JPanel navpanel;
     private javax.swing.JLabel ppllabel;
+    private javax.swing.JLabel serialLabel;
+    private javax.swing.JLabel serialLabel1;
+    private javax.swing.JLabel userLabel;
+    private javax.swing.JLabel userLabel1;
+    private javax.swing.JLabel vaccineLabel;
+    private javax.swing.JLabel vaccineLabel1;
     // End of variables declaration//GEN-END:variables
     
-       class RoundedPanel extends JPanel
+    class RoundedPanel extends JPanel
     {
         private Color backgroundColor;
         private int cornerRadius = 15;
