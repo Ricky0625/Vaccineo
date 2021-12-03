@@ -796,7 +796,7 @@ public class PersonnelPeople extends javax.swing.JFrame {
             appointmentList = ap.getAppointmentList();
             // System.out.println(appointmentList);
             // search user from the appointment list
-            ap.searchAppointment(appointmentList, 0, id);
+            //ap.searchAppointment(appointmentList, 0, id);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(PersonnelPeople.class.getName()).log(Level.SEVERE, null, ex);
         }

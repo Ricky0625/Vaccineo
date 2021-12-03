@@ -3,6 +3,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Random;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -53,7 +58,7 @@ public class test extends javax.swing.JFrame {
             //setTableHeaderStyle(dataTable);
             
         } catch (IOException ex) {
-        }
+        }   
     }
 
     /**
@@ -139,4 +144,5 @@ public class test extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable testTable;
     // End of variables declaration//GEN-END:variables
+      
 }

@@ -43,7 +43,7 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
                     int row = target.getSelectedRow(); // select a row
                     // int column = target.getSelectedColumn(); // select a column                
                     value = (String) peopleTable.getValueAt(row, 0);
-                    // System.out.println(ppl.getId());
+                    //System.out.println(ppl.getId());
                     PersonnelPeople pp = new PersonnelPeople(value);
                     pp.setVisible(true);
                     PersonnelPeopleList.setVisible(false);
@@ -399,7 +399,6 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
     peopleTable.setGridColor(new java.awt.Color(0, 109, 119));
     peopleTable.setRowHeight(25);
     peopleTable.setSelectionBackground(new java.awt.Color(131, 197, 190));
-    peopleTable.setSelectionForeground(new java.awt.Color(255, 255, 255));
     peopleTable.getTableHeader().setReorderingAllowed(false);
     jScrollPane1.setViewportView(peopleTable);
 
@@ -533,15 +532,16 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addGap(6, 6, 6)))
                     .addGap(8, 8, 8)
-                    .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel8)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel14)
                             .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel15)
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel8)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
