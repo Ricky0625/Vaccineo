@@ -1,3 +1,5 @@
-wd;wd;wd;wd;06/11/2021;wd;wd;wd;wd;female;Citizen;Not Registered
-test;test;test;test;06/11/2021;test;test;test;test;female;Citizen;Not Registered
-jadson;chong2010;21323;12313;04/11/2021;12313;133;13321;12313;male;Citizen;Not Registered
+Id;Vaccine Name;Manufacturer;Batch Quantity;Size;Dose Needed;Expiry Duration
+AST;AstraZeneca;SK Bioscience Co., Ltd.;10;0.5;2;6
+MOD;Moderna;Moderna Inc.;10;0.5;2;1
+PFI;Pfizer;Pfizer Inc.;20;0.5;2;6
+SIN;Sinovac;Sinovac Biotech;30;0.5;2;6

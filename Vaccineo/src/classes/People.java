@@ -3,9 +3,9 @@ package classes;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,7 +37,7 @@ public class People {
     private String oldaddress;
     private ArrayList<ArrayList<String>> peopleList;
 
-    public People() { 
+    public People() {
         username = "";
         password = "";
         id = "";
@@ -58,140 +58,148 @@ public class People {
     public People(String id) {
         this.id = id;
     }
-    
-    public boolean validatePass(String password){
-        if(password.length() > 7){
-            if(checkPass(password)){
+
+    public boolean validatePass(String password) {
+        if (password.length() > 7) {
+            if (checkPass(password)) {
                 return true;
             } else {
                 return false;
             }
-        }
-        else {
+        } else {
             return false;
         }
     }
-    
-    public boolean checkPass(String password){       
-        boolean hasNum = false; boolean hasCap = false; boolean hasLow = false; char c;
-        for (int i=0; i<password.length(); i++){
+
+    public boolean checkPass(String password) {
+        boolean hasNum = false;
+        boolean hasCap = false;
+        boolean hasLow = false;
+        char c;
+        for (int i = 0; i < password.length(); i++) {
             c = password.charAt(i);
-            if(Character.isDigit(c)){
+            if (Character.isDigit(c)) {
                 hasNum = true;
-            } else if(Character.isUpperCase(c)){
+            } else if (Character.isUpperCase(c)) {
                 hasCap = true;
-            } else if(Character.isLowerCase(c)){
+            } else if (Character.isLowerCase(c)) {
                 hasLow = true;
-            } if(hasNum && hasCap && hasLow){
+            }
+            if (hasNum && hasCap && hasLow) {
                 return true;
             }
-        } 
+        }
         return false;
     }
 
     private static Scanner x;
-    public void registerPeople(String username, String name, String id, String address, String state, String country, String postcode, 
-                               String password, String gender, String category, String dob) {
+
+    public void registerPeople(String username, String name, String id, String address, String state, String country,
+            String postcode,
+            String password, String gender, String category, String dob) {
         boolean found = false;
-        
+
         try {
             x = new Scanner(new File(data));
             x.useDelimiter("[;]");
-            
-            while(x.hasNext() && !found){
+
+            while (x.hasNext() && !found) {
                 String icpass = x.next();
-                
-                if(id.equals(icpass)){
+
+                if (id.equals(icpass)) {
                     found = true;
                 }
             }
-            if(found){
+            if (found) {
                 JOptionPane.showMessageDialog(null, "Existing IC numbers");
             } else {
                 try {
                     String vaccinestatus = "Not Registered";
                     BufferedWriter bw = new BufferedWriter(new FileWriter(data, true));
                     PrintWriter pw = new PrintWriter(bw);
-                    pw.println(""+username+";"+password+";"+id+";"+name+";"+dob+";"+address+";"+state+";"+country+";"+postcode+";"+gender+";"+category+";"+vaccinestatus);
+                    pw.println("" + username + ";" + password + ";" + id + ";" + name + ";" + dob + ";" + address + ";"
+                            + state + ";" + country + ";" + postcode + ";" + gender + ";" + category + ";"
+                            + vaccinestatus);
                     pw.flush();
                     pw.close();
                     bw.close();
                     JOptionPane.showMessageDialog(null, "Account Registered Successfully");
-                }
-                catch(IOException e){
+                } catch (IOException e) {
                     System.out.println("Fail to register your account");
                 }
             }
-        } catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Error");
         }
     }
-    
+
     private static Scanner y;
-    public void registerPeopleNon(String username, String name, String id, String address, 
-                               String password, String gender, String category, String dob) {
+
+    public void registerPeopleNon(String username, String name, String id, String address,
+            String password, String gender, String category, String dob) {
         boolean found = false;
-        
+
         try {
             y = new Scanner(new File(data));
             y.useDelimiter("[;]");
-            
-            while(y.hasNext() && !found){
+
+            while (y.hasNext() && !found) {
                 String icpass = y.next();
-                
-                if(id.equals(icpass)){
+
+                if (id.equals(icpass)) {
                     found = true;
                 }
             }
-            if(found){
+            if (found) {
                 JOptionPane.showMessageDialog(null, "Existing IC numbers");
             } else {
                 try {
                     String vaccinestatus = "Not Registered";
                     BufferedWriter bw = new BufferedWriter(new FileWriter(data, true));
                     PrintWriter pw = new PrintWriter(bw);
-                    pw.println(""+username+";"+password+";"+id+";"+name+";"+dob+";"+oldaddress+";"+state+";"+address+";"+postcode+";"+gender+";"+category+";"+vaccinestatus);
+                    pw.println("" + username + ";" + password + ";" + id + ";" + name + ";" + dob + ";" + oldaddress
+                            + ";" + state + ";" + address + ";" + postcode + ";" + gender + ";" + category + ";"
+                            + vaccinestatus);
                     pw.flush();
                     pw.close();
                     bw.close();
                     JOptionPane.showMessageDialog(null, "Account Registered Successfully");
-                }
-                catch(IOException e){
+                } catch (IOException e) {
                     System.out.println("Fail to register your account");
                 }
             }
-        } catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Error");
         }
     }
-         
+
     public boolean peopleLogin(String username, String password) {
         boolean found = false;
         File file = new File(data);
-        
+
         try {
             Scanner readfile = new Scanner(file);
-            
-            while(readfile.hasNext()){
+
+            while (readfile.hasNext()) {
                 String line = readfile.nextLine();
                 String[] values = line.split(";");
-                
-                if(values[0].equals(username)){
-                    if(values[1].equals(password)){
+
+                if (values[0].equals(username)) {
+                    if (values[1].equals(password)) {
                         found = true;
                         String id = values[2];
                         setId(id);
-                    } 
-                } 
+                    }
+                }
             }
-        }
-        catch(FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
         }
         return found;
     }
 
-    public void modifyInfo(String value, String username, String address, String state, String country, String postcode) {
+    public void modifyInfo(String value, String username, String address, String state, String country,
+            String postcode) {
         boolean found = false;
         ArrayList<String> tempArray = new ArrayList<>();
         try {
@@ -206,17 +214,17 @@ public class People {
                         found = true;
                         tempArray.add(
                                 username + ";"
-                                + lineArr[1] + ";"
-                                + lineArr[2] + ";"
-                                + lineArr[3] + ";"
-                                + lineArr[4] + ";"
-                                + address + ";"
-                                + state + ";"
-                                + country + ";"
-                                + postcode + ";"
-                                + lineArr[9] + ";"
-                                + lineArr[10] + ";"
-                                + lineArr[11] );
+                                        + lineArr[1] + ";"
+                                        + lineArr[2] + ";"
+                                        + lineArr[3] + ";"
+                                        + lineArr[4] + ";"
+                                        + address + ";"
+                                        + state + ";"
+                                        + country + ";"
+                                        + postcode + ";"
+                                        + lineArr[9] + ";"
+                                        + lineArr[10] + ";"
+                                        + lineArr[11]);
                         JOptionPane.showMessageDialog(null, "Edit Profile Successfully");
 
                     } else {
@@ -247,26 +255,26 @@ public class People {
 
     public void viewPeopleInfo(String value) {
     }
-    
+
     public void peopleDeclaration(String name, String id, String q1, String q2, String q3, String q4,
-                                  String q5, String q6, String q7, String q8){
-        
+            String q5, String q6, String q7, String q8) {
+
         String declafile = "declaration.txt";
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(declafile, true));
             PrintWriter pw = new PrintWriter(bw);
-            pw.println(""+id+";"+name+";"+q1+";"+q2+";"+q3+";"+q4+";"+q5+";"+q6+";"+q7+";"+q8);
+            pw.println("" + id + ";" + name + ";" + q1 + ";" + q2 + ";" + q3 + ";" + q4 + ";" + q5 + ";" + q6 + ";" + q7
+                    + ";" + q8);
             pw.flush();
             pw.close();
             bw.close();
             JOptionPane.showMessageDialog(null, "Vaccine Register Successfully");
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             System.out.println("Error");
         }
     }
-    
-    public void updateNewStatus(String id, String newVacStatus){
+
+    public void updateNewStatus(String id, String newVacStatus) {
         boolean found = false;
         ArrayList<String> tempArray = new ArrayList<>();
         try {
@@ -281,17 +289,17 @@ public class People {
                         found = true;
                         tempArray.add(
                                 lineArr[0] + ";"
-                                + lineArr[1] + ";"
-                                + lineArr[2] + ";"
-                                + lineArr[3] + ";"
-                                + lineArr[4] + ";"
-                                + lineArr[5] + ";"
-                                + lineArr[6] + ";"
-                                + lineArr[7] + ";"
-                                + lineArr[8] + ";"
-                                + lineArr[9] + ";"
-                                + lineArr[10] + ";"
-                                + newVacStatus );
+                                        + lineArr[1] + ";"
+                                        + lineArr[2] + ";"
+                                        + lineArr[3] + ";"
+                                        + lineArr[4] + ";"
+                                        + lineArr[5] + ";"
+                                        + lineArr[6] + ";"
+                                        + lineArr[7] + ";"
+                                        + lineArr[8] + ";"
+                                        + lineArr[9] + ";"
+                                        + lineArr[10] + ";"
+                                        + newVacStatus);
                         System.out.println("Status Update Successfully");
                     } else {
                         tempArray.add(line);
@@ -337,7 +345,7 @@ public class People {
     public String getName() {
         return name;
     }
-    
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -345,7 +353,7 @@ public class People {
     public String getUsername() {
         return username;
     }
-       
+
     public void setPassword(String password) {
         this.name = password;
     }
@@ -364,6 +372,10 @@ public class People {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         String formattedDOB = formatter.format(dobDate);
         return formattedDOB;
+    }
+
+    public Date getDOBinDate() {
+        return dob;
     }
 
     public int getAge() {
@@ -457,7 +469,6 @@ public class People {
         return peopleList;
     }
 
-    // username;password;IC/passport;name;dob;address;state;country;postcode;gender;category
     public void searchUser(ArrayList<ArrayList<String>> list, String id) {
         for (int i = 1; i < list.size(); i++) {
             for (int j = 0; j < list.get(i).size(); j++) {
@@ -483,5 +494,44 @@ public class People {
                 }
             }
         }
+    }
+
+    public boolean searchUserById(ArrayList<ArrayList<String>> list, String id) {
+        boolean exist = false;
+        for (int i = 1; i < list.size(); i++) {
+            if (list.get(i).get(2).equals(id)) {
+                exist = true;
+            }
+        }
+        return exist;
+    }
+
+    public int countNotRegistered() throws FileNotFoundException {
+        int total = 0;
+        generatePeopleList();
+        for (int i = 1; i < peopleList.size(); i++) {
+            if (peopleList.get(i).get(11).equals("Not Registered")) {
+                total++;
+            }
+        }
+
+        return total;
+    }
+
+    public void writeIntoPeopleFile(ArrayList<ArrayList<String>> list) throws IOException {
+        GeneralFunction gf = new GeneralFunction();
+        gf.writeIntoFile(list, data);
+    }
+
+    public int getRecordIndex(String peopleId) throws FileNotFoundException {
+        generatePeopleList();
+
+        int targetIndex = -1;
+        for (int i = 0; i < peopleList.size(); i++) {
+            if (peopleList.get(i).get(2).equals(peopleId)) {
+                targetIndex = i;
+            }
+        }
+        return targetIndex;
     }
 }

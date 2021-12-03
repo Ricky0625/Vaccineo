@@ -1,4 +1,5 @@
 
+import classes.Vaccine;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -6,6 +7,12 @@ import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -25,10 +32,49 @@ public class PersonnelViewVaccine extends javax.swing.JFrame {
     Color secColor = new Color(131, 197, 190);
     Color bgColor = new Color(237, 246, 249);
     Color errColor = new Color(238, 118, 116);
+    
+    String vacName;
+    Vaccine vac = new Vaccine();
+    ArrayList<ArrayList<String>> vaccineList;
+    JFrame PersonnelViewVaccine = this;
 
     public PersonnelViewVaccine() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
+        
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                String ObjButtons[] = {"Yes", "No"};
+                int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Vaccineo", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+                if (PromptResult == JOptionPane.YES_OPTION) {
+                    Login log = new Login();
+                    log.setVisible(true);
+                    PersonnelViewVaccine.setVisible(false);
+                }
+            }
+        });
+    }
+    
+    public PersonnelViewVaccine(String vacName) {
+        initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
+        this.vacName = vacName;
+        
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                String ObjButtons[] = {"Yes", "No"};
+                int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Vaccineo", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+                if (PromptResult == JOptionPane.YES_OPTION) {
+                    Login log = new Login();
+                    log.setVisible(true);
+                    PersonnelViewVaccine.setVisible(false);
+                }
+            }
+        });
     }
 
     /**
@@ -85,19 +131,25 @@ public class PersonnelViewVaccine extends javax.swing.JFrame {
         vaPanel1 = new javax.swing.JPanel();
         jLabel39 = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
-        jPanel7 = new RoundedPanel(10, priColor);
+        backBtn = new RoundedPanel(10, priColor);
         jLabel33 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jPanel13 = new javax.swing.JPanel();
+        vaccineName = new javax.swing.JLabel();
+        editVacInfo = new javax.swing.JPanel();
         jLabel36 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
+        vacManufacturer = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
+        vacSize = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
+        vacDoseNeeded = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
+        vacQuantity = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
+        vacDuration = new javax.swing.JLabel();
+        centreAddress1 = new javax.swing.JLabel();
+        vacId = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        vacWaiting = new javax.swing.JLabel();
 
         formBackground.setBackground(new java.awt.Color(237, 246, 249));
         formBackground.setMaximumSize(new java.awt.Dimension(1440, 800));
@@ -461,6 +513,11 @@ public class PersonnelViewVaccine extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1400, 800));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         formBackground1.setBackground(new java.awt.Color(237, 246, 249));
         formBackground1.setMaximumSize(new java.awt.Dimension(1440, 800));
@@ -696,55 +753,65 @@ public class PersonnelViewVaccine extends javax.swing.JFrame {
                 .addComponent(logoutPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel7.setBackground(new java.awt.Color(237, 246, 249));
-        jPanel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel7.setPreferredSize(new java.awt.Dimension(58, 22));
+        backBtn.setBackground(new java.awt.Color(237, 246, 249));
+        backBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        backBtn.setPreferredSize(new java.awt.Dimension(58, 22));
+        backBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backBtnMouseClicked(evt);
+            }
+        });
 
         jLabel33.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel33.setForeground(new java.awt.Color(255, 255, 255));
         jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/back-btn.png"))); // NOI18N
         jLabel33.setText("Back");
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        javax.swing.GroupLayout backBtnLayout = new javax.swing.GroupLayout(backBtn);
+        backBtn.setLayout(backBtnLayout);
+        backBtnLayout.setHorizontalGroup(
+            backBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(backBtnLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel33)
                 .addGap(20, 20, 20))
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        backBtnLayout.setVerticalGroup(
+            backBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(backBtnLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jLabel33)
                 .addGap(12, 12, 12))
         );
 
-        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(226, 149, 120));
-        jLabel20.setText("Vaccine Name");
+        vaccineName.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        vaccineName.setForeground(new java.awt.Color(226, 149, 120));
+        vaccineName.setText("Vaccine Name");
 
-        jPanel13.setBackground(new java.awt.Color(0, 109, 119));
-        jPanel13.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        editVacInfo.setBackground(new java.awt.Color(0, 109, 119));
+        editVacInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        editVacInfo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editVacInfoMouseClicked(evt);
+            }
+        });
 
         jLabel36.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel36.setForeground(new java.awt.Color(255, 255, 255));
         jLabel36.setText("Edit Info");
 
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
+        javax.swing.GroupLayout editVacInfoLayout = new javax.swing.GroupLayout(editVacInfo);
+        editVacInfo.setLayout(editVacInfoLayout);
+        editVacInfoLayout.setHorizontalGroup(
+            editVacInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(editVacInfoLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jLabel36)
                 .addContainerGap(26, Short.MAX_VALUE))
         );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
+        editVacInfoLayout.setVerticalGroup(
+            editVacInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(editVacInfoLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jLabel36)
                 .addContainerGap(12, Short.MAX_VALUE))
@@ -754,33 +821,57 @@ public class PersonnelViewVaccine extends javax.swing.JFrame {
         jLabel21.setForeground(new java.awt.Color(0, 109, 119));
         jLabel21.setText("Manufacturer:");
 
-        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel26.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel26.setText("Aplus");
+        vacManufacturer.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        vacManufacturer.setForeground(new java.awt.Color(0, 109, 119));
+        vacManufacturer.setText("Aplus");
 
         jLabel27.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(0, 109, 119));
         jLabel27.setText("Size(ml):");
 
-        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel28.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel28.setText("0.2");
+        vacSize.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        vacSize.setForeground(new java.awt.Color(0, 109, 119));
+        vacSize.setText("0.2");
 
         jLabel29.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel29.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel29.setText("Dose:");
+        jLabel29.setText("Dose Needed:");
 
-        jLabel30.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel30.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel30.setText("2");
+        vacDoseNeeded.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        vacDoseNeeded.setForeground(new java.awt.Color(0, 109, 119));
+        vacDoseNeeded.setText("2");
 
         jLabel31.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(0, 109, 119));
         jLabel31.setText("Quantity(per Box):");
 
+        vacQuantity.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        vacQuantity.setForeground(new java.awt.Color(0, 109, 119));
+        vacQuantity.setText("12");
+
         jLabel32.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel32.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel32.setText("12");
+        jLabel32.setText("Expiry Duration(month):");
+
+        vacDuration.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        vacDuration.setForeground(new java.awt.Color(0, 109, 119));
+        vacDuration.setText("12");
+
+        centreAddress1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        centreAddress1.setForeground(new java.awt.Color(153, 153, 153));
+        centreAddress1.setText("Short code:");
+
+        vacId.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        vacId.setForeground(new java.awt.Color(153, 153, 153));
+        vacId.setText("CODE");
+
+        jLabel34.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel34.setForeground(new java.awt.Color(0, 109, 119));
+        jLabel34.setText("Waiting Duration(month):");
+
+        vacWaiting.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        vacWaiting.setForeground(new java.awt.Color(0, 109, 119));
+        vacWaiting.setText("12");
 
         javax.swing.GroupLayout formBackground1Layout = new javax.swing.GroupLayout(formBackground1);
         formBackground1.setLayout(formBackground1Layout);
@@ -791,26 +882,34 @@ public class PersonnelViewVaccine extends javax.swing.JFrame {
                 .addGap(80, 80, 80)
                 .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(formBackground1Layout.createSequentialGroup()
-                        .addComponent(jLabel20)
+                        .addComponent(vaccineName)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 497, Short.MAX_VALUE)
-                        .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(editVacInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(80, 80, 80))
                     .addGroup(formBackground1Layout.createSequentialGroup()
                         .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(formBackground1Layout.createSequentialGroup()
+                                .addComponent(centreAddress1)
+                                .addGap(5, 5, 5)
+                                .addComponent(vacId))
                             .addGroup(formBackground1Layout.createSequentialGroup()
                                 .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel32)
                                     .addComponent(jLabel31)
                                     .addComponent(jLabel29)
                                     .addComponent(jLabel27)
-                                    .addComponent(jLabel21))
-                                .addGap(40, 40, 40)
+                                    .addComponent(jLabel21)
+                                    .addComponent(jLabel34))
+                                .addGap(29, 29, 29)
                                 .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel26)
-                                    .addComponent(jLabel28)
-                                    .addComponent(jLabel32)
-                                    .addComponent(jLabel30))))
-                        .addContainerGap(789, Short.MAX_VALUE))))
+                                    .addComponent(vacWaiting)
+                                    .addComponent(vacManufacturer)
+                                    .addComponent(vacSize)
+                                    .addComponent(vacQuantity)
+                                    .addComponent(vacDoseNeeded)
+                                    .addComponent(vacDuration))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         formBackground1Layout.setVerticalGroup(
             formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -818,27 +917,39 @@ public class PersonnelViewVaccine extends javax.swing.JFrame {
             .addGroup(formBackground1Layout.createSequentialGroup()
                 .addGap(72, 72, 72)
                 .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editVacInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(formBackground1Layout.createSequentialGroup()
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel20)))
+                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(centreAddress1)
+                            .addComponent(vacId))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(vaccineName)))
                 .addGap(20, 20, 20)
                 .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
-                    .addComponent(jLabel26))
-                .addGap(14, 14, 14)
-                .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel27)
-                    .addComponent(jLabel28))
-                .addGap(14, 14, 14)
-                .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel29)
-                    .addComponent(jLabel30))
+                    .addComponent(vacManufacturer))
                 .addGap(14, 14, 14)
                 .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel31)
-                    .addComponent(jLabel32)))
+                    .addComponent(vacQuantity))
+                .addGap(14, 14, 14)
+                .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel27)
+                    .addComponent(vacSize))
+                .addGap(14, 14, 14)
+                .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel29)
+                    .addComponent(vacDoseNeeded))
+                .addGap(14, 14, 14)
+                .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel32)
+                    .addComponent(vacDuration))
+                .addGap(14, 14, 14)
+                .addGroup(formBackground1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel34)
+                    .addComponent(vacWaiting)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -910,9 +1021,9 @@ public class PersonnelViewVaccine extends javax.swing.JFrame {
     }//GEN-LAST:event_dbPanel1MouseClicked
 
     private void ppPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ppPanel1MouseClicked
-        PersonnelPeople pp = new PersonnelPeople();
+        PersonnelPeopleList ppl = new PersonnelPeopleList();
         this.setVisible(false);
-        pp.setVisible(true);
+        ppl.setVisible(true);
     }//GEN-LAST:event_ppPanel1MouseClicked
 
     private void cnPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cnPanel1MouseClicked
@@ -932,6 +1043,38 @@ public class PersonnelViewVaccine extends javax.swing.JFrame {
             setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         }
     }//GEN-LAST:event_logoutPanel1MouseClicked
+
+    private void backBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseClicked
+        PersonnelVaccine pv = new PersonnelVaccine();
+        pv.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_backBtnMouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        try {
+            vac.generateVaccineList();
+            vaccineList = vac.getVaccineList();
+            vac.searchVaccineByName(vaccineList, vacName);
+            
+            // Display the info of the vaccine
+            vacId.setText(vac.getVacId());
+            vaccineName.setText(vac.getVacName());
+            vacManufacturer.setText(vac.getManufacturer());
+            vacQuantity.setText(Integer.toString(vac.getBatchSize()));
+            vacSize.setText(Double.toString(vac.getSize()));
+            vacDoseNeeded.setText(Integer.toString(vac.getDoseNeeded()));
+            vacDuration.setText(Integer.toString(vac.getDuration()));
+            vacWaiting.setText(Integer.toString(vac.getWaiting()));
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(PersonnelViewVaccine.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowOpened
+
+    private void editVacInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editVacInfoMouseClicked
+        PersonnelEditVaccine pev = new PersonnelEditVaccine(vacId.getText(), vaccineName.getText());
+        pev.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_editVacInfoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -970,10 +1113,13 @@ public class PersonnelViewVaccine extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel backBtn;
+    private javax.swing.JLabel centreAddress1;
     private javax.swing.JPanel cnPanel;
     private javax.swing.JPanel cnPanel1;
     private javax.swing.JPanel dbPanel;
     private javax.swing.JPanel dbPanel1;
+    private javax.swing.JPanel editVacInfo;
     private javax.swing.JPanel formBackground;
     private javax.swing.JPanel formBackground1;
     private javax.swing.JLabel jLabel1;
@@ -988,21 +1134,18 @@ public class PersonnelViewVaccine extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
@@ -1018,9 +1161,7 @@ public class PersonnelViewVaccine extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JPanel logoutPanel;
     private javax.swing.JPanel logoutPanel1;
@@ -1028,6 +1169,14 @@ public class PersonnelViewVaccine extends javax.swing.JFrame {
     private javax.swing.JPanel ppPanel1;
     private javax.swing.JPanel vaPanel;
     private javax.swing.JPanel vaPanel1;
+    private javax.swing.JLabel vacDoseNeeded;
+    private javax.swing.JLabel vacDuration;
+    private javax.swing.JLabel vacId;
+    private javax.swing.JLabel vacManufacturer;
+    private javax.swing.JLabel vacQuantity;
+    private javax.swing.JLabel vacSize;
+    private javax.swing.JLabel vacWaiting;
+    private javax.swing.JLabel vaccineName;
     // End of variables declaration//GEN-END:variables
 
     class RoundedPanel extends JPanel {

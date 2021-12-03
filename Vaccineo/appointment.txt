@@ -1,11 +1,4 @@
-ic/passport;date;time;centre;status;vaccine;dose;complete;serial_number
-456;12/23;1000;UPM;-;-;-;-;-
-1234;12/25;0900;UPM;pending;-;1;-;-1234556;null;;Bukit Jalil;;;0;;
-1234556;10/11/2021;10:30am;UM;accepted;Pfizer;1;yes;91024587
-1234556;10/12/2021;10:30am;UM;accepted;Pfizer;2;yes;91024588
-011027140777;null;-;Bukit Jalil;pending;-;1;no;-
-AMB112233;null;-;Bukit Jalil;pending;-;1;no;-
-Test;null;-;Bukit Jalil;pending;-;1;no;-
-Test;null;-;Bukit Jalil;pending;-;1;no;-
-AMB1122;10/11/2021;10:30am;Bukit Jalil;accepted;Sinovac;1;yes;91024587
-AMB1122;10/11/2021;10:30am;UM;declined;Sinovac;2;no;91024586
+IC/Passport;Date;Time;Centre;Status;Vaccine;Dose;Complete;Serial Number
+000625131095;2/12/2021;13:00;Bukit Jalil Stadium;accepted;Beyond;1;Yes;BEY80496588
+000625131095;02/03/2022;14:30;Bukit Jalil Stadium;pending;-;2;No;-
+1234556;20/12/2021;11:30;Bukit Jalil Stadium;pending;-;1;No;-
