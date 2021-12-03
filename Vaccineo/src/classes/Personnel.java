@@ -5,12 +5,26 @@
  */
 package classes;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class Personnel {
     private String id;
     private String password;
     
-    private void personnelLogin() {
+    public boolean personnelLogin(String username, String password) {
+        boolean found = false;
         
+        try {
+            if(username.equals("Admin") && password.equals("OODJ")){
+                found = true;
+            }
+        }
+        catch(Exception e){
+            System.out.println("An error occurred.");
+        }
+        return found;
     }
 
 }
