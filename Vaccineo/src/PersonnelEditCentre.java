@@ -48,10 +48,14 @@ public class PersonnelEditCentre extends javax.swing.JFrame {
         });
     }
 
-    public PersonnelEditCentre(String id) {
+    public PersonnelEditCentre(String id) throws FileNotFoundException {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
         centreId = id;
+        
+        c.generateCentreList();
+        centreList = c.getCentreList();
+        c.searchCentreById(id);
 
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
@@ -95,7 +99,6 @@ public class PersonnelEditCentre extends javax.swing.JFrame {
         centreNameLbl = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        centreNameTf = new javax.swing.JTextField();
         centreStreetTf = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         centreStateTf = new javax.swing.JTextField();
@@ -108,6 +111,7 @@ public class PersonnelEditCentre extends javax.swing.JFrame {
         cancelBtn = new javax.swing.JPanel();
         jLabel35 = new javax.swing.JLabel();
         centreNameHidden = new javax.swing.JLabel();
+        centreNameTf = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1440, 800));
@@ -394,8 +398,6 @@ public class PersonnelEditCentre extends javax.swing.JFrame {
         jLabel18.setForeground(new java.awt.Color(0, 109, 119));
         jLabel18.setText("Street");
 
-        centreNameTf.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
         centreStreetTf.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -488,6 +490,9 @@ public class PersonnelEditCentre extends javax.swing.JFrame {
         centreNameHidden.setForeground(new java.awt.Color(237, 246, 249));
         centreNameHidden.setText("jLabel2");
 
+        centreNameTf.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        centreNameTf.setText("Centre Name");
+
         javax.swing.GroupLayout formBackgroundLayout = new javax.swing.GroupLayout(formBackground);
         formBackground.setLayout(formBackgroundLayout);
         formBackgroundLayout.setHorizontalGroup(
@@ -503,7 +508,6 @@ public class PersonnelEditCentre extends javax.swing.JFrame {
                         .addComponent(centreNameHidden))
                     .addComponent(jLabel8)
                     .addComponent(jLabel18)
-                    .addComponent(centreNameTf, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(centreStreetTf, javax.swing.GroupLayout.PREFERRED_SIZE, 850, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(formBackgroundLayout.createSequentialGroup()
                         .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -518,7 +522,8 @@ public class PersonnelEditCentre extends javax.swing.JFrame {
                     .addGroup(formBackgroundLayout.createSequentialGroup()
                         .addComponent(saveCentreInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(60, 60, 60)
-                        .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(centreNameTf))
                 .addContainerGap(240, Short.MAX_VALUE))
         );
         formBackgroundLayout.setVerticalGroup(
@@ -534,8 +539,8 @@ public class PersonnelEditCentre extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(centreNameTf, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
+                .addComponent(centreNameTf)
+                .addGap(30, 30, 30)
                 .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(formBackgroundLayout.createSequentialGroup()
                         .addComponent(jLabel18)
@@ -670,7 +675,7 @@ public class PersonnelEditCentre extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Successfully edited.", "Centre info edited", JOptionPane.INFORMATION_MESSAGE);
 
                 // return back to people profile
-                PersonnelCentreDetail pcd = new PersonnelCentreDetail(centreName);
+                PersonnelCentreDetail pcd = new PersonnelCentreDetail(centreName, centreId);
                 pcd.setVisible(true);
                 this.setVisible(false);
 
@@ -752,7 +757,7 @@ public class PersonnelEditCentre extends javax.swing.JFrame {
     private javax.swing.JLabel centreCountryLbl;
     private javax.swing.JLabel centreNameHidden;
     private javax.swing.JLabel centreNameLbl;
-    private javax.swing.JTextField centreNameTf;
+    private javax.swing.JLabel centreNameTf;
     private javax.swing.JTextField centrePostcodeTf;
     private javax.swing.JTextField centreStateTf;
     private javax.swing.JTextField centreStreetTf;

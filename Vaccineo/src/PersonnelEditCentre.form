@@ -67,7 +67,6 @@
                       </Group>
                       <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="centreNameTf" alignment="0" min="-2" pref="465" max="-2" attributes="0"/>
                       <Component id="centreStreetTf" alignment="0" min="-2" pref="850" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -87,6 +86,7 @@
                           <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                           <Component id="cancelBtn" min="-2" pref="91" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="centreNameTf" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="240" max="32767" attributes="0"/>
               </Group>
@@ -106,8 +106,8 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="centreNameTf" min="-2" pref="54" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="centreNameTf" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
@@ -597,13 +597,6 @@
             <Property name="text" type="java.lang.String" value="Street"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="centreNameTf">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="18" style="0"/>
-            </Property>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JTextField" name="centreStreetTf">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -787,6 +780,14 @@
               <Color blue="f9" green="f6" red="ed" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jLabel2"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="centreNameTf">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="18" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Centre Name"/>
           </Properties>
         </Component>
       </SubComponents>

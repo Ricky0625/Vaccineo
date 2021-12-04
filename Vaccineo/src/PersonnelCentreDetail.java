@@ -45,7 +45,7 @@ public class PersonnelCentreDetail extends javax.swing.JFrame {
     public PersonnelCentreDetail() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
-        
+
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             @Override
@@ -66,7 +66,7 @@ public class PersonnelCentreDetail extends javax.swing.JFrame {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
         centreName = value;
         System.out.println(centreName);
-        
+
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             @Override
@@ -80,6 +80,30 @@ public class PersonnelCentreDetail extends javax.swing.JFrame {
                 }
             }
         });
+    }
+
+    public PersonnelCentreDetail(String newCentreName, String centreId) throws FileNotFoundException {
+        initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
+        c.generateCentreList();
+        centreList = c.getCentreList();
+        c.searchCentreById(centreId);
+        centreName = c.getCentreName();
+
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                String ObjButtons[] = {"Yes", "No"};
+                int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Vaccineo", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+                if (PromptResult == JOptionPane.YES_OPTION) {
+                    Login log = new Login();
+                    log.setVisible(true);
+                    PersonnelCentreDetail.setVisible(false);
+                }
+            }
+        });
+
     }
 
     /**
@@ -1068,9 +1092,15 @@ public class PersonnelCentreDetail extends javax.swing.JFrame {
 
     private void editCentreInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editCentreInfoMouseClicked
         String id = centreId.getText();
-        PersonnelEditCentre pec = new PersonnelEditCentre(id);
-        pec.setVisible(true);
-        this.setVisible(false);
+        PersonnelEditCentre pec;
+        try {
+            pec = new PersonnelEditCentre(id);
+            pec.setVisible(true);
+            this.setVisible(false);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(PersonnelCentreDetail.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_editCentreInfoMouseClicked
 
     private void vrPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vrPanelMouseClicked
