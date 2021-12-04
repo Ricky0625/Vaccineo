@@ -1161,7 +1161,11 @@ public class PersonnelPeople extends javax.swing.JFrame {
     }// GEN-LAST:event_scheduleAppointmentMouseClicked
 
     private void registerVaccinationMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_registerVaccinationMouseClicked
-        // TODO add your handling code here:
+        RegisterVaccine rv = new RegisterVaccine();
+        rv.peopleInfo(pplId.getText(), 1);
+        rv.setVisible(true);
+        this.setVisible(false);
+        
     }// GEN-LAST:event_registerVaccinationMouseClicked
 
     /**

@@ -673,8 +673,8 @@ public class PersonnelPeopleList extends javax.swing.JFrame {
     }//GEN-LAST:event_dbPanelMouseExited
 
     private void editPeopleInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editPeopleInfoMouseClicked
-        PersonnelAddCentre pac = new PersonnelAddCentre();
-        pac.setVisible(true);
+        RegisterAccount ra = new RegisterAccount(1);
+        ra.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_editPeopleInfoMouseClicked
 

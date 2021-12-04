@@ -876,8 +876,13 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
                     peopleName.setText(p.getName());
                     peopleGender.setText(p.getGender());
                     peopleAge.setText(Integer.toString(p.getAge()));
-                    peopleAddress.setText(p.getAddress());
                     peopleCategory.setText(p.getCategory());
+                    
+                    if(!"Citizen".equals(p.getCategory())) {
+                        peopleAddress.setText(p.getCountry());
+                    } else {
+                        peopleAddress.setText(p.getAddress());
+                    }
                 } else {
                     peopleName.setText("-");
                     peopleGender.setText("-");

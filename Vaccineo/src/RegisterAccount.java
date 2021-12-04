@@ -1,3 +1,4 @@
+
 import classes.Citizen;
 import classes.People;
 import java.awt.Color;
@@ -8,6 +9,8 @@ import java.awt.LayoutManager;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,6 +21,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -33,15 +37,17 @@ public class RegisterAccount extends javax.swing.JFrame {
     /**
      * Creates new form RegisterAccount
      */
-    Color priColor = new Color(0,109,119);
+    Color priColor = new Color(0, 109, 119);
     Color secColor = new Color(131, 197, 190);
-    Color bgColor = new Color(237,246,249);
-    Color empColor = new Color(255,221,210);
-    Color whiteColor = new Color(255,255,255);
-    
+    Color bgColor = new Color(237, 246, 249);
+    Color empColor = new Color(255, 221, 210);
+    Color whiteColor = new Color(255, 255, 255);
+
     People ppl = new People();
     Citizen citi = new Citizen();
- 
+    JFrame RegisterAccount = this;
+    int role = 0; // if the current user is People will be 0, if it's admin, will be 1
+
     public RegisterAccount() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
@@ -51,6 +57,36 @@ public class RegisterAccount extends javax.swing.JFrame {
         viewTnc.setText(tnc);
         hidepassword1.setVisible(false);
         hidepassword2.setVisible(false);
+
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                String ObjButtons[] = {"Yes", "No"};
+                int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Vaccineo", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+                if (PromptResult == JOptionPane.YES_OPTION) {
+                    Login log = new Login();
+                    log.setVisible(true);
+                    RegisterAccount.setVisible(false);
+                }
+            }
+        });
+    }
+
+    public RegisterAccount(int role) {
+        initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
+        String signin = "<html><u>Sign In</u></html>";
+        goLoginForm.setText(signin);
+        String tnc = "<html><u>Terms & Conditions</u></html>";
+        viewTnc.setText(tnc);
+        hidepassword1.setVisible(false);
+        hidepassword2.setVisible(false);
+        goLoginForm.setVisible(false);
+        havaacclabel.setVisible(false);
+        
+        // if it's admin
+        this.role = role;
     }
 
     /**
@@ -563,49 +599,55 @@ public class RegisterAccount extends javax.swing.JFrame {
         String postcode = pplPostcode.getText();
         String pass = pplPassword.getText();
         String conpass = pplConPass.getText();
-        String dob = ((JTextField)pplDOB.getDateEditor().getUiComponent()).getText();
-        
-        if(dob.length() == 0){
+        String dob = ((JTextField) pplDOB.getDateEditor().getUiComponent()).getText();
+
+        if (dob.length() == 0) {
             JOptionPane.showMessageDialog(null, "Please fill in your Date of Birth.");
         } else {
             //User choose their category either Malaysian (citizen) or Foreigber (non-citizen)
             String category = null;
-            if(pplMalaysian.isSelected()){
+            if (pplMalaysian.isSelected()) {
                 category = "Citizen";
-                if(postcode.length() == 0){
+                if (postcode.length() == 0) {
                     JOptionPane.showMessageDialog(null, "Please fill in your Postcode.");
                 }
-                if(address.length() == 0){
+                if (address.length() == 0) {
                     JOptionPane.showMessageDialog(null, "Please fill in your Address.");
                 }
-                if(state.length() == 0){
+                if (state.length() == 0) {
                     JOptionPane.showMessageDialog(null, "Please fill in your State.");
                 } else {
                     //User choose their gender
                     String gender = null;
-                    if(pplMale.isSelected()){
+                    if (pplMale.isSelected()) {
                         gender = "Male";
                         String password = null;
-                        if(conpass.equals(pass)){
+                        if (conpass.equals(pass)) {
                             password = conpass;
                             //if checkbox not selected
-                            if(TncCheckButton.isSelected()){
-                                if(ppl.validatePass(pass) == false){
+                            if (TncCheckButton.isSelected()) {
+                                if (ppl.validatePass(pass) == false) {
                                     JOptionPane.showMessageDialog(null, "The password must at least 8 characters and consist of 1 UpperCase, 1 LowerCase and 1 Number");
                                 } else {
-                                    if(citi.checkFormat(id) == true){
+                                    if (citi.checkFormat(id) == true) {
                                         try {
-                                            ppl.registerPeople(username,name,id,address,state,country,postcode,password,gender,category,dob);
+                                            ppl.registerPeople(username, name, id, address, state, country, postcode, password, gender, category, dob);
                                             this.setVisible(false);
-                                            Login login = new Login();
-                                            login.setVisible(true);
-                                        }
-                                        catch(Exception e){
+                                            
+                                            if (role == 0) {
+                                                Login login = new Login();
+                                                login.setVisible(true);
+                                            } else {
+                                                PersonnelPeopleList ppl = new PersonnelPeopleList();
+                                                ppl.setVisible(true);
+                                            }
+
+                                        } catch (Exception e) {
                                             System.out.println("Error");
                                         }
                                     } else {
                                         JOptionPane.showMessageDialog(null, "Please key in the correct IC numbers");
-                                        } 
+                                    }
                                 }
                             } else {
                                 JOptionPane.showMessageDialog(null, "Please agree to the Terms & Conditions.");
@@ -613,30 +655,29 @@ public class RegisterAccount extends javax.swing.JFrame {
                         } else {
                             JOptionPane.showMessageDialog(null, "Please key in the same Password.");
                         }
-                    } else if(pplFemale.isSelected()){
+                    } else if (pplFemale.isSelected()) {
                         gender = "Female";
                         String password = null;
-                        if(conpass.equals(pass)){
+                        if (conpass.equals(pass)) {
                             password = conpass;
                             //if checkbox not selected
-                            if(TncCheckButton.isSelected()){
-                                if(ppl.validatePass(pass) == false){
+                            if (TncCheckButton.isSelected()) {
+                                if (ppl.validatePass(pass) == false) {
                                     JOptionPane.showMessageDialog(null, "The password must at least 8 characters and consist of 1 UpperCase, 1 LowerCase and 1 Number");
                                 } else {
-                                    if(citi.checkFormat(id) == true){
+                                    if (citi.checkFormat(id) == true) {
                                         try {
-                                            ppl.registerPeople(username,name,id,address,state,country,postcode,password,gender,category,dob);
+                                            ppl.registerPeople(username, name, id, address, state, country, postcode, password, gender, category, dob);
                                             this.setVisible(false);
                                             Login login = new Login();
                                             login.setVisible(true);
-                                        }
-                                        catch(Exception e){
+                                        } catch (Exception e) {
                                             System.out.println("Error");
                                         }
                                     } else {
                                         JOptionPane.showMessageDialog(null, "Please key in the correct IC numbers");
-                                        } 
-                                }   
+                                    }
+                                }
                             } else {
                                 JOptionPane.showMessageDialog(null, "Please agree to the Terms & Conditions.");
                             }
@@ -647,28 +688,26 @@ public class RegisterAccount extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Please choose your Gender.");
                     }
                 }
-            }
-            else if(pplForeigner.isSelected()){
+            } else if (pplForeigner.isSelected()) {
                 category = "Non-citizen";
                 //User choose their gender
                 String gender = null;
-                if(pplMale.isSelected()){
+                if (pplMale.isSelected()) {
                     gender = "Male";
                     String password = null;
-                    if(conpass.equals(pass)){
+                    if (conpass.equals(pass)) {
                         password = conpass;
                         //if checkbox not selected
-                        if(TncCheckButton.isSelected()){
-                            if(ppl.validatePass(pass) == false){
+                        if (TncCheckButton.isSelected()) {
+                            if (ppl.validatePass(pass) == false) {
                                 JOptionPane.showMessageDialog(null, "The password must at least 8 characters and consist of 1 UpperCase, 1 LowerCase and 1 Number");
                             } else {
                                 try {
-                                    ppl.registerPeopleNon(username,name,id,address,password,gender,category,dob);
+                                    ppl.registerPeopleNon(username, name, id, address, password, gender, category, dob);
                                     this.setVisible(false);
                                     Login login = new Login();
                                     login.setVisible(true);
-                                }
-                                catch(Exception e){
+                                } catch (Exception e) {
                                     System.out.println("Error");
                                 }
                             }
@@ -678,26 +717,25 @@ public class RegisterAccount extends javax.swing.JFrame {
                     } else {
                         JOptionPane.showMessageDialog(null, "Please key in the same Password.");
                     }
-                } else if(pplFemale.isSelected()){
+                } else if (pplFemale.isSelected()) {
                     gender = "Female";
                     String password = null;
-                    if(conpass.equals(pass)){
+                    if (conpass.equals(pass)) {
                         password = conpass;
                         //if checkbox not selected
-                        if(TncCheckButton.isSelected()){
-                            if(ppl.validatePass(pass) == false){
+                        if (TncCheckButton.isSelected()) {
+                            if (ppl.validatePass(pass) == false) {
                                 JOptionPane.showMessageDialog(null, "The password must at least 8 characters and consist of 1 UpperCase, 1 LowerCase and 1 Number");
                             } else {
                                 try {
-                                    ppl.registerPeopleNon(username,name,id,address,password,gender,category,dob);
+                                    ppl.registerPeopleNon(username, name, id, address, password, gender, category, dob);
                                     this.setVisible(false);
                                     Login login = new Login();
                                     login.setVisible(true);
-                                }
-                                catch(Exception e){
+                                } catch (Exception e) {
                                     System.out.println("Error");
                                 }
-                            }  
+                            }
                         } else {
                             JOptionPane.showMessageDialog(null, "Please agree to the Terms & Conditions.");
                         }
@@ -710,9 +748,9 @@ public class RegisterAccount extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Please choose you are Malaysian or Foreigner.");
             }
-        }     
+        }
     }//GEN-LAST:event_registerButtonMouseClicked
- 
+
     private void goLoginFormMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_goLoginFormMouseClicked
         // TODO add your handling code here:
         Login login = new Login();
@@ -729,21 +767,21 @@ public class RegisterAccount extends javax.swing.JFrame {
 
     private void pplMaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pplMaleActionPerformed
         // TODO add your handling code here:
-        if(pplMale.isSelected()){
+        if (pplMale.isSelected()) {
             pplFemale.setSelected(false);
         }
     }//GEN-LAST:event_pplMaleActionPerformed
 
     private void pplFemaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pplFemaleActionPerformed
         // TODO add your handling code here:
-        if(pplFemale.isSelected()){
+        if (pplFemale.isSelected()) {
             pplMale.setSelected(false);
         }
     }//GEN-LAST:event_pplFemaleActionPerformed
 
     private void pplMalaysianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pplMalaysianActionPerformed
         // TODO add your handling code here:
-        if(pplMalaysian.isSelected()){
+        if (pplMalaysian.isSelected()) {
             pplForeigner.setSelected(false);
             pplState.setVisible(true);
             pplCountry.setVisible(true);
@@ -760,7 +798,7 @@ public class RegisterAccount extends javax.swing.JFrame {
         // TODO add your handling code here:
         //if Foreigner radio button is selected, foreigner only required to fill in country field.
         //Address, state and postcode field will be hidden.
-        if(pplForeigner.isSelected()){
+        if (pplForeigner.isSelected()) {
             pplMalaysian.setSelected(false);
             pplState.setVisible(false);
             pplCountry.setVisible(false);
@@ -771,7 +809,7 @@ public class RegisterAccount extends javax.swing.JFrame {
             countlabel.setVisible(false);
             postclabel.setVisible(false);
             revalidate();
-        } else if(!pplForeigner.isSelected()) {
+        } else if (!pplForeigner.isSelected()) {
             pplState.setVisible(true);
             pplCountry.setVisible(true);
             pplPostcode.setVisible(true);
@@ -786,21 +824,21 @@ public class RegisterAccount extends javax.swing.JFrame {
     private void pplPostcodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pplPostcodeKeyTyped
         // TODO add your handling code here:
         //Only accept numbers and able to use the keyboard key "BACKSPACE" to remove numbers
-        int nums =evt.getKeyChar();
-        if(!(Character.isDigit(nums) || (nums==KeyEvent.VK_BACK_SPACE) || (nums==KeyEvent.VK_DELETE))){
+        int nums = evt.getKeyChar();
+        if (!(Character.isDigit(nums) || (nums == KeyEvent.VK_BACK_SPACE) || (nums == KeyEvent.VK_DELETE))) {
             evt.consume();
         }
         //Maximum 5 numbers can be entered in the textfield
-        if (pplPostcode.getText().length() >= 5 ) {// limit to 5 characters
-                evt.consume();
+        if (pplPostcode.getText().length() >= 5) {// limit to 5 characters
+            evt.consume();
         }
     }//GEN-LAST:event_pplPostcodeKeyTyped
 
     private void pplIcpassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pplIcpassKeyTyped
         // TODO add your handling code here: 
-            if(pplMalaysian.isSelected()){
-                int icnums =evt.getKeyChar();
-                if(!(Character.isDigit(icnums) || (icnums==KeyEvent.VK_BACK_SPACE) || (icnums==KeyEvent.VK_DELETE))){
+        if (pplMalaysian.isSelected()) {
+            int icnums = evt.getKeyChar();
+            if (!(Character.isDigit(icnums) || (icnums == KeyEvent.VK_BACK_SPACE) || (icnums == KeyEvent.VK_DELETE))) {
                 evt.consume();
             }
         }
@@ -808,42 +846,42 @@ public class RegisterAccount extends javax.swing.JFrame {
 
     private void showpassword1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showpassword1MouseClicked
         // TODO add your handling code here:
-            pplPassword.setEchoChar((char)0);
-            pplConPass.setEchoChar((char)0);
-            hidepassword1.setVisible(true);
-            hidepassword2.setVisible(true);
-            showpassword1.setVisible(false);
-            showpassword2.setVisible(false);
+        pplPassword.setEchoChar((char) 0);
+        pplConPass.setEchoChar((char) 0);
+        hidepassword1.setVisible(true);
+        hidepassword2.setVisible(true);
+        showpassword1.setVisible(false);
+        showpassword2.setVisible(false);
     }//GEN-LAST:event_showpassword1MouseClicked
 
     private void hidepassword1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hidepassword1MouseClicked
         // TODO add your handling code here:
-            pplPassword.setEchoChar('*');
-            pplConPass.setEchoChar('*');
-            hidepassword1.setVisible(false);
-            hidepassword2.setVisible(false);
-            showpassword1.setVisible(true);
-            showpassword2.setVisible(true);
+        pplPassword.setEchoChar('*');
+        pplConPass.setEchoChar('*');
+        hidepassword1.setVisible(false);
+        hidepassword2.setVisible(false);
+        showpassword1.setVisible(true);
+        showpassword2.setVisible(true);
     }//GEN-LAST:event_hidepassword1MouseClicked
 
     private void showpassword2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showpassword2MouseClicked
         // TODO add your handling code here:
-            pplPassword.setEchoChar((char)0);
-            pplConPass.setEchoChar((char)0);
-            hidepassword1.setVisible(true);
-            hidepassword2.setVisible(true);
-            showpassword1.setVisible(false);
-            showpassword2.setVisible(false);
+        pplPassword.setEchoChar((char) 0);
+        pplConPass.setEchoChar((char) 0);
+        hidepassword1.setVisible(true);
+        hidepassword2.setVisible(true);
+        showpassword1.setVisible(false);
+        showpassword2.setVisible(false);
     }//GEN-LAST:event_showpassword2MouseClicked
 
     private void hidepassword2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hidepassword2MouseClicked
         // TODO add your handling code here:
-            pplPassword.setEchoChar('*');
-            pplConPass.setEchoChar('*');
-            hidepassword1.setVisible(false);
-            hidepassword2.setVisible(false);
-            showpassword1.setVisible(true);
-            showpassword2.setVisible(true);
+        pplPassword.setEchoChar('*');
+        pplConPass.setEchoChar('*');
+        hidepassword1.setVisible(false);
+        hidepassword2.setVisible(false);
+        showpassword1.setVisible(true);
+        showpassword2.setVisible(true);
     }//GEN-LAST:event_hidepassword2MouseClicked
 
     /**
@@ -927,30 +965,33 @@ public class RegisterAccount extends javax.swing.JFrame {
     private javax.swing.JLabel youarelabel;
     // End of variables declaration//GEN-END:variables
 
-    class RoundedPanel extends JPanel{
+    class RoundedPanel extends JPanel {
+
         private Color backgroundColor;
         private int cornerRadius = 15;
+
         public RoundedPanel(LayoutManager layout, int radius) {
             super(layout);
             cornerRadius = radius;
         }
-        
+
         public RoundedPanel(LayoutManager layout, int radius, Color bgColor) {
             super(layout);
             cornerRadius = radius;
             backgroundColor = bgColor;
         }
-        
+
         public RoundedPanel(int radius) {
             super();
-            cornerRadius = radius;      
+            cornerRadius = radius;
         }
+
         public RoundedPanel(int radius, Color bgColor) {
             super();
             cornerRadius = radius;
             backgroundColor = bgColor;
         }
-        
+
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -965,7 +1006,7 @@ public class RegisterAccount extends javax.swing.JFrame {
             } else {
                 graphics.setColor(getBackground());
             }
-            graphics.fillRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height); //paint background
+            graphics.fillRoundRect(0, 0, width - 1, height - 1, arcs.width, arcs.height); //paint background
             graphics.setColor(getForeground());
 //            graphics.drawRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height); //paint border 
         }

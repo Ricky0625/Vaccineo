@@ -901,7 +901,7 @@ public class PersonnelDashboard extends javax.swing.JFrame {
 
         personnelName.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         personnelName.setForeground(new java.awt.Color(226, 149, 120));
-        personnelName.setText("Josh");
+        personnelName.setText("Admin");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 109, 119));

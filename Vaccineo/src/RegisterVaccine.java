@@ -38,7 +38,7 @@ public class RegisterVaccine extends javax.swing.JFrame {
     Color empColor = new Color(255, 221, 210);
     Color whiteColor = new Color(255, 255, 255);
 
-    String role;
+    int role = 0; // 0 means People, 1 means Personnel
     People ppl = new People();
     GeneralFunction gf = new GeneralFunction();
     Appointment app = new Appointment();
@@ -63,8 +63,8 @@ public class RegisterVaccine extends javax.swing.JFrame {
             Logger.getLogger(PersonnelPeople.class.getName()).log(Level.SEVERE, null, e);
         }
     }
-    
-    public void peopleInfo(String value, String role) {
+
+    public void peopleInfo(String value, int role) {
         String id = value;
         this.role = role;
         try {
@@ -956,7 +956,7 @@ public class RegisterVaccine extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelButtonMouseClicked
 
     private void submitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitButtonMouseClicked
-        
+
         /*if role == "admin"*/
 // TODO add your handling code here:
         String name = nameLabelView.getText();
@@ -1043,10 +1043,19 @@ public class RegisterVaccine extends javax.swing.JFrame {
                                             ppl.updateNewStatus(id, newVacStatus);
                                             this.setVisible(false);
                                             String value = ppl.getId();
-                                            PeopleDashboard ppldash = new PeopleDashboard();
-                                            ppldash.peopleInfo(value);
-                                            ppldash.setVisible(true);
-                                            this.setVisible(false);
+
+                                            if (role == 0) {
+                                                PeopleDashboard ppldash = new PeopleDashboard();
+                                                ppldash.peopleInfo(value);
+                                                ppldash.setVisible(true);
+                                                this.setVisible(false);
+                                                JOptionPane.showMessageDialog(this, "Successfully registered for vaccination.", "Registered for vaccination", JOptionPane.INFORMATION_MESSAGE);
+                                            } else {
+                                                PersonnelPeopleList pple = new PersonnelPeopleList();
+                                                pple.setVisible(true);
+                                                this.setVisible(false);
+                                                JOptionPane.showMessageDialog(this, "Successfully registered for vaccination.", "Registered for vaccination", JOptionPane.INFORMATION_MESSAGE);
+                                            }
                                         } catch (Exception e) {
                                             JOptionPane.showMessageDialog(null, "Failed to register for vaccination.");
                                         }
