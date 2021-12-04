@@ -83,9 +83,9 @@
                       <Component id="jLabel21" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="centreCountryLbl" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="savePeopleInfo" min="-2" pref="91" max="-2" attributes="0"/>
+                          <Component id="saveCentreInfo" min="-2" pref="91" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-                          <Component id="savePeopleInfo1" min="-2" pref="91" max="-2" attributes="0"/>
+                          <Component id="cancelBtn" min="-2" pref="91" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="240" max="32767" attributes="0"/>
@@ -130,8 +130,8 @@
                   <Component id="centreCountryLbl" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="savePeopleInfo" alignment="0" min="-2" pref="41" max="-2" attributes="0"/>
-                      <Component id="savePeopleInfo1" alignment="0" min="-2" pref="41" max="-2" attributes="0"/>
+                      <Component id="saveCentreInfo" alignment="0" min="-2" pref="41" max="-2" attributes="0"/>
+                      <Component id="cancelBtn" alignment="0" min="-2" pref="41" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -669,7 +669,7 @@
             <Property name="text" type="java.lang.String" value="Malaysia"/>
           </Properties>
         </Component>
-        <Container class="javax.swing.JPanel" name="savePeopleInfo">
+        <Container class="javax.swing.JPanel" name="saveCentreInfo">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="f9" green="f6" red="ed" type="rgb"/>
@@ -682,7 +682,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="savePeopleInfoMouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="saveCentreInfoMouseClicked"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new RoundedPanel(10, priColor)"/>
@@ -722,7 +722,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="savePeopleInfo1">
+        <Container class="javax.swing.JPanel" name="cancelBtn">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="f9" green="f6" red="ed" type="rgb"/>
@@ -735,7 +735,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="savePeopleInfo1MouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cancelBtnMouseClicked"/>
           </Events>
 
           <Layout>
@@ -761,15 +761,15 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel35">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Cancel"/>
-                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Hand Cursor"/>
-                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="14" style="1"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="78" green="95" red="e2" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Cancel"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Hand Cursor"/>
                 </Property>
               </Properties>
               <Events>

@@ -183,6 +183,18 @@ public class Centre {
         return allCentreId;
     }
     
+    public int getRecordIndex(String centreId) throws FileNotFoundException {
+        generateCentreList();
+
+        int targetIndex = -1;
+        for (int i = 0; i < centreList.size(); i++) {
+            if (centreList.get(i).get(0).equals(centreId)) {
+                targetIndex = i;
+            }
+        }
+        return targetIndex;
+    }
+    
     public void writeIntoCentreFile(ArrayList<ArrayList<String>> list) throws IOException {
         GeneralFunction gf = new GeneralFunction();
         gf.writeIntoFile(list, data);

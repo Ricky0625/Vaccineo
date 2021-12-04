@@ -10,6 +10,8 @@ import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -23,8 +25,10 @@ public class PersonnelEditCentre extends javax.swing.JFrame {
     Color bgColor = new Color(237, 246, 249);
 
     String centreId;
+    String centreName;
     Centre c = new Centre();
     JFrame PersonnelEditCentre = this;
+    ArrayList<ArrayList<String>> centreList;
 
     public PersonnelEditCentre() {
         initComponents();
@@ -48,7 +52,7 @@ public class PersonnelEditCentre extends javax.swing.JFrame {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/vaccine-logo.png")));
         centreId = id;
-        
+
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             @Override
@@ -99,9 +103,9 @@ public class PersonnelEditCentre extends javax.swing.JFrame {
         centrePostcodeTf = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
         centreCountryLbl = new javax.swing.JLabel();
-        savePeopleInfo = new RoundedPanel(10, priColor);
+        saveCentreInfo = new RoundedPanel(10, priColor);
         jLabel34 = new javax.swing.JLabel();
-        savePeopleInfo1 = new javax.swing.JPanel();
+        cancelBtn = new javax.swing.JPanel();
         jLabel35 = new javax.swing.JLabel();
         centreNameHidden = new javax.swing.JLabel();
 
@@ -414,12 +418,12 @@ public class PersonnelEditCentre extends javax.swing.JFrame {
         centreCountryLbl.setForeground(new java.awt.Color(0, 109, 119));
         centreCountryLbl.setText("Malaysia");
 
-        savePeopleInfo.setBackground(new java.awt.Color(237, 246, 249));
-        savePeopleInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        savePeopleInfo.setPreferredSize(new java.awt.Dimension(58, 22));
-        savePeopleInfo.addMouseListener(new java.awt.event.MouseAdapter() {
+        saveCentreInfo.setBackground(new java.awt.Color(237, 246, 249));
+        saveCentreInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        saveCentreInfo.setPreferredSize(new java.awt.Dimension(58, 22));
+        saveCentreInfo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                savePeopleInfoMouseClicked(evt);
+                saveCentreInfoMouseClicked(evt);
             }
         });
 
@@ -427,29 +431,29 @@ public class PersonnelEditCentre extends javax.swing.JFrame {
         jLabel34.setForeground(new java.awt.Color(255, 255, 255));
         jLabel34.setText("Save");
 
-        javax.swing.GroupLayout savePeopleInfoLayout = new javax.swing.GroupLayout(savePeopleInfo);
-        savePeopleInfo.setLayout(savePeopleInfoLayout);
-        savePeopleInfoLayout.setHorizontalGroup(
-            savePeopleInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, savePeopleInfoLayout.createSequentialGroup()
+        javax.swing.GroupLayout saveCentreInfoLayout = new javax.swing.GroupLayout(saveCentreInfo);
+        saveCentreInfo.setLayout(saveCentreInfoLayout);
+        saveCentreInfoLayout.setHorizontalGroup(
+            saveCentreInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, saveCentreInfoLayout.createSequentialGroup()
                 .addContainerGap(29, Short.MAX_VALUE)
                 .addComponent(jLabel34)
                 .addGap(29, 29, 29))
         );
-        savePeopleInfoLayout.setVerticalGroup(
-            savePeopleInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(savePeopleInfoLayout.createSequentialGroup()
+        saveCentreInfoLayout.setVerticalGroup(
+            saveCentreInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(saveCentreInfoLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jLabel34)
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        savePeopleInfo1.setBackground(new java.awt.Color(237, 246, 249));
-        savePeopleInfo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        savePeopleInfo1.setPreferredSize(new java.awt.Dimension(58, 22));
-        savePeopleInfo1.addMouseListener(new java.awt.event.MouseAdapter() {
+        cancelBtn.setBackground(new java.awt.Color(237, 246, 249));
+        cancelBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cancelBtn.setPreferredSize(new java.awt.Dimension(58, 22));
+        cancelBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                savePeopleInfo1MouseClicked(evt);
+                cancelBtnMouseClicked(evt);
             }
         });
 
@@ -463,18 +467,18 @@ public class PersonnelEditCentre extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout savePeopleInfo1Layout = new javax.swing.GroupLayout(savePeopleInfo1);
-        savePeopleInfo1.setLayout(savePeopleInfo1Layout);
-        savePeopleInfo1Layout.setHorizontalGroup(
-            savePeopleInfo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, savePeopleInfo1Layout.createSequentialGroup()
+        javax.swing.GroupLayout cancelBtnLayout = new javax.swing.GroupLayout(cancelBtn);
+        cancelBtn.setLayout(cancelBtnLayout);
+        cancelBtnLayout.setHorizontalGroup(
+            cancelBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cancelBtnLayout.createSequentialGroup()
                 .addContainerGap(23, Short.MAX_VALUE)
                 .addComponent(jLabel35)
                 .addGap(23, 23, 23))
         );
-        savePeopleInfo1Layout.setVerticalGroup(
-            savePeopleInfo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(savePeopleInfo1Layout.createSequentialGroup()
+        cancelBtnLayout.setVerticalGroup(
+            cancelBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cancelBtnLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jLabel35)
                 .addContainerGap(12, Short.MAX_VALUE))
@@ -512,9 +516,9 @@ public class PersonnelEditCentre extends javax.swing.JFrame {
                     .addComponent(jLabel21)
                     .addComponent(centreCountryLbl)
                     .addGroup(formBackgroundLayout.createSequentialGroup()
-                        .addComponent(savePeopleInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(saveCentreInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(60, 60, 60)
-                        .addComponent(savePeopleInfo1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(240, Short.MAX_VALUE))
         );
         formBackgroundLayout.setVerticalGroup(
@@ -551,8 +555,8 @@ public class PersonnelEditCentre extends javax.swing.JFrame {
                 .addComponent(centreCountryLbl)
                 .addGap(18, 18, 18)
                 .addGroup(formBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(savePeopleInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(savePeopleInfo1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(saveCentreInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -629,18 +633,67 @@ public class PersonnelEditCentre extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_backBtnMouseClicked
 
-    private void savePeopleInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_savePeopleInfoMouseClicked
+    private void saveCentreInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveCentreInfoMouseClicked
+        String name = centreNameTf.getText();
+        String street = centreStreetTf.getText();
+        String state = centreStateTf.getText();
+        String postcode = centrePostcodeTf.getText();
 
-    }//GEN-LAST:event_savePeopleInfoMouseClicked
+        if (name.isEmpty() || street.isEmpty() || state.isEmpty() || postcode.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill in all the fields!", "Empty fields", JOptionPane.WARNING_MESSAGE);
+        } else if (name.length() < 2) {
+            JOptionPane.showMessageDialog(this, "Centre Name should have more than 2 letters.", "Invalid format", JOptionPane.WARNING_MESSAGE);
+        } else if (street.length() < 5) {
+            JOptionPane.showMessageDialog(this, "Street should have more than 5 letters.", "Invalid format", JOptionPane.WARNING_MESSAGE);
+        } else if (state.length() < 4) {
+            JOptionPane.showMessageDialog(this, "State should have more than 4 letters.", "Invalid format", JOptionPane.WARNING_MESSAGE);
+        } else if (postcode.length() < 5) {
+            JOptionPane.showMessageDialog(this, "Postcode should have only 5 numbers.", "Invalid format", JOptionPane.WARNING_MESSAGE);
+        } else {
+            try {
+                // get the index of the current record in the arraylist
+                int targetIndex = c.getRecordIndex(centreId);
 
-    private void savePeopleInfo1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_savePeopleInfo1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_savePeopleInfo1MouseClicked
+                // create a copy of the arraylist
+                ArrayList<ArrayList<String>> tempCentre = centreList;
+
+                // modify the record in the arraylist
+                // Id;Centre Name;Street;State;Postcode;Country
+                tempCentre.get(targetIndex).set(1, name);
+                tempCentre.get(targetIndex).set(2, street);
+                tempCentre.get(targetIndex).set(3, state);
+                tempCentre.get(targetIndex).set(4, postcode);
+
+                // write into file
+                c.writeIntoCentreFile(tempCentre);
+
+                JOptionPane.showMessageDialog(this, "Successfully edited.", "Centre info edited", JOptionPane.INFORMATION_MESSAGE);
+
+                // return back to people profile
+                PersonnelCentreDetail pcd = new PersonnelCentreDetail(centreName);
+                pcd.setVisible(true);
+                this.setVisible(false);
+
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(PersonnelEditPeople.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(PersonnelEditPeople.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_saveCentreInfoMouseClicked
+
+    private void cancelBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelBtnMouseClicked
+        PersonnelCentreDetail pcd = new PersonnelCentreDetail(centreNameHidden.getText());
+        pcd.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_cancelBtnMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         try {
             c.generateCentreList();
+            centreList = c.getCentreList();
             c.searchCentreById(centreId);
+            centreName = c.getCentreName();
             centreNameHidden.setText(c.getCentreName());
             centreNameTf.setText(c.getCentreName());
             centreStreetTf.setText(c.getStreet());
@@ -695,6 +748,7 @@ public class PersonnelEditCentre extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backBtn;
+    private javax.swing.JPanel cancelBtn;
     private javax.swing.JLabel centreCountryLbl;
     private javax.swing.JLabel centreNameHidden;
     private javax.swing.JLabel centreNameLbl;
@@ -727,8 +781,7 @@ public class PersonnelEditCentre extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel logoutPanel;
     private javax.swing.JPanel ppPanel;
-    private javax.swing.JPanel savePeopleInfo;
-    private javax.swing.JPanel savePeopleInfo1;
+    private javax.swing.JPanel saveCentreInfo;
     private javax.swing.JPanel vaPanel;
     // End of variables declaration//GEN-END:variables
 
