@@ -304,6 +304,35 @@ public class GeneralFunction {
         }
         //table.revalidate();
     }
+    
+    public void tableLoaderStartsWithNot(JTable table, ArrayList<ArrayList<String>> list, int index1, String condition1, int index2, String condition2, int index3, String condition3) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        int colNum = list.get(0).size();
+        Object rowHeader[] = new Object[colNum];
+        Object rowData[] = new Object[colNum];
+
+        // get the first row of the text file
+        for (int i = 0; i == 0; i++) {
+            for (int j = 0; j < list.get(i).size(); j++) {
+                //System.out.println(appointmentList.get(i).get(j));
+                rowHeader[j] = list.get(i).get(j);
+            }
+        }
+        // set the header of table
+        model.setColumnIdentifiers(rowHeader);
+
+        for (int i = 1; i < list.size(); i++) {
+            if (list.get(i).get(index1).startsWith(condition1) && list.get(i).get(index2).equals(condition2) && !condition3.equals(list.get(i).get(index3))) {
+                for (int j = 0; j < list.get(i).size(); j++) {
+                    rowData[j] = list.get(i).get(j);
+                }
+                model.addRow(rowData);
+                table.revalidate();
+            }
+            table.revalidate();
+        }
+        table.revalidate();
+    }
 
     public void tableLoaderEquals(JTable table, ArrayList<ArrayList<String>> list, int index, String condition) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
@@ -382,6 +411,35 @@ public class GeneralFunction {
 
         for (int i = 1; i < list.size(); i++) {
             if (list.get(i).get(index1).equals(condition1) && list.get(i).get(index2).equals(condition2)) {
+                for (int j = 0; j < list.get(i).size(); j++) {
+                    rowData[j] = list.get(i).get(j);
+                }
+                model.addRow(rowData);
+                //table.revalidate();
+            }
+            //table.revalidate();
+        }
+        //table.revalidate();
+    }
+    
+    public void tableLoaderEqualsMoreNot(JTable table, ArrayList<ArrayList<String>> list, int index1, String condition1, int index2, String condition2) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        int colNum = list.get(0).size();
+        Object rowHeader[] = new Object[colNum];
+        Object rowData[] = new Object[colNum];
+
+        // get the first row of the text file
+        for (int i = 0; i == 0; i++) {
+            for (int j = 0; j < list.get(i).size(); j++) {
+                //System.out.println(appointmentList.get(i).get(j));
+                rowHeader[j] = list.get(i).get(j);
+            }
+        }
+        // set the header of table
+        model.setColumnIdentifiers(rowHeader);
+
+        for (int i = 1; i < list.size(); i++) {
+            if (list.get(i).get(index1).equals(condition1) && !condition2.equals(list.get(i).get(index2))) {
                 for (int j = 0; j < list.get(i).size(); j++) {
                     rowData[j] = list.get(i).get(j);
                 }
