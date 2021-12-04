@@ -205,9 +205,9 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setText("Dashboard");
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Dashboard");
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/dashboard-icon.png"))); // NOI18N
 
@@ -240,9 +240,9 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
             }
         });
 
+        jLabel14.setText("Logout");
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("Logout");
 
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout-logo.png"))); // NOI18N
 
@@ -282,9 +282,9 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
             }
         });
 
+        jLabel16.setText("People");
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setText("People");
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/people-icon.png"))); // NOI18N
 
@@ -313,9 +313,9 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
         cnPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cnPanel.setPreferredSize(new java.awt.Dimension(300, 65));
 
+        jLabel18.setText("Centre");
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setText("Centre");
 
         jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/center-logo.png"))); // NOI18N
 
@@ -355,9 +355,9 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
             }
         });
 
+        jLabel39.setText("Vaccine");
         jLabel39.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel39.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel39.setText("Vaccine");
 
         jLabel40.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/vaccine-panel.png"))); // NOI18N
 
@@ -422,10 +422,10 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
             }
         });
 
-        jLabel33.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel33.setForeground(new java.awt.Color(255, 255, 255));
         jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/back-btn.png"))); // NOI18N
         jLabel33.setText("Back");
+        jLabel33.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel33.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout backBtnLayout = new javax.swing.GroupLayout(backBtn);
         backBtn.setLayout(backBtnLayout);
@@ -444,21 +444,21 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
                 .addGap(12, 12, 12))
         );
 
+        jLabel21.setText("Name:");
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel21.setText("Name:");
 
+        jLabel27.setText("Age:");
         jLabel27.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel27.setText("Age:");
 
+        jLabel29.setText("Address:");
         jLabel29.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel29.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel29.setText("Address:");
 
+        jLabel31.setText("Gender:");
         jLabel31.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel31.setText("Gender:");
 
         addAppointment.setBackground(new java.awt.Color(237, 246, 249));
         addAppointment.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -469,9 +469,9 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
             }
         });
 
+        jLabel36.setText("Add");
         jLabel36.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel36.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel36.setText("Add");
 
         javax.swing.GroupLayout addAppointmentLayout = new javax.swing.GroupLayout(addAppointment);
         addAppointment.setLayout(addAppointmentLayout);
@@ -500,9 +500,9 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
             }
         });
 
+        jLabel22.setText("IC/Passport:");
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel22.setText("IC/Passport:");
 
         peopleId.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         peopleId.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -511,13 +511,13 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
             }
         });
 
+        jLabel30.setText("Category:");
         jLabel30.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel30.setText("Category:");
 
+        centreNameLbl.setText("Add New Appointment");
         centreNameLbl.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         centreNameLbl.setForeground(new java.awt.Color(226, 149, 120));
-        centreNameLbl.setText("Add New Appointment");
 
         searchId.setBackground(new java.awt.Color(0, 109, 119));
         searchId.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -546,68 +546,78 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        peopleName.setText("-");
         peopleName.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         peopleName.setForeground(new java.awt.Color(0, 109, 119));
-        peopleName.setText("-");
 
+        peopleGender.setText("-");
         peopleGender.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         peopleGender.setForeground(new java.awt.Color(0, 109, 119));
-        peopleGender.setText("-");
 
+        peopleAge.setText("-");
         peopleAge.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         peopleAge.setForeground(new java.awt.Color(0, 109, 119));
-        peopleAge.setText("-");
 
+        peopleAddress.setText("-");
         peopleAddress.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         peopleAddress.setForeground(new java.awt.Color(0, 109, 119));
-        peopleAddress.setText("-");
 
+        peopleCategory.setText("-");
         peopleCategory.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         peopleCategory.setForeground(new java.awt.Color(0, 109, 119));
-        peopleCategory.setText("-");
 
+        jLabel4.setText("Schedule");
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(226, 149, 120));
-        jLabel4.setText("Schedule");
 
+        jLabel32.setText("Choose Date:");
         jLabel32.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel32.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel32.setText("Choose Date:");
 
-        scheduleDate.setForeground(new java.awt.Color(0, 109, 119));
         scheduleDate.setDateFormatString("dd/MM/yyyy");
         scheduleDate.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        scheduleDate.setForeground(new java.awt.Color(0, 109, 119));
         scheduleDate.setMaxSelectableDate(new java.util.Date(253370739663000L));
         scheduleDate.setMinSelectableDate(new java.util.Date(-62135794737000L));
 
+        userNotFound.setText("User not found!");
         userNotFound.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         userNotFound.setForeground(new java.awt.Color(255, 102, 102));
-        userNotFound.setText("User not found!");
 
+        centreNameLbl1.setText("Centre Name");
         centreNameLbl1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         centreNameLbl1.setForeground(new java.awt.Color(0, 109, 119));
-        centreNameLbl1.setText("Centre Name");
 
+        jLabel35.setText("Choose Time:");
         jLabel35.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel35.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel35.setText("Choose Time:");
 
         scheduleTime.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         scheduleTime.setForeground(new java.awt.Color(0, 109, 119));
 
+        jLabel5.setText("Is this a walk-in appointment?");
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 109, 119));
-        jLabel5.setText("Is this a walk-in appointment?");
 
         buttonGroup1.add(yesWalkIn);
+        yesWalkIn.setText("Yes");
         yesWalkIn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         yesWalkIn.setForeground(new java.awt.Color(0, 109, 119));
-        yesWalkIn.setText("Yes");
+        yesWalkIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                yesWalkInActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(noWalkIn);
+        noWalkIn.setText("No");
         noWalkIn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         noWalkIn.setForeground(new java.awt.Color(0, 109, 119));
-        noWalkIn.setText("No");
+        noWalkIn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                noWalkInMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout formBackground1Layout = new javax.swing.GroupLayout(formBackground1);
         formBackground1.setLayout(formBackground1Layout);
@@ -854,13 +864,12 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
     private void searchIdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchIdMouseClicked
         String id = peopleId.getText();
         boolean peopleExist = p.searchUserById(peopleList, id);
-        boolean appointmentExist;
 
         if (peopleExist) {
             try {
                 p.searchUser(peopleList, id);
-                appointmentExist = ap.checkNoDate(1, p.getId());
-                System.out.println(ap.getAppointmentDate());
+                ap.setAppointmentValue(1, id);
+                //System.out.println(ap.getAppointmentDate());
                 
                 if (ap.getAppointmentDate() == null) {
                     // set the labels value
@@ -886,7 +895,7 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
                         this.setVisible(false);
                     }
                 }
-            } catch (FileNotFoundException | ParseException ex) {
+            } catch (ParseException | FileNotFoundException ex) {
                 Logger.getLogger(PersonnelAddAppointment.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
@@ -911,11 +920,21 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
         // appointment date
         Date appDate = scheduleDate.getDate();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String formattedAppDate = formatter.format(appDate);
+        String formattedAppDate;
+        if(appDate != null) {
+            formattedAppDate = formatter.format(appDate);
+        } else {
+            formattedAppDate = null;
+        }
         // appointment time
         LocalTime time = scheduleTime.getTime();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
-        String formattedTime = time.format(dtf);
+        String formattedTime;
+        if(time != null) {
+            formattedTime = time.format(dtf);
+        } else {
+            formattedTime = null;
+        }
         // centre name
         String centreName = centreNameLbl1.getText();
         // dose will always be 1 because add appointment only work if that user don't have any appointment
@@ -923,9 +942,9 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
         String completed = "No";
 
         // validation
-        if (userNotFound.isVisible() == true) {
+        if (userNotFound.isVisible() == true || peopleId.getText().isEmpty() || peopleName.getText().equals("-")) {
             JOptionPane.showMessageDialog(this, "Please search the user using the id first!", "Empty records", JOptionPane.WARNING_MESSAGE);
-        } else if (formattedAppDate.isEmpty() || formattedTime.isEmpty()) {
+        } else if (formattedAppDate == null || formattedTime == null) {
             JOptionPane.showMessageDialog(this, "Please choose the date and time for the appointment!", "Empty date and time", JOptionPane.WARNING_MESSAGE);
         } else {
             // add appointment
@@ -939,18 +958,28 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
                         // create a copy of the ori arraylist
                         ArrayList<ArrayList<String>> tempAppointment = appointmentList;
 
+                        // get the index of the record in the arraylist
+                        int index = ap.getRecordIndex(id, "1");
+                        
+                        // modify the record in the arraylist
                         // IC/Passport;Date;Time;Centre;Status;Vaccine;Dose;Complete;Serial Number
-                        // prepare data to write into file
-                        ArrayList<String> newAppointment = new ArrayList();
-                        String record = id + ";" + formattedAppDate + ";" + formattedTime + ";" + centreName + ";" + "accepted" + ";" + "-" + ";" + Integer.toString(dose) + ";" + "No" + ";" + "-";
-                        newAppointment.add(record);
+                        tempAppointment.get(index).set(1, formattedAppDate);
+                        tempAppointment.get(index).set(2, formattedTime);
+                        tempAppointment.get(index).set(4, "accepted");
+                        
+                        // write into file
+                        ap.writeIntoAppointmentFile(tempAppointment);
+                        
+                        //ArrayList<String> newAppointment = new ArrayList();
+                        //String record = id + ";" + formattedAppDate + ";" + formattedTime + ";" + centreName + ";" + "accepted" + ";" + "-" + ";" + Integer.toString(dose) + ";" + "No" + ";" + "-";
+                        //newAppointment.add(record);
 
                         // append new record to the arraylist
-                        tempAppointment.add(newAppointment);
+                        //tempAppointment.add(newAppointment);
                         //System.out.println(tempCentre);
 
                         // write into file
-                        ap.writeIntoAppointmentFile(tempAppointment);
+                        //ap.writeIntoAppointmentFile(tempAppointment);
 
                         JOptionPane.showMessageDialog(this, "Added new appointment for: " + id, "Appointment added", JOptionPane.INFORMATION_MESSAGE);
                         
@@ -964,15 +993,22 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
                     try {
                         // create a copy of the ori arraylist
                         ArrayList<ArrayList<String>> tempAppointment = appointmentList;
+                        
+                        // get the index of the record in the arraylist
+                        int index = ap.getRecordIndex(id, "1");
 
+                        // modify info
                         // IC/Passport;Date;Time;Centre;Status;Vaccine;Dose;Complete;Serial Number
+                        tempAppointment.get(index).set(1, formattedAppDate);
+                        tempAppointment.get(index).set(2, formattedTime);
+                        
                         // prepare data to write into file
-                        ArrayList<String> newAppointment = new ArrayList();
-                        String record = id + ";" + formattedAppDate + ";" + formattedTime + ";" + centreName + ";" + "pending" + ";" + "-" + ";" + Integer.toString(dose) + ";" + "No" + ";" + "-";
-                        newAppointment.add(record);
+                        //ArrayList<String> newAppointment = new ArrayList();
+                        //String record = id + ";" + formattedAppDate + ";" + formattedTime + ";" + centreName + ";" + "pending" + ";" + "-" + ";" + Integer.toString(dose) + ";" + "No" + ";" + "-";
+                        //newAppointment.add(record);
 
                         // append new record to the arraylist
-                        tempAppointment.add(newAppointment);
+                        //tempAppointment.add(newAppointment);
                         //System.out.println(tempCentre);
 
                         // write into file
@@ -992,6 +1028,22 @@ public class PersonnelAddAppointment extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_addAppointmentMouseClicked
+
+    private void yesWalkInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yesWalkInActionPerformed
+        if(yesWalkIn.isSelected()) {
+            scheduleDate.setEnabled(false);
+            scheduleDate.setDate(new Date());
+            scheduleTime.setEnabled(false);
+            scheduleTime.setTime(LocalTime.now());
+        }
+    }//GEN-LAST:event_yesWalkInActionPerformed
+
+    private void noWalkInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_noWalkInMouseClicked
+        if(noWalkIn.isSelected()) {
+            scheduleDate.setEnabled(true);
+            scheduleTime.setEnabled(true);
+        }
+    }//GEN-LAST:event_noWalkInMouseClicked
 
     /**
      * @param args the command line arguments

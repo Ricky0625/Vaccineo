@@ -68,11 +68,10 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
                     // int column = target.getSelectedColumn(); // select a column                
                     value = (String) appointmentTable.getValueAt(row, 0);
                     ppl.setId(value);
-                    // System.out.println(ppl.getId());
                 }
             }
         });
-        
+
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             @Override
@@ -97,6 +96,8 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
             String value;
             String doseNum;
             String completed;
+            String appDate;
+            String appTime;
 
             @Override
             public void mouseClicked(MouseEvent me) {
@@ -104,24 +105,35 @@ public class PersonnelViewAppointment extends javax.swing.JFrame {
                 if (me.getClickCount() == 2) {     // to detect doble click events
                     JTable target = (JTable) me.getSource();
                     int row = target.getSelectedRow(); // select a row
-                    // int column = target.getSelectedColumn(); // select a column                
                     value = (String) appointmentTable.getValueAt(row, 0);
                     doseNum = (String) appointmentTable.getValueAt(row, 6);
                     completed = (String) appointmentTable.getValueAt(row, 7);
+                    appDate = (String) appointmentTable.getValueAt(row, 1);
+                    appTime = (String) appointmentTable.getValueAt(row, 2);
 
-                    if (completed.equals("No")) {
-                        // pass to next jframe
-                        PersonnelEditAppointment pea = new PersonnelEditAppointment(centreId, value, doseNum);
-                        pea.setVisible(true);
-                        PersonnelViewAppointment.setVisible(false);
+                    if (appDate.equals("-") && appTime.equals("-")) {
+                        int result = JOptionPane.showConfirmDialog(null, "This appointment don't have a date and time yet.\nDo you want to set it now?", "Add Appointment", JOptionPane.YES_NO_OPTION);
+                        if (result == 0) {
+                            //String centreName, String pplId
+                            PersonnelAddAppointment pp = new PersonnelAddAppointment(centreFullName.getText(), value);
+                            pp.setVisible(true);
+                            PersonnelViewAppointment.setVisible(false);
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(PersonnelViewAppointment, "This appointment already completed.", "Appointment updated", JOptionPane.WARNING_MESSAGE);
+                        if (completed.equals("No")) {
+                            // pass to next jframe
+                            PersonnelEditAppointment pea = new PersonnelEditAppointment(centreId, value, doseNum);
+                            pea.setVisible(true);
+                            PersonnelViewAppointment.setVisible(false);
+                        } else {
+                            JOptionPane.showMessageDialog(PersonnelViewAppointment, "This appointment already completed.", "Appointment updated", JOptionPane.WARNING_MESSAGE);
+                        }
                     }
 
                 }
             }
         });
-        
+
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             @Override
