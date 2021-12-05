@@ -113,19 +113,23 @@ public class People {
             if (found) {
                 JOptionPane.showMessageDialog(null, "Existing IC numbers");
             } else {
-                try {
-                    String vaccinestatus = "Not Registered";
-                    BufferedWriter bw = new BufferedWriter(new FileWriter(data, true));
-                    PrintWriter pw = new PrintWriter(bw);
-                    pw.println("" + username + ";" + password + ";" + id + ";" + name + ";" + dob + ";" + address + ";"
-                            + state + ";" + country + ";" + postcode + ";" + gender + ";" + category + ";"
-                            + vaccinestatus);
-                    pw.flush();
-                    pw.close();
-                    bw.close();
-                    JOptionPane.showMessageDialog(null, "Account Registered Successfully");
-                } catch (IOException e) {
-                    System.out.println("Fail to register your account");
+                if(username.equals("Admin") || username.equals("admin")){
+                    JOptionPane.showMessageDialog(null, "Username not available, please choose another Username.");
+                } else {
+                    try {
+                        String vaccinestatus = "Not Registered";
+                        BufferedWriter bw = new BufferedWriter(new FileWriter(data, true));
+                        PrintWriter pw = new PrintWriter(bw);
+                        pw.println("" + username + ";" + password + ";" + id + ";" + name + ";" + dob + ";" + address + ";"
+                                + state + ";" + country + ";" + postcode + ";" + gender + ";" + category + ";"
+                                + vaccinestatus);
+                        pw.flush();
+                        pw.close();
+                        bw.close();
+                        JOptionPane.showMessageDialog(null, "Account Registered Successfully");
+                    } catch (IOException e) {
+                        System.out.println("Fail to register your account");
+                    }
                 }
             }
         } catch (Exception e) {
@@ -153,19 +157,23 @@ public class People {
             if (found) {
                 JOptionPane.showMessageDialog(null, "Existing IC numbers");
             } else {
-                try {
-                    String vaccinestatus = "Not Registered";
-                    BufferedWriter bw = new BufferedWriter(new FileWriter(data, true));
-                    PrintWriter pw = new PrintWriter(bw);
-                    pw.println("" + username + ";" + password + ";" + id + ";" + name + ";" + dob + ";" + oldaddress
-                            + ";" + state + ";" + address + ";" + postcode + ";" + gender + ";" + category + ";"
-                            + vaccinestatus);
-                    pw.flush();
-                    pw.close();
-                    bw.close();
-                    JOptionPane.showMessageDialog(null, "Account Registered Successfully");
-                } catch (IOException e) {
-                    System.out.println("Fail to register your account");
+                if(username.equals("Admin") || username.equals("admin")){
+                    JOptionPane.showMessageDialog(null, "Username not available, please choose another Username.");
+                } else {
+                    try {
+                        String vaccinestatus = "Not Registered";
+                        BufferedWriter bw = new BufferedWriter(new FileWriter(data, true));
+                        PrintWriter pw = new PrintWriter(bw);
+                        pw.println("" + username + ";" + password + ";" + id + ";" + name + ";" + dob + ";" + oldaddress
+                                + ";" + state + ";" + address + ";" + postcode + ";" + gender + ";" + category + ";"
+                                + vaccinestatus);
+                        pw.flush();
+                        pw.close();
+                        bw.close();
+                        JOptionPane.showMessageDialog(null, "Account Registered Successfully");
+                    } catch (IOException e) {
+                        System.out.println("Fail to register your account");
+                    }
                 }
             }
         } catch (Exception e) {
