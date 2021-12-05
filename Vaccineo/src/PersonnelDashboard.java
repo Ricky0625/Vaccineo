@@ -388,6 +388,11 @@ public class PersonnelDashboard extends javax.swing.JFrame {
         regPanel.setToolTipText("Register new user");
         regPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         regPanel.setPreferredSize(new java.awt.Dimension(300, 100));
+        regPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                regPanelMouseClicked(evt);
+            }
+        });
 
         regIcon.setBackground(new java.awt.Color(127, 192, 185));
         regIcon.setPreferredSize(new java.awt.Dimension(40, 40));
@@ -399,14 +404,14 @@ public class PersonnelDashboard extends javax.swing.JFrame {
         regIconLayout.setHorizontalGroup(
             regIconLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, regIconLayout.createSequentialGroup()
-                .addContainerGap(9, Short.MAX_VALUE)
+                .addGap(9, 9, 9)
                 .addComponent(jLabel14)
                 .addGap(9, 9, 9))
         );
         regIconLayout.setVerticalGroup(
             regIconLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, regIconLayout.createSequentialGroup()
-                .addContainerGap(9, Short.MAX_VALUE)
+                .addGap(9, 9, 9)
                 .addComponent(jLabel14)
                 .addGap(9, 9, 9))
         );
@@ -458,14 +463,14 @@ public class PersonnelDashboard extends javax.swing.JFrame {
         seaIconLayout.setHorizontalGroup(
             seaIconLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, seaIconLayout.createSequentialGroup()
-                .addContainerGap(9, Short.MAX_VALUE)
+                .addGap(9, 9, 9)
                 .addComponent(jLabel18)
                 .addGap(9, 9, 9))
         );
         seaIconLayout.setVerticalGroup(
             seaIconLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, seaIconLayout.createSequentialGroup()
-                .addContainerGap(9, Short.MAX_VALUE)
+                .addGap(9, 9, 9)
                 .addComponent(jLabel18)
                 .addGap(9, 9, 9))
         );
@@ -521,16 +526,16 @@ public class PersonnelDashboard extends javax.swing.JFrame {
         caIconLayout.setHorizontalGroup(
             caIconLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, caIconLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(8, 8, 8)
                 .addComponent(jLabel24)
-                .addGap(12, 12, 12))
+                .addGap(8, 8, 8))
         );
         caIconLayout.setVerticalGroup(
             caIconLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, caIconLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(8, 8, 8)
                 .addComponent(jLabel24)
-                .addGap(12, 12, 12))
+                .addGap(8, 8, 8))
         );
 
         jLabel30.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -584,14 +589,14 @@ public class PersonnelDashboard extends javax.swing.JFrame {
         aaIconLayout.setHorizontalGroup(
             aaIconLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, aaIconLayout.createSequentialGroup()
-                .addContainerGap(10, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
                 .addComponent(jLabel25)
                 .addGap(10, 10, 10))
         );
         aaIconLayout.setVerticalGroup(
             aaIconLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, aaIconLayout.createSequentialGroup()
-                .addContainerGap(10, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
                 .addComponent(jLabel25)
                 .addGap(10, 10, 10))
         );
@@ -1138,6 +1143,12 @@ public class PersonnelDashboard extends javax.swing.JFrame {
             Logger.getLogger(PersonnelDashboard.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_aaPanelMouseClicked
+
+    private void regPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regPanelMouseClicked
+        RegisterAccount ra = new RegisterAccount(1);
+        ra.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_regPanelMouseClicked
 
     private void ppPanelMouseEntered(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_ppPanelMouseEntered
         ppPanel.setBackground(secColor);
