@@ -1,5 +1,0 @@
-Id;Vaccine Name;Manufacturer;Batch Quantity;Size;Dose Needed;Expiry Duration
-AST;AstraZeneca;SK Bioscience Co., Ltd.;10;0.5;2;6
-MOD;Moderna;Moderna Inc.;10;0.5;2;1
-PFI;Pfizer;Pfizer Inc.;20;0.5;2;6
-SIN;Sinovac;Sinovac Biotech;30;0.5;2;6
