@@ -59,7 +59,7 @@ public class PeopleCertificate extends javax.swing.JFrame {
         String id = value;
         String dose = "1";
         String doses = "2";
-        String complete = "yes";
+        String complete = "Yes";
 
         try {
             ppl.generatePeopleList();

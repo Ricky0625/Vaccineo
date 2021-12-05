@@ -601,9 +601,28 @@ public class RegisterAccount extends javax.swing.JFrame {
         String conpass = pplConPass.getText();
         String dob = ((JTextField) pplDOB.getDateEditor().getUiComponent()).getText();
 
+        if (username.length() == 0) {
+            JOptionPane.showMessageDialog(null, "Please fill in your Username.");
+        }
+        if (name.length() == 0) {
+            JOptionPane.showMessageDialog(null, "Please fill in your Name.");
+        }
+        if (id.length() == 0) {
+            JOptionPane.showMessageDialog(null, "Please fill in your IC/Passport numbers.");
+        }
+        if (country.length() == 0) {
+            JOptionPane.showMessageDialog(null, "Please fill in your Country.");
+        }
+        if (pass.length() == 0) {
+            JOptionPane.showMessageDialog(null, "Please fill in your Password.");
+        }
+        if (conpass.length() == 0) {
+            JOptionPane.showMessageDialog(null, "Please fill in your Confirm Password.");
+        }
         if (dob.length() == 0) {
             JOptionPane.showMessageDialog(null, "Please fill in your Date of Birth.");
-        } else {
+        }
+        else {
             //User choose their category either Malaysian (citizen) or Foreigber (non-citizen)
             String category = null;
             if (pplMalaysian.isSelected()) {

@@ -100,7 +100,7 @@ public class PeopleDashboard extends javax.swing.JFrame {
         }
         
         String complete = cert.getComplete();
-        if(cert.getDose().equals("1") && complete.equals("yes")){
+        if(cert.getDose().equals("1") && complete.equals("Yes")){
             column3panel.setVisible(true);
         } else {
             column3panel.setVisible(false);
