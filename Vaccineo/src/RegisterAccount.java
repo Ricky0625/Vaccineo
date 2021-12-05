@@ -601,7 +601,8 @@ public class RegisterAccount extends javax.swing.JFrame {
         String conpass = pplConPass.getText();
         String dob = ((JTextField) pplDOB.getDateEditor().getUiComponent()).getText();
 
-        if (dob.length() == 0) {
+        if (dob.length() == 0 || username.length() == 0 || name.length() == 0 || id.length() == 0 || country.length() == 0
+            || pass.length() == 0 || conpass.length() == 0) {
             JOptionPane.showMessageDialog(null, "Please fill in your Date of Birth.");
         } else {
             //User choose their category either Malaysian (citizen) or Foreigber (non-citizen)

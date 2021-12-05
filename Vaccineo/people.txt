@@ -3,3 +3,4 @@ Test;Test;1234556;Amy Cuddy;12/12/1990;-;-;United State;-;Female;Non-citizen;Pen
 Ricky0625;Ricky0625;000625131095;Ricky Wong Tiong Song;25/06/2000;560G,Jalan Durian Belanda;Sarawak;Malaysia;97000;Male;Citizen;Pending 2nd Dose
 Friday123;Friday123;000625131614;Friday;08/07/2021;Friday Road;Kuala Lumpur;Malaysia;97000;Male;Citizen;Pending 1st Dose
 Hello;HEllo123;000625131917;Hello;20/10/2000;hello street;yoyo;Malaysia;97462;Male;Citizen;Pending 2nd Dose
+Alibaba;123456Ch;011027107888;alimama;01/12/2021;123;123;123;123;Male;Citizen;Not Registered
