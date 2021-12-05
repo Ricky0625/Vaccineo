@@ -603,7 +603,7 @@ public class RegisterAccount extends javax.swing.JFrame {
 
         if (dob.length() == 0 || username.length() == 0 || name.length() == 0 || id.length() == 0 || country.length() == 0
             || pass.length() == 0 || conpass.length() == 0) {
-            JOptionPane.showMessageDialog(null, "Please fill in your Date of Birth.");
+            JOptionPane.showMessageDialog(null, "Please fill in all the required fields.");
         } else {
             //User choose their category either Malaysian (citizen) or Foreigber (non-citizen)
             String category = null;
